@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 15:36:53 by achantra          #+#    #+#             */
-/*   Updated: 2025/01/31 15:44:22 by achantra         ###   ########.fr       */
+/*   Updated: 2025/01/31 17:02:32 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int main(int ac, char **av)
 {
-    printf("%s %d\n", av[0], ac);
+    if (check_entry(ac, av))
+        return (ft_putstr_fd("Error\n", 2), 1);
+    
     return (0);
 }
