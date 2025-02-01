@@ -6,7 +6,7 @@
 #    By: achantra <achantra@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/31 15:30:48 by achantra          #+#    #+#              #
-#    Updated: 2025/01/31 15:42:20 by achantra         ###   ########.fr        #
+#    Updated: 2025/02/01 12:54:42 by achantra         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ MINILIBX = $(MINILIBXDIR)/libmlx_Linux.a
 SRC_PATH = srcs/
 BONUS_PATH = bonus/
 
-SRC = main.c miniRT.c
+SRC = main.c parsing.c init_and_clean_env.c
 #BONUS = 
 
 SRCS = $(addprefix $(SRC_PATH), $(SRC))

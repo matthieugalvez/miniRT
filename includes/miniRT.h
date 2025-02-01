@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 15:37:52 by achantra          #+#    #+#             */
-/*   Updated: 2025/01/31 15:39:11 by achantra         ###   ########.fr       */
+/*   Updated: 2025/02/01 12:47:57 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <math.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include "struct.h"
 
 # define HEXA "0123456789abcdef"
 
@@ -52,5 +53,10 @@
 # define KEY_K 107
 # define KEY_D 100
 # define KEY_E 101
+
+int check_entry(int ac, char **av);
+int parse_file(char *path, t_env *env);
+t_env   *init_env();
+void    clean_env(t_env *env);
 
 #endif
