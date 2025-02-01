@@ -1,28 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/31 15:36:53 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/01 19:58:43 by achantra         ###   ########.fr       */
+/*   Created: 2025/02/01 16:57:07 by achantra          #+#    #+#             */
+/*   Updated: 2025/02/01 16:57:24 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "libft.h"
 
-int main(int ac, char **av)
+int	ft_strcmp(const char *s1, const char *s2)
 {
-    t_env   *env;
-    
-    if (check_entry(ac, av))
-        return (1);
-    env = init_env();
-    if (!env)
-        return (1);
-    if (parse_file(av[1], env))
-        return (clean_env(env), 1);
-    debug_env(env);
-    return (clean_env(env), 0);
+	size_t	i;
+
+	i = 0;
+	while (s1[i] == s2[i] && s1[i])
+		i++;
+	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }

@@ -6,7 +6,7 @@
 #    By: achantra <achantra@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/31 15:30:48 by achantra          #+#    #+#              #
-#    Updated: 2025/02/01 12:54:42 by achantra         ###   ########.fr        #
+#    Updated: 2025/02/01 20:01:23 by achantra         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,23 @@ MINILIBX = $(MINILIBXDIR)/libmlx_Linux.a
 SRC_PATH = srcs/
 BONUS_PATH = bonus/
 
-SRC = main.c parsing.c init_and_clean_env.c
+SRC = main.c \
+	error.c \
+	parsing/parsing.c \
+	parsing/init_and_clean_env.c \
+	parsing/init_utils.c \
+	parsing/parse_color.c \
+	parsing/parse_ratio.c \
+	parsing/parse_coordinates.c \
+	parsing/init_elements.c \
+	parsing/init_ambient.c \
+# parsing/init_light.c
+#parsing/init_camera.c
+#parsing/init_utils.c
+#parsing/init_cylinder.c
+#parsing/init_sphere.c
+#parsing/init_plane.c
+
 #BONUS = 
 
 SRCS = $(addprefix $(SRC_PATH), $(SRC))

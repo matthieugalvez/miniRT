@@ -6,49 +6,31 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 16:49:38 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/01 12:58:50 by achantra         ###   ########.fr       */
+/*   Updated: 2025/02/01 19:40:41 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-/*
-Premier argument est un *.rt
-	Chaque ligne commence par un identificateur et
-	chaque identificateur a ses propres arguments
-
-	- A(u) :
-		* ambient lighting ratio in range [0.0,1.0]: 0.2
-		* R,G,B colors in range [0-255]: 255, 255, 255
-	- C(u)
-		∗ x,y,z coordinates of the view point: -50.0,0,20
-		∗ 3d normalized orientation vector. In range [-1,1] for each x,y,z axis: 0.0,0.0,1.0
-		∗ FOV : Horizontal field of view in degrees in range [0,180]: 70
-	- L(u)
-		∗ x,y,z coordinates of the light point: -40.0,50.0,0.0
-		∗ the light brightness ratio in range [0.0,1.0]: 0.6
-		∗ (unused in mandatory part)R,G,B colors in range [0-255]: 10, 0, 255
-	- sp
-		∗ x,y,z coordinates of the sphere center: 0.0,0.0,20.6
-		∗ the sphere diameter: 12.6
-			R,G,B colors in range [0-255]: 10, 0, 255
-	- pl
-		∗ identifier: pl
-		∗ x,y,z coordinates of a point in the plane: 0.0,0.0,-10.0
-		∗ 3d normalized normal vector. In range [-1,1] for each x,y,z axis: 0.0,1.0,0.0
-		∗ R,G,B colors in range [0-255]: 0,0,225
-	- cy
-		∗ x,y,z coordinates of the center of the cylinder: 50.0,0.0,20.6
-		∗ 3d normalized vector of axis of cylinder. In range [-1,1] for each x,y,z axis 0.0,0.0,1.0
-		∗ the cylinder diameter: 14.2
-		∗ the cylinder height: 21.42
-		∗ R,G,B colors in range [0,255]: 10, 0, 255
-*/
-
 // Check the content of the file and parse it in a list
-int	read_file(int fd, t_env *env)
+int	fill_env(int fd, t_env *env)
 {
-    (void) env;
+	char	*line;
+	char	*trim_line;
+
+	line = get_next_line(fd);
+	while (line)
+	{
+		if (line[0] != '\n')
+		{
+			trim_line = ft_strtrim(line, "\n");
+			if (init_element(env, trim_line))
+				return (free(line), free(trim_line), 1);
+		}
+		free(trim_line);
+		free(line);
+		line = get_next_line(fd);
+	}
 	return (close(fd), 0);
 }
 
@@ -60,7 +42,7 @@ int	parse_file(char *path, t_env *env)
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
 		return (perror(path), 1);
-	else if (read_file(fd, env))
+	else if (fill_env(fd, env))
 		return (1);
 	return (0);
 }

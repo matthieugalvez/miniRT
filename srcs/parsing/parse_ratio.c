@@ -1,28 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   parse_ratio.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/31 15:36:53 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/01 19:58:43 by achantra         ###   ########.fr       */
+/*   Created: 2025/02/01 19:23:50 by achantra          #+#    #+#             */
+/*   Updated: 2025/02/01 20:12:02 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-int main(int ac, char **av)
+double	parse_ratio(char *data)
 {
-    t_env   *env;
-    
-    if (check_entry(ac, av))
-        return (1);
-    env = init_env();
-    if (!env)
-        return (1);
-    if (parse_file(av[1], env))
-        return (clean_env(env), 1);
-    debug_env(env);
-    return (clean_env(env), 0);
+	double ratio;
+	char **num;
+
+	if (!ft_is_float(data))
+		return (print_data_err(), -1);
+	num = ft_split(data, '.');
+	if (!num)
+		return (perror("Error"), -1);
+	ratio = ft_atof(num[0], num[1]);
+	ft_free_tab(num);
+	if (ratio < 0 || ratio > 1)
+		return (print_data_err(), -1);
+	return (ratio);
 }

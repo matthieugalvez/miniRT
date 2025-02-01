@@ -1,28 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   init_light.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/31 15:36:53 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/01 19:58:43 by achantra         ###   ########.fr       */
+/*   Created: 2025/02/01 17:23:59 by achantra          #+#    #+#             */
+/*   Updated: 2025/02/01 17:34:37 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-int main(int ac, char **av)
+/*
+- L(u)
+		∗ x,y,z coordinates of the light point: -40.0,50.0,0.0
+		∗ the light brightness ratio in range [0.0,1.0]: 0.6
+		∗ (unused in mandatory part)R,G,B colors in range [0-255]: 10, 0, 255
+*/
+
+int new_light(t_env *env, char **data)
 {
-    t_env   *env;
+    t_light   *light;
     
-    if (check_entry(ac, av))
-        return (1);
-    env = init_env();
-    if (!env)
-        return (1);
-    if (parse_file(av[1], env))
-        return (clean_env(env), 1);
-    debug_env(env);
-    return (clean_env(env), 0);
+    light = malloc(sizeof(t_light));
+    if (!light)
+        return (perror("Error"), 1);
+    // Check data
+	// Parse light
+    return (0);
 }

@@ -1,28 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   init_plane.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/31 15:36:53 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/01 19:58:43 by achantra         ###   ########.fr       */
+/*   Created: 2025/02/01 17:22:19 by achantra          #+#    #+#             */
+/*   Updated: 2025/02/01 17:33:56 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-int main(int ac, char **av)
+/*
+	- pl
+		∗ identifier: pl
+		∗ x,y,z coordinates of a point in the plane: 0.0,0.0,-10.0
+		∗ 3d normalized normal vector. In range [-1,1] for each x,y,z axis: 0.0,1.0,0.0
+		∗ R,G,B colors in range [0-255]: 0,0,225
+*/
+
+int	new_plane(t_env *env, char **data)
 {
-    t_env   *env;
-    
-    if (check_entry(ac, av))
-        return (1);
-    env = init_env();
-    if (!env)
-        return (1);
-    if (parse_file(av[1], env))
-        return (clean_env(env), 1);
-    debug_env(env);
-    return (clean_env(env), 0);
+	t_element	*plane;
+
+	plane = malloc(sizeof(t_element));
+	if (!plane)
+		return (perror("Error"), 1);
+	plane->id = PLANE;
+	// Check data
+	// Parse plane
+	return (0);
 }

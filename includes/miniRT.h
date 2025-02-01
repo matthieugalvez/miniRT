@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 15:37:52 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/01 12:47:57 by achantra         ###   ########.fr       */
+/*   Updated: 2025/02/01 19:59:16 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,15 @@
 
 # include "libft.h"
 # include "mlx.h"
+# include "struct.h"
 # include <fcntl.h>
 # include <math.h>
 # include <stdlib.h>
 # include <unistd.h>
-# include "struct.h"
+
+# define SPHERE 0
+# define PLANE 1
+# define CYLINDER 2
 
 # define HEXA "0123456789abcdef"
 
@@ -54,9 +58,26 @@
 # define KEY_D 100
 # define KEY_E 101
 
-int check_entry(int ac, char **av);
-int parse_file(char *path, t_env *env);
-t_env   *init_env();
-void    clean_env(t_env *env);
+int		check_entry(int ac, char **av);
+int		parse_file(char *path, t_env *env);
+t_env	*init_env(void);
+void	clean_env(t_env *env);
+int		new_cylinder(t_env *env, char **data);
+int		new_sphere(t_env *env, char **data);
+int		new_plane(t_env *env, char **data);
+int		new_ambient(t_env *env, char **data);
+int		new_light(t_env *env, char **data);
+int		new_camera(t_env *env, char **data);
+void	add_back_elem(t_element **elem, t_element *new);
+int		init_element(t_env *env, char *line);
+void	print_data_err(void);
+int		ft_is_float(char *data);
+double	ft_atof(char *num1, char *num2);
+t_color	*ft_color(char *num1, char *num2, char *num3);
+t_color	*parse_color(char *data);
+double	parse_ratio(char *data);
+
+
+void	debug_env(t_env *env);
 
 #endif
