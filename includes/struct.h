@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 12:33:04 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/01 18:17:09 by achantra         ###   ########.fr       */
+/*   Updated: 2025/02/01 20:35:43 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,12 @@ typedef struct s_light
 {
 	t_coordinates		*coord;
 	double				bright;
+	t_color				*color;
 }						t_light;
 
 typedef struct s_amb
 {
-	double				ratio;
+	double				light;
 	t_color				*color;
 }						t_amb;
 

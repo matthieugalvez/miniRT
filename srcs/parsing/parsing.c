@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 16:49:38 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/01 19:40:41 by achantra         ###   ########.fr       */
+/*   Updated: 2025/02/01 20:50:05 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	parse_file(char *path, t_env *env)
 // Check the entry
 int	check_entry(int ac, char **av)
 {
-	int len;
+	int	len;
 
 	if (ac < 2)
 		return (ft_putstr_fd("Error: Missing file\n", 2), 1);

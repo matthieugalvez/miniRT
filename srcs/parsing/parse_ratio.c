@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 19:23:50 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/01 20:12:02 by achantra         ###   ########.fr       */
+/*   Updated: 2025/02/01 20:51:36 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 double	parse_ratio(char *data)
 {
-	double ratio;
-	char **num;
+	double	ratio;
+	char	**num;
 
 	if (!ft_is_float(data))
 		return (print_data_err(), -1);

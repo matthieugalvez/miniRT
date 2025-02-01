@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 17:22:45 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/01 19:36:31 by achantra         ###   ########.fr       */
+/*   Updated: 2025/02/01 20:55:56 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,20 +21,16 @@
 int	new_ambient(t_env *env, char **data)
 {
 	t_amb	*amb;
-	int		n_data;
 
 	if (env->amb)
 		return (ft_free_tab(data), print_data_err(), 1);
 	amb = malloc(sizeof(t_amb));
 	if (!amb)
 		return (ft_free_tab(data), perror("Error"), 1);
-	n_data = 0;
-	while (data[n_data])
-		n_data++;
-	if (n_data != 3)
+	if (len_tab(data) != 3)
 		return (free(amb), ft_free_tab(data), print_data_err(), 1);
-	amb->ratio = parse_ratio(data[1]);
-	if (amb->ratio < 0)
+	amb->light = parse_ratio(data[1]);
+	if (amb->light < 0)
 		return (free(amb), ft_free_tab(data), 1);
 	amb->color = parse_color(data[2]);
 	if (!amb->color)

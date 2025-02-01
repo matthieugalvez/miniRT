@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 16:36:06 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/01 19:21:45 by achantra         ###   ########.fr       */
+/*   Updated: 2025/02/01 20:54:32 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ int	ft_is_float(char *data)
 double	ft_atof(char *num1, char *num2)
 {
 	int		len_num2;
-	double	res;
+	int		integer;
+	double	decimal;
 
 	if (!num2)
 		return (ft_atoi(num1));
@@ -51,6 +52,21 @@ double	ft_atof(char *num1, char *num2)
 		len_num2++;
 	while (num2[len_num2 - 1] == '0')
 		len_num2--;
-	res = ft_atoi(num1) + (ft_atoi(num2) / pow(10, len_num2));
-	return (res);
+	integer = ft_atoi(num1);
+	decimal = ft_atoi(num2) / pow(10, len_num2);
+	if (integer < 0)
+		decimal *= -1;
+	return ((double)integer + decimal);
+}
+
+int	len_tab(char **tab)
+{
+	int	i;
+
+	if (!tab)
+		return (0);
+	i = 0;
+	while (tab[i])
+		i ++;
+	return (i);
 }
