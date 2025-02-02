@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 15:37:52 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/01 20:54:49 by achantra         ###   ########.fr       */
+/*   Updated: 2025/02/02 13:25:58 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@
 int				check_entry(int ac, char **av);
 int				parse_file(char *path, t_env *env);
 t_env			*init_env(void);
-void			clean_env(t_env *env);
 int				new_cylinder(t_env *env, char **data);
 int				new_sphere(t_env *env, char **data);
 int				new_plane(t_env *env, char **data);
@@ -74,10 +73,21 @@ void			print_data_err(void);
 int				ft_is_float(char *data);
 double			ft_atof(char *num1, char *num2);
 int				len_tab(char **tab);
+int				count_coma(char *data);
 t_color			*ft_color(char *num1, char *num2, char *num3);
 t_color			*parse_color(char *data);
-double			parse_ratio(char *data);
 t_coordinates	*parse_coordinates(char *data);
+t_coordinates	*parse_vector(char *data);
+double			parse_ratio(char *data);
+double			parse_fov(char *data);
+double			parse_positive_number(char *data);
+void			clean_ambient(t_amb *amb);
+void			clean_light(t_light *light);
+void			clean_camera(t_camera *cam);
+void			clean_cylinder(t_element *cy);
+void			clean_sphere(t_element *cy);
+void			clean_plane(t_element *cy);
+void			clean_env(t_env *env);
 
 void			debug_env(t_env *env);
 

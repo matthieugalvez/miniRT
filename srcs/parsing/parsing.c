@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 16:49:38 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/01 20:50:05 by achantra         ###   ########.fr       */
+/*   Updated: 2025/02/02 12:45:35 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,21 +17,23 @@ int	fill_env(int fd, t_env *env)
 {
 	char	*line;
 	char	*trim_line;
+	int		status;
 
+	status = 0;
 	line = get_next_line(fd);
 	while (line)
 	{
-		if (line[0] != '\n')
+		if (line[0] != '\n' && !status)
 		{
 			trim_line = ft_strtrim(line, "\n");
 			if (init_element(env, trim_line))
-				return (free(line), free(trim_line), 1);
+				status = 1;
+			free(trim_line);
 		}
-		free(trim_line);
 		free(line);
 		line = get_next_line(fd);
 	}
-	return (close(fd), 0);
+	return (close(fd), status);
 }
 
 // Check if the file is readable and if its content is correct

@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 16:36:06 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/01 20:54:32 by achantra         ###   ########.fr       */
+/*   Updated: 2025/02/02 13:29:38 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,19 @@ int	ft_is_float(char *data)
 	len_data = ft_strlen(data);
 	while (data[i])
 	{
-		if (!ft_isdigit(data[i]))
+		if (ft_isdigit(data[i]) || (i == 0 && (data[i] == '-'
+					|| data[i] == '+')))
+			i++;
+		else
 		{
 			if (i == 0 || i == len_data - 1 || !(data[i] == '.'))
 				return (0);
-			else if (n_float)
+			else if (data[i] == '.' && n_float)
 				return (0);
-			else
+			else if (data[i] == '.')
 				n_float = 1;
+			i++;
 		}
-		i++;
 	}
 	return (1);
 }
@@ -67,6 +70,31 @@ int	len_tab(char **tab)
 		return (0);
 	i = 0;
 	while (tab[i])
-		i ++;
+		i++;
 	return (i);
+}
+
+t_element	*last_elem(t_element *elem)
+{
+	t_element	*last;
+
+	if (!elem)
+		return (NULL);
+	last = elem;
+	while (last->next)
+		last = last->next;
+	return (last);
+}
+
+void	add_back_elem(t_element **elem, t_element *new)
+{
+	t_element	*last;
+
+	if (!elem || !*elem)
+		elem = &new;
+	else
+	{
+		last = last_elem(*elem);
+		last->next = new;
+	}
 }

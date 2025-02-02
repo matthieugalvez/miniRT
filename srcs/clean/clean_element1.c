@@ -1,30 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_ratio.c                                      :+:      :+:    :+:   */
+/*   clean_element1.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/01 19:23:50 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/01 20:51:36 by achantra         ###   ########.fr       */
+/*   Created: 2025/02/01 21:12:30 by achantra          #+#    #+#             */
+/*   Updated: 2025/02/02 13:25:03 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-double	parse_ratio(char *data)
+void	clean_ambient(t_amb *amb)
 {
-	double	ratio;
-	char	**num;
+	if (amb)
+	{
+		if (amb->color)
+			free(amb->color);
+		free(amb);
+	}
+}
 
-	if (!ft_is_float(data))
-		return (print_data_err(), -1);
-	num = ft_split(data, '.');
-	if (!num)
-		return (perror("Error"), -1);
-	ratio = ft_atof(num[0], num[1]);
-	ft_free_tab(num);
-	if (ratio < 0 || ratio > 1)
-		return (print_data_err(), -1);
-	return (ratio);
+void	clean_light(t_light *light)
+{
+	if (light)
+	{
+		if (light->coord)
+			free(light->coord);
+		if (light->color)
+			free(light->color);
+		free(light);
+	}
+}
+
+void	clean_camera(t_camera *cam)
+{
+	if (cam)
+	{
+		if (cam->coord)
+			free(cam->coord);
+		if (cam->vector)
+			free(cam->vector);
+		free(cam);
+	}
 }

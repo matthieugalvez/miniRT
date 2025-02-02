@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 20:00:53 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/01 21:11:19 by achantra         ###   ########.fr       */
+/*   Updated: 2025/02/02 12:20:42 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,35 @@ t_coordinates	*parse_coordinates(char *data)
 	{
 		if (!ft_is_float(num[i]))
 			return (ft_free_tab(num), print_data_err(), NULL);
-		i ++;
+		i++;
 	}
 	coord = ft_coordinates(num[0], num[1], num[2]);
 	ft_free_tab(num);
 	return (coord);
+}
+
+t_coordinates	*parse_vector(char *data)
+{
+	t_coordinates	*vector;
+	char			**num;
+	int				i;
+
+	if (count_coma(data) != 2)
+		return (print_data_err(), NULL);
+	num = ft_split(data, ',');
+	if (!num)
+		return (perror("Error"), NULL);
+	i = 0;
+	while (i < 3)
+	{
+		if (!ft_is_float(num[i]))
+			return (ft_free_tab(num), print_data_err(), NULL);
+		i++;
+	}
+	vector = ft_coordinates(num[0], num[1], num[2]);
+	if (vector->x < -1 || vector->y < -1 || vector->z < -1 || vector->x > 1
+		|| vector->y > 1 || vector->z > 1)
+		return (free(vector), ft_free_tab(num), print_data_err(), NULL);
+	ft_free_tab(num);
+	return (vector);
 }
