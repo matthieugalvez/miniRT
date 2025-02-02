@@ -6,13 +6,13 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 16:49:38 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/02 12:45:35 by achantra         ###   ########.fr       */
+/*   Updated: 2025/02/02 16:14:22 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-// Check the content of the file and parse it in a list
+// Check the content of the file and parse it in env
 int	fill_env(int fd, t_env *env)
 {
 	char	*line;

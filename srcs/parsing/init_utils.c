@@ -6,13 +6,11 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 16:36:06 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/02 15:31:58 by achantra         ###   ########.fr       */
+/*   Updated: 2025/02/02 16:13:43 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
-
-// Ajouter une gestion des overflow
 
 int	ft_is_float(char *data)
 {
