@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 16:36:06 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/02 13:29:38 by achantra         ###   ########.fr       */
+/*   Updated: 2025/02/02 15:31:58 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,21 +45,19 @@ int	ft_is_float(char *data)
 double	ft_atof(char *num1, char *num2)
 {
 	int		len_num2;
-	int		integer;
+	double	integer;
 	double	decimal;
 
 	if (!num2)
-		return (ft_atoi(num1));
+		return (ft_atol(num1));
 	len_num2 = 0;
 	while (num2[len_num2])
 		len_num2++;
-	while (num2[len_num2 - 1] == '0')
-		len_num2--;
-	integer = ft_atoi(num1);
-	decimal = ft_atoi(num2) / pow(10, len_num2);
+	integer = (double) ft_atol(num1);
+	decimal = ft_atol(num2) / pow(10, len_num2);
 	if (integer < 0)
 		decimal *= -1;
-	return ((double)integer + decimal);
+	return (integer + decimal);
 }
 
 int	len_tab(char **tab)
@@ -91,7 +89,7 @@ void	add_back_elem(t_element **elem, t_element *new)
 	t_element	*last;
 
 	if (!elem || !*elem)
-		elem = &new;
+		*elem = new;
 	else
 	{
 		last = last_elem(*elem);

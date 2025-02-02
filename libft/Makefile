@@ -13,7 +13,7 @@ SRC = $(SRC_DIR)/ft_isalpha.c $(SRC_DIR)/ft_putchar_fd.c $(SRC_DIR)/ft_split.c $
 	$(SRC_DIR)/ft_lstnew_bonus.c $(SRC_DIR)/ft_lstadd_front_bonus.c $(SRC_DIR)/ft_lstsize_bonus.c \
     $(SRC_DIR)/ft_lstlast_bonus.c $(SRC_DIR)/ft_lstadd_back_bonus.c $(SRC_DIR)/ft_lstdelone_bonus.c \
     $(SRC_DIR)/ft_lstclear_bonus.c $(SRC_DIR)/ft_lstiter_bonus.c $(SRC_DIR)/ft_lstmap_bonus.c \
-	$(SRC_DIR)/ft_atoi_base.c $(SRC_DIR)/ft_itoa_base.c $(SRC_DIR)/ft_abs.c  $(SRC_DIR)/ft_strcmp.c\
+	$(SRC_DIR)/ft_atoi_base.c $(SRC_DIR)/ft_itoa_base.c $(SRC_DIR)/ft_abs.c  $(SRC_DIR)/ft_strcmp.c $(SRC_DIR)/ft_atol.c \
 	$(SRC_PRINTF)/ft_printf.c $(SRC_PRINTF)/ft_print_hexa.c $(SRC_PRINTF)/ft_print_nbr.c $(SRC_PRINTF)/ft_printf_str.c $(SRC_PRINTF)/ft_printf_utils.c \
 	$(SRC_GNL)/get_next_line_bonus.c
 OBJ = $(SRC:.c=.o)

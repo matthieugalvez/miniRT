@@ -37,9 +37,7 @@ SRC = main.c \
 	parsing/init_ambient.c \
 	parsing/init_light.c \
 	parsing/init_camera.c \
-	parsing/init_cylinder.c \
-	parsing/init_sphere.c \
-	parsing/init_plane.c
+	parsing/init_forms.c
 
 #BONUS = 
 
