@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 13:46:27 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/04 19:43:18 by achantra         ###   ########.fr       */
+/*   Updated: 2025/02/04 22:09:03 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ int	intersect_sphere(t_element *sp, t_ray *ray)
 	b = 2.0 * scalar_prod_vec(*(ray->direction), distance);
 	c = scalar_prod_vec(distance, distance) - (sp->diameter * sp->diameter) / 4;
 	discriminent = b * b - 4 * a * c;
-	if (discriminent >= 0)
+	if (discriminent >= 0 && ((-b - sqrt(discriminent)) / (2 * a) >= 0 || (-b
+				+ sqrt(discriminent)) / (2 * a) >= 0))
 		return (1);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 12:03:23 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/04 18:59:48 by achantra         ###   ########.fr       */
+/*   Updated: 2025/02/04 22:11:00 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,19 +19,6 @@ t_coordinates	change_vec(double x, double y, double z)
 	vec.x = x;
 	vec.y = y;
 	vec.z = z;
-	return (vec);
-}
-
-t_coordinates	*new_vec(double x, double y, double z)
-{
-	t_coordinates	*vec;
-
-	vec = malloc(sizeof(t_coordinates));
-	if (!vec)
-		return (NULL);
-	vec->x = x;
-	vec->y = y;
-	vec->z = z;
 	return (vec);
 }
 
