@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 12:33:04 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/02 14:04:08 by achantra         ###   ########.fr       */
+/*   Updated: 2025/02/04 18:50:30 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,18 @@ typedef struct s_coordinates
 
 }						t_coordinates;
 
+typedef struct s_ray
+{
+	t_coordinates		*direction;
+	t_coordinates		*origin;
+}						t_ray;
+
 typedef struct s_camera
 {
 	t_coordinates		*coord;
-	t_coordinates		*vector;
+	t_coordinates		*dir;
+	t_coordinates		*dir_right;
+	t_coordinates		*dir_up;
 	double				fov;
 }						t_camera;
 
@@ -61,12 +69,37 @@ typedef struct s_element
 	struct s_element	*next;
 }						t_element;
 
+typedef struct s_img
+{
+	void				*img;
+	char				*img_pixels;
+	int					bits_per_pixel;
+	int					endian;
+	int					line_len;
+}						t_img;
+
 typedef struct s_env
 {
 	t_element			*elem;
 	t_camera			*camera;
 	t_light				*light;
 	t_amb				*amb;
+	void				*mlx;
+	void				*win;
+	double				vp_w;
+	double				vp_h;
+	double				a_ratio;
+	int					hight;
+	int					width;
+	double				zoom;
+	double				angle;
+	double				factor_z;
+	double				offset_x;
+	double				offset_y;
+	double				rot_x;
+	double				rot_y;
+	double				rot_z;
+	t_img				img;
 }						t_env;
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 21:12:30 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/02 13:25:03 by achantra         ###   ########.fr       */
+/*   Updated: 2025/02/04 18:50:39 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,12 @@ void	clean_camera(t_camera *cam)
 	{
 		if (cam->coord)
 			free(cam->coord);
-		if (cam->vector)
-			free(cam->vector);
+		if (cam->dir)
+			free(cam->dir);
+		if (cam->dir_right)
+			free(cam->dir_right);
+		if (cam->dir_up)
+			free(cam->dir_up);
 		free(cam);
 	}
 }

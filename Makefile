@@ -37,7 +37,14 @@ SRC = main.c \
 	parsing/init_ambient.c \
 	parsing/init_light.c \
 	parsing/init_camera.c \
-	parsing/init_forms.c
+	parsing/init_forms.c \
+	window/manage_window.c \
+	image/manage_image.c \
+	image/generate_image.c \
+	vector/vector_operator.c \
+	vector/vector_operator2.c \
+	color/color.c \
+	intersection/sphere_intersection.c
 
 #BONUS = 
 

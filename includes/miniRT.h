@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 15:37:52 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/02 15:32:41 by achantra         ###   ########.fr       */
+/*   Updated: 2025/02/04 19:05:59 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@
 # define KEY_D 100
 # define KEY_E 101
 
+// PARSING
 int				check_entry(int ac, char **av);
 int				parse_file(char *path, t_env *env);
 t_env			*init_env(void);
@@ -81,14 +82,40 @@ t_coordinates	*parse_vector(char *data);
 double			parse_ratio(char *data);
 double			parse_fov(char *data);
 double			parse_length(char *data);
+void			find_viewport(t_env *env);
+
+// CLEAN
 void			clean_ambient(t_amb *amb);
 void			clean_light(t_light *light);
 void			clean_camera(t_camera *cam);
 void			clean_cylinder(t_element *cy);
 void			clean_sphere(t_element *cy);
 void			clean_plane(t_element *cy);
-void			clean_env(t_env *env);
+int				clean_env(t_env *env);
+int				clean_env_err(t_env *env);
 
+// MLX
+int				init_mlx(t_env *env);
+int				ft_key(int keysym, t_env *env);
+
+// IMAGE
+int				print_image(t_env *env);
+
+// COLOR
+int				rgb_to_hexa(t_color *color);
+int				intersect_sphere(t_element *sp, t_ray *ray);
+int				color_image(t_env *env);
+
+// VECTOR
+t_coordinates	*new_vec(double x, double y, double z);
+t_coordinates	change_vec(double x, double y, double z);
+t_coordinates	add_vec(t_coordinates v1, t_coordinates v2);
+t_coordinates	substract_vec(t_coordinates v1, t_coordinates v2);
+t_coordinates	multiply_vec(t_coordinates v, double fact);
+t_coordinates	divide_vec(t_coordinates v, double fact);
+double			scalar_prod_vec(t_coordinates v1, t_coordinates v2);
+void			normalize_vec(t_coordinates *vector);
+// DEBUG
 void			debug_env(t_env *env);
 
 #endif

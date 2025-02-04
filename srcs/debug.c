@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 18:21:37 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/02 14:16:15 by achantra         ###   ########.fr       */
+/*   Updated: 2025/02/04 18:50:17 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ void	debug_env(t_env *env)
 	if (env->camera)
 		printf("C %.2f,%.2f,%.2f, %.2f,%.2f,%.2f, %.2f\n",
 			env->camera->coord->x, env->camera->coord->y, env->camera->coord->z,
-			env->camera->vector->x, env->camera->vector->y,
-			env->camera->vector->z, env->camera->fov);
+			env->camera->dir->x, env->camera->dir->y,
+			env->camera->dir->z, env->camera->fov);
 	if (env->elem)
 	{
 		buf = env->elem;

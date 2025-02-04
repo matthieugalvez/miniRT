@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 17:23:23 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/02 16:12:49 by achantra         ###   ########.fr       */
+/*   Updated: 2025/02/04 19:55:01 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,24 @@ t_camera	*init_camera(void)
 	if (!cam)
 		return (NULL);
 	cam->coord = NULL;
-	cam->vector = NULL;
+	cam->dir = NULL;
+	cam->dir_right = NULL;
+	cam->dir_up = NULL;
 	return (cam);
+}
+
+int	find_direction(t_camera *cam)
+{
+	cam->dir_right = new_vec(cam->dir->z, 0, -cam->dir->x);
+	if (!cam->dir_right)
+		return (clean_camera(cam), 1);
+	normalize_vec(cam->dir_right);
+	cam->dir_up = new_vec(-cam->dir->x * cam->dir->y, 2 * cam->dir->z * cam->dir->z + cam->dir->x * cam->dir->x, -cam->dir->z * cam->dir->y);
+	if (!cam->dir_up)
+		return (clean_camera(cam), 1);
+	normalize_vec(cam->dir_up);
+	printf("%f %f %f\n", cam->dir_up->x, cam->dir_up->y, cam->dir_up->z);
+	return (0);
 }
 
 int	new_camera(t_env *env, char **data)
@@ -46,12 +62,21 @@ int	new_camera(t_env *env, char **data)
 	cam->coord = parse_coordinates(data[1]);
 	if (!cam->coord)
 		return (clean_camera(cam), ft_free_tab(data), 1);
-	cam->vector = parse_vector(data[2]);
-	if (!cam->vector)
+	cam->dir = parse_vector(data[2]);
+	if (!cam->dir)
 		return (clean_camera(cam), ft_free_tab(data), 1);
 	cam->fov = parse_fov(data[3]);
 	if (cam->fov < 0)
 		return (clean_camera(cam), ft_free_tab(data), 1);
+	ft_free_tab(data);
+	find_direction(cam);
 	env->camera = cam;
-	return (ft_free_tab(data), 0);
+	return (0);
 }
+
+void	find_viewport(t_env *env)
+{
+	env->vp_w = 2 * tan(env->camera->fov * M_PI / 360);
+	env->vp_h = env->vp_w / env->a_ratio;
+}
+

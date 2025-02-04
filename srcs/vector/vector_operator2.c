@@ -1,37 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_env.c                                         :+:      :+:    :+:   */
+/*   vector_operator2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/01 12:44:19 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/04 18:04:23 by achantra         ###   ########.fr       */
+/*   Created: 2025/02/04 13:30:17 by achantra          #+#    #+#             */
+/*   Updated: 2025/02/04 19:06:08 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-t_env	*init_env(void)
+double	scalar_prod_vec(t_coordinates v1, t_coordinates v2)
 {
-	t_env	*env;
+	return (v1.x * v2.x + v1.y * v2.y + v1.z * v2.z);
+}
 
-	env = malloc(sizeof(t_env));
-	if (!env)
-		return (perror("Error"), NULL);
-	env->elem = NULL;
-	env->camera = NULL;
-	env->light = NULL;
-	env->amb = NULL;
-	env->mlx = NULL;
-	env->win = NULL;
-	env->zoom = 1;
-	env->factor_z = 1;
-	env->offset_x = WIN_W / 2;
-	env->offset_y = WIN_H / 2;
-	env->rot_x = 0;
-	env->rot_y = 0;
-	env->rot_z = 0;
-	env->a_ratio = 1;
-	return (env);
+void	normalize_vec(t_coordinates *vector)
+{
+	double	norm;
+	if (vector->x == 0 && vector->y == 0 && vector->z == 0)
+		return ;
+	norm = sqrt(pow(vector->x, 2) + pow(vector->y, 2) + pow(vector->z, 2));
+	*vector = divide_vec(*vector, norm);
 }

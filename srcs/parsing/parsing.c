@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 16:49:38 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/02 16:14:22 by achantra         ###   ########.fr       */
+/*   Updated: 2025/02/04 17:54:20 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,9 @@ int	fill_env(int fd, t_env *env)
 		free(line);
 		line = get_next_line(fd);
 	}
-	return (close(fd), status);
+	close(fd);
+	find_viewport(env);
+	return (status);
 }
 
 // Check if the file is readable and if its content is correct
