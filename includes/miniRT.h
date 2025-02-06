@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 15:37:52 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/06 14:56:24 by achantra         ###   ########.fr       */
+/*   Updated: 2025/02/06 16:07:20 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ int				ft_key(int keysym, t_env *env);
 int				print_image(t_env *env);
 int				rgb_to_hexa(t_color *color);
 int				intersect_sphere(t_env *env, t_element *sp, t_ray *ray);
+int				intersect_cylinder(t_env *env, t_element *cy, t_ray *ray);
 int				color_image(t_env *env);
 
 // MATH

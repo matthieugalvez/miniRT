@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 12:08:44 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/06 15:33:49 by achantra         ###   ########.fr       */
+/*   Updated: 2025/02/06 16:06:50 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,10 @@ int	first_color(t_env *env, t_ray *ray)
 		}
 		if (form->id == SPHERE)
 			intersect_sphere(env, form, ray);
-		/*else if (buf->id == CYLINDER)
-			intersect_cylinder(env, buf, ray);
-		else if (buf->id == PLANE)
-			intersect_plane(env, buf, ray);*/
+		else if (form->id == CYLINDER)
+			intersect_cylinder(env, form, ray);
+		/*else if (form->id == PLANE)
+			intersect_plane(env, form, ray);*/
 		first_inter(&position, &color, form);
 		form = form->next;
 	}
