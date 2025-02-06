@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/02 13:24:42 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/06 13:24:09 by achantra         ###   ########.fr       */
+/*   Updated: 2025/02/06 16:37:22 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ int	clean_env(t_env *env)
 {
 	clean_element(env);
 	clean_mlx(env);
-	free(env);
 	exit (0);
 	return (0);
 }
@@ -46,7 +45,6 @@ int	clean_env_err(t_env *env)
 {
 	clean_element(env);
 	clean_mlx(env);
-	free(env);
 	exit (1);
 	return (1);
 }

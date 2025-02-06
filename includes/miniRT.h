@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 15:37:52 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/06 16:07:20 by achantra         ###   ########.fr       */
+/*   Updated: 2025/02/06 16:38:43 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@
 // PARSING
 int				check_entry(int ac, char **av);
 int				parse_file(char *path, t_env *env);
-t_env			*init_env(void);
+void			init_env(t_env *env);
 int				new_cylinder(t_env *env, char **data);
 int				new_sphere(t_env *env, char **data);
 int				new_plane(t_env *env, char **data);
