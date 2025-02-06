@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 17:23:23 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/04 22:19:55 by achantra         ###   ########.fr       */
+/*   Updated: 2025/02/06 11:47:54 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,10 @@ int	find_cam_direction(t_camera *cam)
 	t_coordinates	tmp_up;
 
 	normalize_vec(cam->dir);
-	tmp_up = change_vec(0, 1, 0);
-	if (cam->dir->x == 0 && cam->dir->z == 0)
+	if (!equal_double(cam->dir->y, 0) || !equal_double(cam->dir->z, 0))
 		tmp_up = change_vec(1, 0, 0);
+	else
+		tmp_up = change_vec(0, 1, 0);
 	cam->dir_right = vectorial_prod_vec(tmp_up, *(cam->dir));
 	if (!cam->dir_right)
 		return (clean_camera(cam), 1);
@@ -76,6 +77,7 @@ int	new_camera(t_env *env, char **data)
 	ft_free_tab(data);
 	find_cam_direction(cam);
 	env->camera = cam;
+	find_viewport(env);
 	return (0);
 }
 

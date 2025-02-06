@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 12:44:19 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/04 18:04:23 by achantra         ###   ########.fr       */
+/*   Updated: 2025/02/06 13:21:25 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,19 +19,16 @@ t_env	*init_env(void)
 	env = malloc(sizeof(t_env));
 	if (!env)
 		return (perror("Error"), NULL);
-	env->elem = NULL;
+	env->form = NULL;
 	env->camera = NULL;
 	env->light = NULL;
 	env->amb = NULL;
 	env->mlx = NULL;
 	env->win = NULL;
 	env->zoom = 1;
-	env->factor_z = 1;
-	env->offset_x = WIN_W / 2;
-	env->offset_y = WIN_H / 2;
 	env->rot_x = 0;
 	env->rot_y = 0;
 	env->rot_z = 0;
-	env->a_ratio = 1;
+	env->a_ratio = WIN_W / WIN_H;
 	return (env);
 }

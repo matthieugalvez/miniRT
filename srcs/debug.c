@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 18:21:37 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/04 18:50:17 by achantra         ###   ########.fr       */
+/*   Updated: 2025/02/06 13:20:50 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ void	debug_env(t_env *env)
 			env->camera->coord->x, env->camera->coord->y, env->camera->coord->z,
 			env->camera->dir->x, env->camera->dir->y,
 			env->camera->dir->z, env->camera->fov);
-	if (env->elem)
+	if (env->form)
 	{
-		buf = env->elem;
+		buf = env->form;
 		while (buf)
 		{
 			if (buf->id == CYLINDER)

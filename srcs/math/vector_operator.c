@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 12:03:23 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/04 22:11:00 by achantra         ###   ########.fr       */
+/*   Updated: 2025/02/06 11:30:59 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ t_coordinates	multiply_vec(t_coordinates v, double fact)
 
 t_coordinates	divide_vec(t_coordinates v, double fact)
 {
-	if (fact == 0)
+	if (equal_double(fact, 0))
 		return (v);
 	return (change_vec(v.x / fact, v.y / fact, v.z / fact));
 }

@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 12:33:04 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/04 18:50:30 by achantra         ###   ########.fr       */
+/*   Updated: 2025/02/06 13:26:34 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ typedef struct s_element
 	t_color				*color;
 	double				diameter;
 	double				height;
+	double				*c_inter;
 	struct s_element	*next;
 }						t_element;
 
@@ -80,7 +81,7 @@ typedef struct s_img
 
 typedef struct s_env
 {
-	t_element			*elem;
+	t_element			*form;
 	t_camera			*camera;
 	t_light				*light;
 	t_amb				*amb;
@@ -93,9 +94,6 @@ typedef struct s_env
 	int					width;
 	double				zoom;
 	double				angle;
-	double				factor_z;
-	double				offset_x;
-	double				offset_y;
 	double				rot_x;
 	double				rot_y;
 	double				rot_z;

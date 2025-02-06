@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 11:26:30 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/04 13:59:59 by achantra         ###   ########.fr       */
+/*   Updated: 2025/02/06 12:00:42 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 
 void	ft_reinit(t_env *env)
 {
-	env->factor_z = 1;
-	env->offset_x = 0;
-	env->offset_y = 0;
 	env->rot_x = 0;
 	env->rot_y = 0;
 	env->rot_z = 0;

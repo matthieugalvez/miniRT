@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 15:37:52 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/04 20:47:37 by achantra         ###   ########.fr       */
+/*   Updated: 2025/02/06 13:33:35 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ int				new_light(t_env *env, char **data);
 int				new_camera(t_env *env, char **data);
 void			add_back_elem(t_element **elem, t_element *new);
 int				init_element(t_env *env, char *line);
-void			print_data_err(char *data);
 int				ft_is_float(char *data);
 double			ft_atof(char *num1, char *num2);
 int				len_tab(char **tab);
@@ -84,13 +83,15 @@ double			parse_fov(char *data);
 double			parse_length(char *data);
 void			find_viewport(t_env *env);
 
+// ERROR
+void			print_data_err(char *data);
+void			print_data_war(char *data);
+
 // CLEAN
 void			clean_ambient(t_amb *amb);
 void			clean_light(t_light *light);
 void			clean_camera(t_camera *cam);
-void			clean_cylinder(t_element *cy);
-void			clean_sphere(t_element *cy);
-void			clean_plane(t_element *cy);
+void			clean_form(t_element *form);
 int				clean_env(t_env *env);
 int				clean_env_err(t_env *env);
 
@@ -100,13 +101,11 @@ int				ft_key(int keysym, t_env *env);
 
 // IMAGE
 int				print_image(t_env *env);
-
-// COLOR
 int				rgb_to_hexa(t_color *color);
-int				intersect_sphere(t_element *sp, t_ray *ray);
+int				intersect_sphere(t_env *env, t_element *sp, t_ray *ray);
 int				color_image(t_env *env);
 
-// VECTOR
+// MATH
 t_coordinates	*new_vec(double x, double y, double z);
 t_coordinates	change_vec(double x, double y, double z);
 t_coordinates	add_vec(t_coordinates v1, t_coordinates v2);
@@ -116,6 +115,8 @@ t_coordinates	divide_vec(t_coordinates v, double fact);
 double			scalar_prod_vec(t_coordinates v1, t_coordinates v2);
 void			normalize_vec(t_coordinates *vector);
 t_coordinates	*vectorial_prod_vec(t_coordinates v1, t_coordinates v2);
+int				equal_double(double a, double b);
+
 // DEBUG
 void			debug_env(t_env *env);
 

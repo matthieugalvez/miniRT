@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/02 13:24:42 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/04 11:24:23 by achantra         ###   ########.fr       */
+/*   Updated: 2025/02/06 13:24:09 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,10 @@
 
 void	clean_element(t_env *env)
 {
-	t_element	*buf;
-
 	clean_ambient(env->amb);
 	clean_light(env->light);
 	clean_camera(env->camera);
-	if (env->elem)
-	{
-		while (env->elem)
-		{
-			buf = env->elem;
-			env->elem = env->elem->next;
-			if (buf->id == CYLINDER)
-				clean_cylinder(buf);
-			else if (buf->id == SPHERE)
-				clean_sphere(buf);
-			else if (buf->id == PLANE)
-				clean_plane(buf);
-		}
-	}
+	clean_form(env->form);
 }
 
 void	clean_mlx(t_env *env)

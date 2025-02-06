@@ -24,8 +24,7 @@ BONUS_PATH = bonus/
 SRC = main.c \
 	debug.c \
 	clean/clean_env.c \
-	clean/clean_element1.c \
-	clean/clean_element2.c \
+	clean/clean_element.c \
 	parsing/parsing.c \
 	parsing/init_env.c \
 	parsing/init_utils.c \
@@ -38,13 +37,15 @@ SRC = main.c \
 	parsing/init_light.c \
 	parsing/init_camera.c \
 	parsing/init_forms.c \
-	window/manage_window.c \
+	image/manage_window.c \
 	image/manage_image.c \
 	image/generate_image.c \
-	vector/vector_operator.c \
-	vector/vector_operator2.c \
+	image/cam_ray_tracing.c \
+	math/vector_operator.c \
+	math/vector_operator2.c \
+	math/double_operator.c \
 	color/color.c \
-	intersection/sphere_intersection.c
+	intersection/sphere_intersection.c \
 
 #BONUS = 
 

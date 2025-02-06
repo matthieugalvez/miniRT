@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 17:21:35 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/02 16:13:09 by achantra         ###   ########.fr       */
+/*   Updated: 2025/02/06 13:27:00 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,17 @@
 
 t_element	*init_form(void)
 {
-	t_element	*elem;
+	t_element	*form;
 
-	elem = malloc(sizeof(t_element));
-	if (!elem)
+	form = malloc(sizeof(t_element));
+	if (!form)
 		return (NULL);
-	elem->coord = NULL;
-	elem->vector = NULL;
-	elem->color = NULL;
-	return (elem);
+	form->coord = NULL;
+	form->vector = NULL;
+	form->color = NULL;
+	form->next = NULL;
+	form->c_inter = NULL;
+	return (form);
 }
 
 /*
@@ -47,19 +49,19 @@ int	new_cylinder(t_env *env, char **data)
 	cylinder->id = CYLINDER;
 	cylinder->coord = parse_coordinates(data[1]);
 	if (!cylinder->coord)
-		return (clean_cylinder(cylinder), ft_free_tab(data), 1);
+		return (clean_form(cylinder), ft_free_tab(data), 1);
 	cylinder->vector = parse_vector(data[2]);
 	if (!cylinder->vector)
-		return (clean_cylinder(cylinder), ft_free_tab(data), 1);
+		return (clean_form(cylinder), ft_free_tab(data), 1);
 	cylinder->diameter = parse_length(data[3]);
 	cylinder->height = parse_length(data[4]);
 	if (cylinder->diameter <= 0 || cylinder->height <= 0)
-		return (clean_cylinder(cylinder), ft_free_tab(data), 1);
+		return (print_data_err("cy"), clean_form(cylinder),
+			ft_free_tab(data), 1);
 	cylinder->color = parse_color(data[5]);
 	if (!cylinder->color)
-		return (clean_cylinder(cylinder), ft_free_tab(data), 1);
-	cylinder->next = NULL;
-	add_back_elem(&env->elem, cylinder);
+		return (clean_form(cylinder), ft_free_tab(data), 1);
+	add_back_elem(&env->form, cylinder);
 	return (ft_free_tab(data), 0);
 }
 
@@ -75,22 +77,22 @@ int	new_sphere(t_env *env, char **data)
 	t_element	*sphere;
 
 	if (len_tab(data) != 4)
-		return (ft_free_tab(data), print_data_err("pl"), 1);
+		return (ft_free_tab(data), print_data_err("sp"), 1);
 	sphere = init_form();
 	if (!sphere)
 		return (ft_free_tab(data), perror("Error\n"), 1);
 	sphere->id = SPHERE;
 	sphere->coord = parse_coordinates(data[1]);
 	if (!sphere->coord)
-		return (clean_sphere(sphere), ft_free_tab(data), 1);
+		return (clean_form(sphere), ft_free_tab(data), 1);
 	sphere->diameter = parse_length(data[2]);
 	if (sphere->diameter <= 0)
-		return (clean_sphere(sphere), ft_free_tab(data), 1);
+		return (print_data_err("sp"), clean_form(sphere), ft_free_tab(data),
+			1);
 	sphere->color = parse_color(data[3]);
 	if (!sphere->color)
-		return (clean_sphere(sphere), ft_free_tab(data), 1);
-	sphere->next = NULL;
-	add_back_elem(&env->elem, sphere);
+		return (clean_form(sphere), ft_free_tab(data), 1);
+	add_back_elem(&env->form, sphere);
 	return (ft_free_tab(data), 0);
 }
 
@@ -114,14 +116,13 @@ int	new_plane(t_env *env, char **data)
 	plane->id = PLANE;
 	plane->coord = parse_coordinates(data[1]);
 	if (!plane->coord)
-		return (clean_plane(plane), ft_free_tab(data), 1);
+		return (clean_form(plane), ft_free_tab(data), 1);
 	plane->vector = parse_vector(data[2]);
 	if (!plane->vector)
-		return (clean_plane(plane), ft_free_tab(data), 1);
+		return (clean_form(plane), ft_free_tab(data), 1);
 	plane->color = parse_color(data[3]);
 	if (!plane->color)
-		return (clean_plane(plane), ft_free_tab(data), 1);
-	plane->next = NULL;
-	add_back_elem(&env->elem, plane);
+		return (clean_form(plane), ft_free_tab(data), 1);
+	add_back_elem(&env->form, plane);
 	return (ft_free_tab(data), 0);
 }

@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 16:49:38 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/04 17:54:20 by achantra         ###   ########.fr       */
+/*   Updated: 2025/02/06 11:45:06 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ int	fill_env(int fd, t_env *env)
 		line = get_next_line(fd);
 	}
 	close(fd);
-	find_viewport(env);
 	return (status);
 }
 

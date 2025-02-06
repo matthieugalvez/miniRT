@@ -1,25 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_error.c                                      :+:      :+:    :+:   */
+/*   double_operator.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/02 13:29:15 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/06 11:38:23 by achantra         ###   ########.fr       */
+/*   Created: 2025/02/06 11:16:26 by achantra          #+#    #+#             */
+/*   Updated: 2025/02/06 12:06:51 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-void	print_data_err(char *data)
+int	equal_double(double a, double b)
 {
-	ft_putstr_fd("Error: wrong data: ", 2);
-	ft_putendl_fd(data, 2);
-}
-
-void	print_data_war(char *data)
-{
-	ft_putstr_fd("Warning: missing ", 2);
-	ft_putendl_fd(data, 2);
+	if (fabs(a - b) < 1e-6)
+		return (1);
+	return (0);
 }

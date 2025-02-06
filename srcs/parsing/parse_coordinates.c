@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 20:00:53 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/02 15:28:26 by achantra         ###   ########.fr       */
+/*   Updated: 2025/02/06 12:06:07 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,9 @@ t_coordinates	*parse_vector(char *data)
 		return (ft_free_tab(num), NULL);
 	if (vector->x < -1 || vector->y < -1 || vector->z < -1 || vector->x > 1
 		|| vector->y > 1 || vector->z > 1)
+		return (free(vector), ft_free_tab(num), print_data_err("vector"), NULL);
+	if (equal_double(vector->x, 0) && equal_double(vector->y, 0)
+		&& equal_double(vector->z, 0))
 		return (free(vector), ft_free_tab(num), print_data_err("vector"), NULL);
 	return (ft_free_tab(num), vector);
 }

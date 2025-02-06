@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 10:55:30 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/04 13:59:52 by achantra         ###   ########.fr       */
+/*   Updated: 2025/02/06 12:00:25 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ int	init_mlx(t_env *env)
 		return (ft_putendl_fd("Error: mlx", 2), clean_env_err(env), 1);
 	env->img.img = mlx_new_image(env->mlx, WIN_W, WIN_H);
 	if (!env->img.img)
-		return (ft_putendl_fd("Error: mlx", 2), clean_env_err(env), 1);
-	print_image(env);
+		return (ft_putendl_fd("Error: mlx", 2), clean_env_err(env));
 	return (0);
 }
