@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 12:08:44 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/06 13:35:11 by achantra         ###   ########.fr       */
+/*   Updated: 2025/02/06 15:33:49 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,25 +29,59 @@ int	find_ray_direction(int i, int j, t_env *env, t_ray *ray)
 	return (0);
 }
 
+void	first_inter(double *position, int *color, t_element *form)
+{
+	if (form->c_inter)
+	{
+		if (form->c_inter[0] >= 0 && form->c_inter[0] < *position)
+		{
+			*position = form->c_inter[0];
+			*color = rgb_to_hexa(form->color);
+		}
+		if (form->c_inter[1] >= 0 && form->c_inter[1] < *position)
+		{
+			*position = form->c_inter[1];
+			*color = rgb_to_hexa(form->color);
+		}
+	}
+}
+
+int	first_color(t_env *env, t_ray *ray)
+{
+	t_element	*form;
+	int			color;
+	double		position;
+
+	position = __DBL_MAX__;
+	color = 0;
+	form = env->form;
+	while (form)
+	{
+		if (form->c_inter)
+		{
+			free(form->c_inter);
+			form->c_inter = NULL;
+		}
+		if (form->id == SPHERE)
+			intersect_sphere(env, form, ray);
+		/*else if (buf->id == CYLINDER)
+			intersect_cylinder(env, buf, ray);
+		else if (buf->id == PLANE)
+			intersect_plane(env, buf, ray);*/
+		first_inter(&position, &color, form);
+		form = form->next;
+	}
+	return (color);
+}
+
 void	my_pixel_put(int i, int j, t_env *env, t_ray *ray)
 {
-	int			offset;
-	t_element	*buf;
+	int	offset;
 
 	if (j >= WIN_H || i >= WIN_W || i < 0 || j < 0)
 		return ;
 	offset = (env->img.line_len * j) + (i * (env->img.bits_per_pixel / 8));
-	buf = env->form;
-	while (buf)
-	{
-		if (buf->id == SPHERE)
-		{
-			if (intersect_sphere(env, buf, ray))
-				*((unsigned int *)((env->img).img_pixels
-							+ offset)) = rgb_to_hexa(buf->color);
-		}
-		buf = buf->next;
-	}
+	*((unsigned int *)((env->img).img_pixels + offset)) = first_color(env, ray);
 }
 
 int	color_image(t_env *env)
@@ -69,9 +103,10 @@ int	color_image(t_env *env)
 			if (find_ray_direction(i, j, env, ray))
 				return (free(ray), perror("Error:"), clean_env_err(env));
 			my_pixel_put(i, j, env, ray);
+			free(ray->direction);
 			j++;
 		}
 		i++;
 	}
-	return (free(ray->direction), free(ray), 0);
+	return (free(ray), 0);
 }

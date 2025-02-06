@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 17:21:35 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/06 13:27:00 by achantra         ###   ########.fr       */
+/*   Updated: 2025/02/06 15:39:26 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int	new_cylinder(t_env *env, char **data)
 	cylinder->vector = parse_vector(data[2]);
 	if (!cylinder->vector)
 		return (clean_form(cylinder), ft_free_tab(data), 1);
+	normalize_vec(cylinder->vector);
 	cylinder->diameter = parse_length(data[3]);
 	cylinder->height = parse_length(data[4]);
 	if (cylinder->diameter <= 0 || cylinder->height <= 0)
@@ -120,6 +121,7 @@ int	new_plane(t_env *env, char **data)
 	plane->vector = parse_vector(data[2]);
 	if (!plane->vector)
 		return (clean_form(plane), ft_free_tab(data), 1);
+	normalize_vec(plane->vector);
 	plane->color = parse_color(data[3]);
 	if (!plane->color)
 		return (clean_form(plane), ft_free_tab(data), 1);

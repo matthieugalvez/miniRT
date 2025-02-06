@@ -41,11 +41,11 @@ SRC = main.c \
 	image/manage_image.c \
 	image/generate_image.c \
 	image/cam_ray_tracing.c \
+	image/color.c \
 	math/vector_operator.c \
 	math/vector_operator2.c \
 	math/double_operator.c \
-	color/color.c \
-	intersection/sphere_intersection.c \
+	intersection/intersection.c \
 
 #BONUS = 
 
