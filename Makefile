@@ -63,7 +63,7 @@ CFLAGS = -g3 -Wall -Wextra -Werror -I $(LIBFTDIR) -I includes -I $(MINILIBXDIR)
 all: $(NAME)
 
 $(NAME): $(LIBFT) $(MINILIBX) $(OBJ)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(LIBFT) $(MINILIBX) -lm -lX11 -lXext
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(LIBFT) $(MINILIBX) -lm -lX11 -lXext -fsanitize=leak
 
 $(LIBFT):
 	make -C $(LIBFTDIR)
