@@ -3,41 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgalvez <mgalvez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/04 12:53:03 by achantra          #+#    #+#             */
-/*   Updated: 2024/12/05 21:23:13 by achantra         ###   ########.fr       */
+/*   Created: 2024/11/13 15:55:57 by mgalvez           #+#    #+#             */
+/*   Updated: 2024/11/18 11:37:26 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include "libft.h"
 
-void	*ft_calloc(size_t count, size_t size)
+void	*ft_calloc(size_t nmemb, size_t size)
 {
-	char	*pointer;
-	size_t	i;	
+	void	*buffer;
 
-	pointer = malloc(count * size);
-	if (!pointer)
+	if (nmemb * size > 2147483647)
 		return (NULL);
-	i = 0;
-	while (i < count * size)
-	{
-		pointer[i] = 0;
-		i ++;
-	}
-	return ((void *) pointer);
+	buffer = malloc(nmemb * size);
+	if (!buffer)
+		return (NULL);
+	ft_bzero(buffer, nmemb * size);
+	return (buffer);
 }
-/*
-int	main(void)
-{
-	char *p1 = (char *) calloc(3, sizeof(char));
-	char *p2 = (char *) ft_calloc(3, sizeof(char));
-
-	
-	printf("%s\n", p1);
-	printf("%s\n", p2);
-	free(p1);
-	free(p2);
-	return (0);
-}*/

@@ -6,11 +6,11 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 20:00:53 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/06 15:38:39 by achantra         ###   ########.fr       */
+/*   Updated: 2025/02/10 17:02:57 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "../../includes/miniRT.h"
 
 int	count_coma(char *data)
 {
@@ -60,20 +60,20 @@ t_coordinates	*ft_coordinates(char *num1, char *num2, char *num3)
 	if (!num)
 		return (perror("Error"), NULL);
 	if (check_coordinates(coord, num, 'x'))
-		return (ft_free_tab(num), free(coord), print_data_err("coord"), NULL);
-	ft_free_tab(num);
+		return (ft_freetab(num), free(coord), print_data_err("coord"), NULL);
+	ft_freetab(num);
 	num = ft_split(num2, '.');
 	if (!num)
 		return (perror("Error"), NULL);
 	if (check_coordinates(coord, num, 'y'))
-		return (ft_free_tab(num), free(coord), print_data_err("coord"), NULL);
-	ft_free_tab(num);
+		return (ft_freetab(num), free(coord), print_data_err("coord"), NULL);
+	ft_freetab(num);
 	num = ft_split(num3, '.');
 	if (!num)
 		return (perror("Error"), NULL);
 	if (check_coordinates(coord, num, 'z'))
-		return (ft_free_tab(num), free(coord), print_data_err("coord"), NULL);
-	return (ft_free_tab(num), coord);
+		return (ft_freetab(num), free(coord), print_data_err("coord"), NULL);
+	return (ft_freetab(num), coord);
 }
 
 t_coordinates	*parse_coordinates(char *data)
@@ -87,9 +87,9 @@ t_coordinates	*parse_coordinates(char *data)
 	if (!num)
 		return (perror("Error"), NULL);
 	if (!ft_is_float(num[0]) || !ft_is_float(num[1]) || !ft_is_float(num[2]))
-		return (ft_free_tab(num), print_data_err("coord"), NULL);
+		return (ft_freetab(num), print_data_err("coord"), NULL);
 	coord = ft_coordinates(num[0], num[1], num[2]);
-	return (ft_free_tab(num), coord);
+	return (ft_freetab(num), coord);
 }
 
 t_coordinates	*parse_vector(char *data)
@@ -103,15 +103,15 @@ t_coordinates	*parse_vector(char *data)
 	if (!num)
 		return (perror("Error"), NULL);
 	if (!ft_is_float(num[0]) || !ft_is_float(num[1]) || !ft_is_float(num[2]))
-		return (ft_free_tab(num), print_data_err("vector"), NULL);
+		return (ft_freetab(num), print_data_err("vector"), NULL);
 	vector = ft_coordinates(num[0], num[1], num[2]);
 	if (!vector)
-		return (ft_free_tab(num), NULL);
+		return (ft_freetab(num), NULL);
 	if (vector->x < -1 || vector->y < -1 || vector->z < -1 || vector->x > 1
 		|| vector->y > 1 || vector->z > 1)
-		return (free(vector), ft_free_tab(num), print_data_err("vector"), NULL);
+		return (free(vector), ft_freetab(num), print_data_err("vector"), NULL);
 	if (equal_double(vector->x, 0) && equal_double(vector->y, 0)
 		&& equal_double(vector->z, 0))
-		return (free(vector), ft_free_tab(num), print_data_err("vector"), NULL);
-	return (ft_free_tab(num), vector);
+		return (free(vector), ft_freetab(num), print_data_err("vector"), NULL);
+	return (ft_freetab(num), vector);
 }

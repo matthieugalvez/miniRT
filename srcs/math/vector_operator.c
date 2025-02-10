@@ -6,11 +6,11 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 12:03:23 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/06 11:30:59 by achantra         ###   ########.fr       */
+/*   Updated: 2025/02/10 16:52:14 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "../../includes/miniRT.h"
 
 t_coordinates	change_vec(double x, double y, double z)
 {

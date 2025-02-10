@@ -6,11 +6,11 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 16:49:38 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/06 11:45:06 by achantra         ###   ########.fr       */
+/*   Updated: 2025/02/10 17:04:25 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "../../includes/miniRT.h"
 
 // Check the content of the file and parse it in env
 int	fill_env(int fd, t_env *env)
@@ -20,7 +20,7 @@ int	fill_env(int fd, t_env *env)
 	int		status;
 
 	status = 0;
-	line = get_next_line(fd);
+	line = ft_getnextline(fd);
 	while (line)
 	{
 		if (line[0] != '\n' && !status)
@@ -31,7 +31,7 @@ int	fill_env(int fd, t_env *env)
 			free(trim_line);
 		}
 		free(line);
-		line = get_next_line(fd);
+		line = ft_getnextline(fd);
 	}
 	close(fd);
 	return (status);
@@ -56,11 +56,11 @@ int	check_entry(int ac, char **av)
 	int	len;
 
 	if (ac < 2)
-		return (ft_putstr_fd("Error: Missing file\n", 2), 1);
+		return (ft_putstr("Error: Missing file\n", 2), 1);
 	else if (ac > 2)
-		return (ft_putstr_fd("Error: Too many arguments\n", 2), 1);
+		return (ft_putstr("Error: Too many arguments\n", 2), 1);
 	len = ft_strlen(av[1]);
 	if (len < 4 || ft_strncmp(av[1] + (len - 3), ".rt", 3))
-		return (ft_putstr_fd("Error: Wrong file\n", 2), 1);
+		return (ft_putstr("Error: Wrong file\n", 2), 1);
 	return (0);
 }

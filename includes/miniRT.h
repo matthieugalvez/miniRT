@@ -6,20 +6,21 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 15:37:52 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/06 17:58:36 by achantra         ###   ########.fr       */
+/*   Updated: 2025/02/10 16:53:35 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINIRT_H
 # define MINIRT_H
 
-# include "libft.h"
-# include "mlx.h"
+# include "../libft/libft.h"
+# include "../minilibx-linux/mlx.h"
 # include "struct.h"
 # include <fcntl.h>
 # include <math.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <stdio.h>
 
 # define SPHERE 0
 # define PLANE 1
@@ -68,7 +69,7 @@ int				new_plane(t_env *env, char **data);
 int				new_ambient(t_env *env, char **data);
 int				new_light(t_env *env, char **data);
 int				new_camera(t_env *env, char **data);
-void			add_back_elem(t_element **elem, t_element *new);
+void			add_back_elem(t_element **elem, t_element *new_elem);
 int				init_element(t_env *env, char *line);
 int				ft_is_float(char *data);
 double			ft_atof(char *num1, char *num2);

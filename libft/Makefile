@@ -1,33 +1,115 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: mmanuell <mmanuell@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2025/01/23 16:50:15 by mgalvez           #+#    #+#              #
+#    Updated: 2025/02/10 18:14:55 by mgalvez          ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
 NAME = libft.a
-SRC_PRINTF = printf
-SRC_GNL = get_next_line
-SRC_DIR = .
-SRC = $(SRC_DIR)/ft_isalpha.c $(SRC_DIR)/ft_putchar_fd.c $(SRC_DIR)/ft_split.c $(SRC_DIR)/ft_strlcpy.c $(SRC_DIR)/ft_strrchr.c \
-	$(SRC_DIR)/ft_atoi.c $(SRC_DIR)/ft_isascii.c $(SRC_DIR)/ft_putendl_fd.c	$(SRC_DIR)/ft_strchr.c	$(SRC_DIR)/ft_strlen.c \
-	$(SRC_DIR)/ft_tolower.c $(SRC_DIR)/ft_calloc.c $(SRC_DIR)/ft_isdigit.c $(SRC_DIR)/ft_putnbr_fd.c $(SRC_DIR)/ft_strdup.c \
-	$(SRC_DIR)/ft_strncmp.c $(SRC_DIR)/ft_toupper.c $(SRC_DIR)/ft_isalnum.c $(SRC_DIR)/ft_isprint.c $(SRC_DIR)/ft_putstr_fd.c \
-	$(SRC_DIR)/ft_strlcat.c $(SRC_DIR)/ft_strnstr.c $(SRC_DIR)/ft_memset.c $(SRC_DIR)/ft_bzero.c $(SRC_DIR)/ft_memcpy.c \
-	$(SRC_DIR)/ft_memmove.c $(SRC_DIR)/ft_memchr.c $(SRC_DIR)/ft_memcmp.c $(SRC_DIR)/ft_substr.c $(SRC_DIR)/ft_strjoin.c \
-	$(SRC_DIR)/ft_strtrim.c $(SRC_DIR)/ft_itoa.c $(SRC_DIR)/ft_strmapi.c $(SRC_DIR)/ft_striteri.c $(SRC_DIR)/ft_free_tab.c \
-	$(SRC_DIR)/ft_lstnew_bonus.c $(SRC_DIR)/ft_lstadd_front_bonus.c $(SRC_DIR)/ft_lstsize_bonus.c \
-    $(SRC_DIR)/ft_lstlast_bonus.c $(SRC_DIR)/ft_lstadd_back_bonus.c $(SRC_DIR)/ft_lstdelone_bonus.c \
-    $(SRC_DIR)/ft_lstclear_bonus.c $(SRC_DIR)/ft_lstiter_bonus.c $(SRC_DIR)/ft_lstmap_bonus.c \
-	$(SRC_DIR)/ft_atoi_base.c $(SRC_DIR)/ft_itoa_base.c $(SRC_DIR)/ft_abs.c  $(SRC_DIR)/ft_strcmp.c $(SRC_DIR)/ft_atol.c \
-	$(SRC_PRINTF)/ft_printf.c $(SRC_PRINTF)/ft_print_hexa.c $(SRC_PRINTF)/ft_print_nbr.c $(SRC_PRINTF)/ft_printf_str.c $(SRC_PRINTF)/ft_printf_utils.c \
-	$(SRC_GNL)/get_next_line_bonus.c
-OBJ = $(SRC:.c=.o)
 
-.PHONY: all clean fclean re
+SRCS = ft_atoi.c \
+	  ft_atol.c \
+	  ft_bzero.c \
+	  ft_calloc.c \
+	  ft_checkrepeatingnbrs.c \
+	  ft_checksortednmbrs.c \
+	  ft_cut_tabline.c \
+	  ft_freetab.c \
+	  ft_getbiggest.c \
+	  ft_getmult.c \
+	  ft_getnextline.c \
+	  ft_getsmallest.c \
+	  ft_indextab.c \
+	  ft_isalnum.c \
+	  ft_isalpha.c \
+	  ft_isascii.c \
+	  ft_isdigit.c \
+	  ft_isint.c \
+	  ft_isoperator.c \
+	  ft_isprint.c \
+	  ft_isspace.c \
+	  ft_isspacestr.c \
+	  ft_itoa.c \
+	  ft_lstadd_back.c \
+	  ft_lstadd_front.c \
+	  ft_lstclear.c \
+	  ft_lstdelone.c \
+	  ft_lstiter.c \
+	  ft_lstlast.c \
+	  ft_lstmap.c \
+	  ft_lstnew.c \
+	  ft_lstsize.c \
+	  ft_makerngname.c \
+	  ft_makernguint.c \
+	  ft_max.c \
+	  ft_memchr.c \
+	  ft_memcmp.c \
+	  ft_memcpy.c \
+	  ft_memmove.c \
+	  ft_memset.c \
+	  ft_min.c \
+	  ft_nbrlen.c \
+	  ft_printf.c \
+	  ft_pull.c \
+	  ft_push.c \
+	  ft_putaddress.c \
+	  ft_putchar.c \
+	  ft_putendl.c \
+	  ft_putlng.c \
+	  ft_putnbr.c \
+	  ft_putstr.c \
+	  ft_putstr_errnull.c \
+	  ft_putunsint.c \
+	  ft_split.c \
+	  ft_split_free.c \
+	  ft_strchr.c \
+	  ft_strcmp.c \
+	  ft_strdup.c \
+	  ft_striteri.c \
+	  ft_strjoin.c \
+	  ft_strjoin_free.c \
+	  ft_strlcat.c \
+	  ft_strlcpy.c \
+	  ft_strlen.c \
+	  ft_strmapi.c \
+	  ft_strncmp.c \
+	  ft_strnstr.c \
+	  ft_strrchr.c \
+	  ft_strrncmp.c \
+	  ft_strtrim.c \
+	  ft_substr.c \
+	  ft_swap.c \
+	  ft_tabcpy.c \
+	  ft_tablen.c \
+	  ft_tolower.c \
+	  ft_toupper.c \
+	  ft_print_str_tab.c \
+	  ft_strtrim_free.c
 
-all : $(NAME)
+OBJS = ${SRCS:.c=.o}
 
-$(NAME) : $(OBJ) $(OBJBON)
-	ar crs $(NAME) $(OBJ) $(OBJBON)
+INCS = libft.h
 
-clean :
-	rm -f $(OBJ) $(OBJBON)
+CC = cc
 
-fclean : clean
-	rm -f $(NAME)
-re : fclean all
+CFLAGS = -Wall -Werror -Wextra
+
+all: ${NAME}
+
+${NAME}: ${OBJS}
+	ar -rsc ${NAME} ${OBJS}
+
+clean:
+	rm -f ${OBJS}
+
+fclean:	clean
+	rm -f	$(NAME)
+
+re:	fclean all
+
+.PHONY: all clean fclean re bonus

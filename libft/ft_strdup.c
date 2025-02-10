@@ -3,38 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achantra <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mgalvez <mgalvez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/05 17:18:23 by achantra          #+#    #+#             */
-/*   Updated: 2024/11/05 17:18:30 by achantra         ###   ########.fr       */
+/*   Created: 2024/11/13 16:30:07 by mgalvez           #+#    #+#             */
+/*   Updated: 2024/11/13 16:34:35 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include "libft.h"
 
-char	*ft_strdup(const char *s1)
+char	*ft_strdup(const char *s)
 {
-	char	*cp;
-	size_t	len;
+	char	*dst;
+	int		siz;
 
-	len = ft_strlen(s1);
-	cp = malloc(sizeof(char) * (len + 1));
-	if (!cp)
+	siz = ft_strlen(s) + 1;
+	dst = malloc(sizeof(char) * siz);
+	if (!dst)
 		return (NULL);
-	ft_strlcpy(cp, s1, len + 1);
-	return (cp);
+	ft_strlcpy(dst, s, siz);
+	return (dst);
 }
-/*
-int	main(void)
-{
-	printf("%s\n", strdup("Bonjour"));
-	printf("%s\n\n", ft_strdup("Bonjour"));
-
-	printf("%s\n", strdup(""));
-	printf("%s\n\n", ft_strdup(""));
-
-	printf("%s\n", strdup(" "));
-	printf("%s\n\n", ft_strdup(" "));
-
-	return (0);
-}*/

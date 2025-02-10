@@ -3,45 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmanuell <mmanuell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/07 10:11:06 by achantra          #+#    #+#             */
-/*   Updated: 2024/12/05 21:20:35 by achantra         ###   ########.fr       */
+/*   Created: 2024/11/13 16:54:01 by mgalvez           #+#    #+#             */
+/*   Updated: 2025/01/30 14:52:15 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include "libft.h"
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
-	char	*dest;
-	int		i;
-	int		j;
+	char	*dst;
+	size_t	i;
 
-	if (!s1)
-		return (ft_strdup(s2));
-	if (!s2)
-		return (ft_strdup(s1));
-	dest = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
-	if (!dest)
-		return (0);
-	i = 0;
-	while (s1[i])
+	i = ft_strlen(s1) + ft_strlen(s2);
+	if (i == 0)
+		i++;
+	dst = ft_calloc(sizeof(char), i + 1);
+	if (!dst)
+		return (NULL);
+	if (!s1 && !s2)
+		dst = " ";
+	else if (!s1)
+		ft_strlcpy(dst, s2, i + 1);
+	else if (!s2)
+		ft_strlcpy(dst, s1, i + 1);
+	else
 	{
-		dest[i] = s1[i];
-		i ++;
+		ft_strlcpy(dst, s1, i + 1);
+		ft_strlcat(dst, s2, i + 1);
 	}
-	j = 0;
-	while (s2[j])
-	{
-		dest[i + j] = s2[j];
-		j ++;
-	}
-	dest[i + j] = '\0';
-	return (dest);
+	return (dst);
 }
-/*
-int	main(void)
-{
-	printf("%s", ft_strjoin(NULL,"Bonjour"));
-}*/

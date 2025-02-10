@@ -1,45 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atod.c                                          :+:      :+:    :+:   */
+/*   ft_atol.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgalvez <mgalvez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/02 14:18:03 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/02 14:52:03 by achantra         ###   ########.fr       */
+/*   Created: 2024/12/10 11:36:23 by mgalvez           #+#    #+#             */
+/*   Updated: 2024/12/10 11:36:58 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	ft_isspace(int c)
+long	ft_atol(const char *nptr)
 {
-	if (c == ' ' || (c >= '\t' && c <= '\r'))
-		return (1);
-	return (0);
-}
+	int			i;
+	long long	nb;
+	int			sign;
 
-long	ft_atol(const char *str)
-{
-	int		i;
-	long	nb;
-	int		s;
-
-	s = 1;
 	i = 0;
+	sign = 1;
 	nb = 0;
-	while (ft_isspace((int)str[i]))
+	while (ft_isspace(nptr[i]) == 1)
 		i++;
-	if (str[i] == '+' || str[i] == '-')
+	if (nptr[i] == '+' || nptr[i] == '-')
 	{
-		if (str[i] == '-')
-			s = -1;
+		if (nptr[i] == '-')
+			sign *= -1;
 		i++;
 	}
-	while (str[i] >= '0' && str[i] <= '9')
+	while (ft_isdigit(nptr[i]) == 1)
 	{
-		nb = (nb * 10) + ((str[i] - '0'));
+		nb = (nb * 10) + (nptr[i] - 48);
 		i++;
 	}
-	return (s * nb);
+	return (nb * sign);
 }

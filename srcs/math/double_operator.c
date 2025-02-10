@@ -6,11 +6,11 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 11:16:26 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/06 12:06:51 by achantra         ###   ########.fr       */
+/*   Updated: 2025/02/10 16:52:03 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "../../includes/miniRT.h"
 
 int	equal_double(double a, double b)
 {

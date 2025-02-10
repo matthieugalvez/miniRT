@@ -6,11 +6,11 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 11:36:59 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/06 16:42:17 by achantra         ###   ########.fr       */
+/*   Updated: 2025/02/10 16:55:18 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "../../includes/miniRT.h"
 
 int	check_element(t_env *env)
 {
@@ -32,11 +32,11 @@ int	print_image(t_env *env)
 	mlx_destroy_image(env->mlx, env->img.img);
 	env->img.img = mlx_new_image(env->mlx, WIN_W, WIN_H);
 	if (!env->img.img)
-		return (ft_putendl_fd("Error: mlx", 2), clean_env_err(env));
+		return (ft_putendl("Error: mlx", 2), clean_env_err(env));
 	env->img.img_pixels = mlx_get_data_addr(env->img.img,
 			&env->img.bits_per_pixel, &env->img.line_len, &env->img.endian);
 	if (!env->img.img_pixels)
-		return (ft_putendl_fd("Error: mlx", 2), clean_env_err(env));
+		return (ft_putendl("Error: mlx", 2), clean_env_err(env));
 	if (check_element(env))
 		return (1);
 	color_image(env);

@@ -3,51 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmanuell <mmanuell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/06 17:32:18 by achantra          #+#    #+#             */
-/*   Updated: 2024/12/05 21:22:12 by achantra         ###   ########.fr       */
+/*   Created: 2024/11/13 16:37:55 by mgalvez           #+#    #+#             */
+/*   Updated: 2025/01/30 17:06:04 by mmanuell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
+#include <string.h>
 #include "libft.h"
-
-static size_t	ft_min(size_t a, size_t b)
-{
-	if (a > b)
-		return (b);
-	return (a);
-}
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	unsigned int	i;
-	char			*d;
+	char	*dst;
+	size_t	i;
+	size_t	dst_siz;
 
-	if (!s)
-		return (NULL);
-	if (start >= ft_strlen(s))
+	if (ft_strlen(s) <= start || len == 0)
 	{
-		d = malloc (sizeof(char));
-		if (!d)
+		dst = ft_calloc(sizeof(char), 1);
+		if (!dst)
 			return (NULL);
-		d[0] = '\0';
-		return (d);
+		dst[0] = '\0';
+		return (dst);
 	}
-	d = malloc(sizeof(char) * (ft_min(ft_strlen(&s[start]), len) + 1));
-	if (!d)
+	i = ft_strlen(&s[start]);
+	if (i < len)
+		dst_siz = i + 1;
+	else
+		dst_siz = len + 1;
+	dst = ft_calloc(sizeof(char), dst_siz);
+	if (!dst)
 		return (NULL);
-	i = 0;
-	while (i < (unsigned int) len && s[start + i])
-	{
-		d[i] = s[start + i];
-		i ++;
-	}
-	d[i] = '\0';
-	return (d);
+	ft_memcpy(dst, &s[start], dst_siz - 1);
+	dst[dst_siz - 1] = '\0';
+	return (dst);
 }
-/*
-int	main(void)
-{
-	printf("%s\n", ft_substr(NULL, 5, 20));
-}*/

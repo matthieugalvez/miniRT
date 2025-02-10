@@ -3,59 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achantra <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mgalvez <mgalvez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/05 17:11:36 by achantra          #+#    #+#             */
-/*   Updated: 2024/11/05 17:11:50 by achantra         ###   ########.fr       */
+/*   Created: 2024/11/13 14:50:31 by mgalvez           #+#    #+#             */
+/*   Updated: 2024/11/16 14:02:32 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <string.h>
 
-char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
+char	*ft_strnstr(const char *big, const char *little, size_t len)
 {
 	size_t	i;
 	size_t	j;
-	char	*res;
 
-	res = (char *) haystack;
+	if (!little[0])
+		return ((char *)big);
 	i = 0;
-	if (needle[0] == 0)
-		return (res);
-	while (haystack[i] && i < len)
+	j = 0;
+	while (big[i] && i < len)
 	{
-		j = 0;
-		while (i + j < len && needle[j] == haystack[i + j] && haystack[i + j])
-			j += 1;
-		if (!(needle[j]))
-			return (res + i);
-		i += 1;
+		if (little[j] == big[i])
+		{
+			j++;
+			i++;
+			if (!little[j])
+				return (&((char *)big)[i - j]);
+		}
+		else
+		{
+			i = (i - j) + 1;
+			j = 0;
+		}
 	}
-	return (0);
+	return (NULL);
 }
-/*
-int	main(void)
-{
-	printf("%s\n", strnstr("BONJOUR", "", 2));
-	printf("%s\n\n", ft_strnstr("BONJOUR", "", 2));
-	
-	printf("%s\n", strnstr("BONJOUR", "NJ", 4));
-        printf("%s\n\n", ft_strnstr("BONJOUR", "NJ", 4));
-	
- 	printf("%s\n", strnstr("BONJOUR", "NJ", 3));
-        printf("%s\n\n", ft_strnstr("BONJOUR", "NJ", 3));
-
-	printf("%s\n", strnstr("BONJOUR", "O", 2));
-        printf("%s\n\n", ft_strnstr("BONJOUR", "O", 2));
-	
-	printf("%s\n", strnstr("", "O", 2));
-        printf("%s\n\n", ft_strnstr("", "O", 2));
-
-	printf("%s\n", strnstr("", "", 2));
-        printf("%s\n\n", ft_strnstr("", "", 2));
-
-	printf("%s\n", strnstr("BONJOUR", "", 0));
-        printf("%s\n\n", ft_strnstr("BONJOUR", "", 0));
-
-	return (0);
-}*/

@@ -3,49 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgalvez <mgalvez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/04 12:58:26 by achantra          #+#    #+#             */
-/*   Updated: 2024/12/05 21:21:12 by achantra         ###   ########.fr       */
+/*   Created: 2024/11/13 13:43:34 by mgalvez           #+#    #+#             */
+/*   Updated: 2024/11/18 12:17:34 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <string.h>
 
 char	*ft_strchr(const char *s, int c)
 {
-	int		i;
-	char	*res;
+	int	i;
 
-	res = (char *) s;
+	c %= 256;
 	i = 0;
-	while (s[i])
+	while (s[i] || c == 0)
 	{
-		if ((unsigned char) s[i] == (unsigned char) c)
-			return (res + i);
-		i += 1;
+		if (s[i] == c)
+			return ((char *)&s[i]);
+		i++;
 	}
-	if ((unsigned char) s[i] == (unsigned char) c)
-		return (res + i);
-	return (0);
+	return (NULL);
 }
-/*
-int	main(void)
-{
-	printf("%s\n", strchr("BONJOUR", 'O'));
-	printf("%s\n\n", ft_strchr("BONJOUR", 'O'));
-	
-	printf("%s\n", strchr("BONJOUR", '\0'));
-        printf("%s\n\n", ft_strchr("BONJOUR", '\0'));
-	
- 	printf("%s\n", strchr("", 'N'));
-        printf("%s\n\n", ft_strchr("", 'N'));
-
-	printf("%s\n", strchr("BONJOUR", 'W'));
-        printf("%s\n\n", ft_strchr("BONJOUR", 'W'));
-	
-	printf("%s\n", strchr("", '\0'));
-        printf("%s\n\n", ft_strchr("", '\0'));
-
-	return (0);
-}*/

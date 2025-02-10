@@ -3,55 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgalvez <mgalvez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/04 12:51:02 by achantra          #+#    #+#             */
-/*   Updated: 2024/11/13 20:23:25 by achantra         ###   ########.fr       */
+/*   Created: 2024/11/13 15:22:16 by mgalvez           #+#    #+#             */
+/*   Updated: 2024/11/27 15:30:17 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	ft_isspace(int c)
+int	ft_atoi(const char *nptr)
 {
-	if (c == ' ' || (c >= '\t' && c <= '\r'))
-		return (1);
-	return (0);
-}
+	int		i;
+	long	nb;
+	int		sign;
 
-int	ft_atoi(const char *str)
-{
-	int	i;
-	int	nb;
-	int	s;
-
-	s = 1;
 	i = 0;
+	sign = 1;
 	nb = 0;
-	while (ft_isspace((int)str[i]))
+	while (ft_isspace(nptr[i]) == 1)
 		i++;
-	if (str[i] == '+' || str[i] == '-')
+	if (nptr[i] == '+' || nptr[i] == '-')
 	{
-		if (str[i] == '-')
-			s = -1;
+		if (nptr[i] == '-')
+			sign *= -1;
 		i++;
 	}
-	while (str[i] >= '0' && str[i] <= '9')
+	while (ft_isdigit(nptr[i]) == 1)
 	{
-		nb = (nb * 10) + ((str[i] - '0'));
+		nb = (nb * 10) + (nptr[i] - 48);
 		i++;
 	}
-	return (s * nb);
+	return (nb * sign);
 }
-
-/*int	main(void)
-{
-	printf("%d\n", atoi("  \n-2147483648bcd45"));
-	printf("%d\n\n", ft_atoi("  \n-2147483648bcd45"));
-	printf("%d\n", atoi("  \n\t\v\f\r456"));
-	printf("%d\n\n", ft_atoi("  \n\t\v\f\r456"));
-	printf("%d\n", atoi(" u+56"));
-	printf("%d\n\n", ft_atoi(" u+56"));
-	printf("%d\n", atoi(" +2147483647"));
-		printf("%d\n\n", ft_atoi(" +2147483647"));
-}*/

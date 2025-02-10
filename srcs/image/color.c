@@ -6,11 +6,11 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 12:39:22 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/06 12:11:23 by achantra         ###   ########.fr       */
+/*   Updated: 2025/02/10 16:48:50 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "../../includes/miniRT.h"
 
 int	rgb_to_hexa(t_color *color)
 {

@@ -6,11 +6,11 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 19:21:11 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/02 15:31:14 by achantra         ###   ########.fr       */
+/*   Updated: 2025/02/10 17:02:44 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "../../includes/miniRT.h"
 
 int	ft_is_color(char *data)
 {
@@ -67,5 +67,5 @@ t_color	*parse_color(char *data)
 	if (!num)
 		return (perror("Error"), NULL);
 	color = ft_color(num[0], num[1], num[2]);
-	return (ft_free_tab(num), color);
+	return (ft_freetab(num), color);
 }

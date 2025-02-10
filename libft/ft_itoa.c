@@ -3,48 +3,60 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgalvez <mgalvez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/07 12:14:03 by achantra          #+#    #+#             */
-/*   Updated: 2024/12/16 16:47:18 by achantra         ###   ########.fr       */
+/*   Created: 2024/11/14 16:50:40 by mgalvez           #+#    #+#             */
+/*   Updated: 2024/11/27 15:37:34 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <stdlib.h>
+
+static int	ft_nbrsize(long nb)
+{
+	int	nbr_size;
+
+	nbr_size = 0;
+	if (nb < 0)
+	{
+		nbr_size++;
+		nb *= -1;
+	}
+	if (nb == 0)
+		nbr_size++;
+	while (nb > 0)
+	{
+		nbr_size++;
+		nb /= 10;
+	}
+	return (nbr_size + 1);
+}
 
 char	*ft_itoa(int n)
 {
-	int		len;
-	int		q;
-	char	*nb;
+	int		i;
+	long	nb;
+	char	*nbr;
 
-	len = 1;
-	q = n;
-	while (q > 9 || q < -9)
-	{
-		q = q / 10;
-		len ++;
-	}
-	if (n < 0)
-		len ++;
-	nb = malloc (sizeof(char) * (len + 1));
-	if (!nb)
+	nb = (long)n;
+	i = ft_nbrsize(nb);
+	nbr = malloc(sizeof(char) * i);
+	if (!nbr)
 		return (NULL);
-	nb[len] = '\0';
-	while (len-- > 0)
+	if (nb < 0)
 	{
-		nb[len] = ft_abs((n % 10)) + '0';
-		n = n / 10;
+		nbr[0] = '-';
+		nb *= -1;
 	}
-	if (nb[0] == '0' && nb[1])
-		nb[0] = '-';
-	return (nb);
+	i--;
+	nbr[i] = '\0';
+	i--;
+	while (nb >= 10)
+	{
+		nbr[i] = (nb % 10) + 48;
+		i--;
+		nb /= 10;
+	}
+	nbr[i] = nb + 48;
+	return (nbr);
 }
-/*
-int	main(void)
-{
-	printf("%s\n", ft_itoa(0));
-	printf("%s\n", ft_itoa(-2147483648));
-	printf("%s\n", ft_itoa(2147483647));
-	printf("%s\n", ft_itoa(12));
-}*/
