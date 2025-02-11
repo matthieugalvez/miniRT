@@ -6,7 +6,7 @@
 #    By: achantra <achantra@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/31 15:30:48 by achantra          #+#    #+#              #
-#    Updated: 2025/02/11 13:29:55 by mgalvez          ###   ########.fr        #
+#    Updated: 2025/02/11 13:35:18 by mgalvez          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,6 +44,8 @@ OBJS	= ${addprefix ${OBJS_DIR}/, ${OBJS_LST}}
 LIBFT	= ${LIBFT_DIR}/libft.a
 MLX		= ${MLX_DIR}/libmlx_Linux.a
 
+INCS_PARAM = -I ${INCS_DIR} -I ${LIBFT_DIR} -I ${MLX_DIR}
+
 #BONUS = 
 #BONUS_SRCS = ${addprefix ${BONUS_PATH}, ${BONUS}}
 #BONUS_OBJS = ${BONUS_SRCS:.c=.o}
@@ -57,15 +59,15 @@ END			= \033[0m
 all: ${NAME}
 
 ${NAME}: libft ${OBJS}
-	@ ${CC} ${CFLAGS} ${LIBS} ${OBJS} ${LIBFT} ${MLX} -I {INCS_DIR} -I {LIBFT_DIR} -I {MLX_DIR} -o $@
+	@ ${CC} ${CFLAGS} ${LIBS} ${INCS_PARAM} ${OBJS} ${LIBFT} ${MLX} -o $@
 	@ printf "${ERASE}${GREEN}$@ made\n${END}"
 
 fsanitize: libft ${OBJS}
-	@ ${CC} ${CFLAGS} ${LIBS} ${OBJS} ${LIBFT} ${MLX} -I {INCS_DIR} -I {LIBFT_DIR} -I {MLX_DIR} -o $@ -fsanitize=leak
+	@ ${CC} ${CFLAGS} ${LIBS} ${INCS_PARAM} ${OBJS} ${LIBFT} ${MLX} -o $@ -fsanitize=leak
 	@ printf "${ERASE}${GREEN}$@ made\n${END}"
 
 g3: libft ${OBJS}
-	@ ${CC} ${CFLAGS} ${LIBS} ${OBJS} ${LIBFT} ${MLX} -I {INCS_DIR} -I {LIBFT_DIR} -I {MLX_DIR} -o $@ -g3
+	@ ${CC} ${CFLAGS} ${LIBS} ${INCS_PARAM} ${OBJS} ${LIBFT} ${MLX} -o $@ -g3
 	@ printf "${ERASE}${GREEN}$@ made\n${END}"
 
 libft:
@@ -79,7 +81,7 @@ ${OBJS_DIR}/%.o: ${SRCS_DIR}/%.c
 	@ mkdir -p ${OBJS_DIR}/intersection
 	@ mkdir -p ${OBJS_DIR}/math
 	@ mkdir -p ${OBJS_DIR}/parsing
-	@ ${CC} ${FLAGS} -c -o $@ $<
+	@ ${CC} ${FLAGS} ${INCS_PARAM} -c -o $@ $<
 	@ printf "${ERASE}${BLUE} > compilation: ${END}$<"
 
 #bonus: ${LIBFT} ${MINILIBX} ${OBJ} ${OBJ_BONUS}

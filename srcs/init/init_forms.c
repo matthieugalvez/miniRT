@@ -6,11 +6,11 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 17:21:35 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/10 17:01:22 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/11 13:39:52 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/miniRT.h"
+#include "miniRT.h"
 
 t_element	*init_form(void)
 {

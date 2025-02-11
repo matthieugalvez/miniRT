@@ -6,11 +6,11 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 20:00:53 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/10 17:02:57 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/11 13:40:46 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/miniRT.h"
+#include "miniRT.h"
 
 int	count_coma(char *data)
 {

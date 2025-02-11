@@ -6,11 +6,11 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/02 11:48:37 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/10 17:03:05 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/11 13:40:51 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/miniRT.h"
+#include "miniRT.h"
 
 double	parse_ratio(char *data)
 {

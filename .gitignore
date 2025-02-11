@@ -35,6 +35,9 @@
 *.i*86
 *.x86_64
 *.hex
+miniRT
+fsanitize
+g3
 
 # Debug files
 *.dSYM/
@@ -54,7 +57,9 @@ dkms.conf
 # IDE files
 *.swp
 *.cswp
+*.json
 .vscode
+.cache
 
 # mlx header
 mlx.h

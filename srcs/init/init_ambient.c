@@ -6,11 +6,11 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 17:22:45 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/10 16:57:10 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/11 13:39:27 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/miniRT.h"
+#include "miniRT.h"
 
 /*
 	- A(u) :

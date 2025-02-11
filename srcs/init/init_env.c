@@ -6,11 +6,11 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 12:44:19 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/10 17:00:51 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/11 13:39:44 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/miniRT.h"
+#include "miniRT.h"
 
 void	init_env(t_env	*env)
 {

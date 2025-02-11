@@ -6,15 +6,15 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 15:37:52 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/11 13:12:21 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/11 13:31:10 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINIRT_H
 # define MINIRT_H
 
-# include "../libft/libft.h"
-# include "../mlx_linux/mlx.h"
+# include "libft.h"
+# include "mlx.h"
 # include "struct.h"
 # include <fcntl.h>
 # include <math.h>

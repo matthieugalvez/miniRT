@@ -6,14 +6,12 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 12:33:04 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/10 16:47:24 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/11 13:41:58 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCT_H
 # define STRUCT_H
-
-# include "../libft/libft.h"
 
 typedef struct s_color
 {
