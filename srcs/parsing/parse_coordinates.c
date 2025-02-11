@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 20:00:53 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/11 13:40:46 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/11 20:10:37 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	count_coma(char *data)
 	return (n_coma);
 }
 
-int	check_coordinates(t_coordinates *coord, char **num, char c)
+static int	check_coordinates(t_coordinates *coord, char **num, char c)
 {
 	if (ft_strlen(num[0]) > 11 || ft_strlen(num[1]) > 11)
 		return (1);
@@ -48,7 +48,7 @@ int	check_coordinates(t_coordinates *coord, char **num, char c)
 	return (0);
 }
 
-t_coordinates	*ft_coordinates(char *num1, char *num2, char *num3)
+static t_coordinates	*ft_coordinates(char *num1, char *num2, char *num3)
 {
 	t_coordinates	*coord;
 	char			**num;
@@ -60,19 +60,22 @@ t_coordinates	*ft_coordinates(char *num1, char *num2, char *num3)
 	if (!num)
 		return (perror("Error"), NULL);
 	if (check_coordinates(coord, num, 'x'))
-		return (ft_freetab(num), free(coord), print_data_err("coord"), NULL);
+		return (ft_freetab(num), free(coord),
+			ft_putstr("Error: wrong data: coord\n", 2), NULL);
 	ft_freetab(num);
 	num = ft_split(num2, '.');
 	if (!num)
 		return (perror("Error"), NULL);
 	if (check_coordinates(coord, num, 'y'))
-		return (ft_freetab(num), free(coord), print_data_err("coord"), NULL);
+		return (ft_freetab(num), free(coord),
+			ft_putstr("Error: wrong data: coord\n", 2), NULL);
 	ft_freetab(num);
 	num = ft_split(num3, '.');
 	if (!num)
 		return (perror("Error"), NULL);
 	if (check_coordinates(coord, num, 'z'))
-		return (ft_freetab(num), free(coord), print_data_err("coord"), NULL);
+		return (ft_freetab(num), free(coord),
+			ft_putstr("Error: wrong data: coord\n", 2), NULL);
 	return (ft_freetab(num), coord);
 }
 
@@ -82,12 +85,13 @@ t_coordinates	*parse_coordinates(char *data)
 	char			**num;
 
 	if (count_coma(data) != 2)
-		return (print_data_err("coord"), NULL);
+		return (ft_putstr("Error: wrong data: coord\n", 2), NULL);
 	num = ft_split(data, ',');
 	if (!num)
 		return (perror("Error"), NULL);
 	if (!ft_is_float(num[0]) || !ft_is_float(num[1]) || !ft_is_float(num[2]))
-		return (ft_freetab(num), print_data_err("coord"), NULL);
+		return (ft_freetab(num),
+			ft_putstr("Error: wrong data: coord\n", 2), NULL);
 	coord = ft_coordinates(num[0], num[1], num[2]);
 	return (ft_freetab(num), coord);
 }
@@ -98,20 +102,23 @@ t_coordinates	*parse_vector(char *data)
 	char			**num;
 
 	if (count_coma(data) != 2)
-		return (print_data_err("vector"), NULL);
+		return (ft_putstr("Error: wrong data: vector\n", 2), NULL);
 	num = ft_split(data, ',');
 	if (!num)
 		return (perror("Error"), NULL);
 	if (!ft_is_float(num[0]) || !ft_is_float(num[1]) || !ft_is_float(num[2]))
-		return (ft_freetab(num), print_data_err("vector"), NULL);
+		return (ft_freetab(num),
+			ft_putstr("Error: wrong data: vector\n", 2), NULL);
 	vector = ft_coordinates(num[0], num[1], num[2]);
 	if (!vector)
 		return (ft_freetab(num), NULL);
 	if (vector->x < -1 || vector->y < -1 || vector->z < -1 || vector->x > 1
 		|| vector->y > 1 || vector->z > 1)
-		return (free(vector), ft_freetab(num), print_data_err("vector"), NULL);
+		return (free(vector), ft_freetab(num),
+			ft_putstr("Error: wrong data: vector\n", 2), NULL);
 	if (equal_double(vector->x, 0) && equal_double(vector->y, 0)
 		&& equal_double(vector->z, 0))
-		return (free(vector), ft_freetab(num), print_data_err("vector"), NULL);
+		return (free(vector), ft_freetab(num),
+			ft_putstr("Error: wrong data: vector\n", 2), NULL);
 	return (ft_freetab(num), vector);
 }

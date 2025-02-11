@@ -6,21 +6,21 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/02 13:24:42 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/11 13:38:05 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/11 20:17:58 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-void	clean_element(t_env *env)
+static void	clean_element(t_env *env)
 {
 	clean_ambient(env->amb);
 	clean_light(env->light);
 	clean_camera(env->camera);
-	clean_form(env->form);
+	clean_figure(env->figure);
 }
 
-void	clean_mlx(t_env *env)
+static void	clean_mlx(t_env *env)
 {
 	if (env->mlx)
 	{
@@ -33,18 +33,10 @@ void	clean_mlx(t_env *env)
 	}
 }
 
-int	clean_env(t_env *env)
+int	clean_env(t_env *env, int exit_code)
 {
 	clean_element(env);
 	clean_mlx(env);
-	exit (0);
-	return (0);
-}
-
-int	clean_env_err(t_env *env)
-{
-	clean_element(env);
-	clean_mlx(env);
-	exit (1);
-	return (1);
+	exit (exit_code);
+	return (exit_code);
 }

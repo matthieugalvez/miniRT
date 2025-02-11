@@ -6,24 +6,24 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 11:36:59 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/11 13:39:11 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/11 20:18:31 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-int	check_element(t_env *env)
+static int	check_element(t_env *env)
 {
-	if (env->camera && env->amb && env->light && env->form)
+	if (env->camera && env->amb && env->light && env->figure)
 		return (0);
 	if (!env->camera)
-		print_data_war("camera");
+		ft_putstr("Warning: missing camera\n", 2);
 	if (!env->amb)
-		print_data_war("ambient lightning");
+		ft_putstr("Warning: missing ambiant light\n", 2);
 	if (!env->light)
-		print_data_war("light");
-	if (!env->form)
-		print_data_war("form");
+		ft_putstr("Warning: missing light\n", 2);
+	if (!env->figure)
+		ft_putstr("Warning: missing figure\n", 2);
 	return (1);
 }
 
@@ -32,11 +32,11 @@ int	print_image(t_env *env)
 	mlx_destroy_image(env->mlx, env->img.img);
 	env->img.img = mlx_new_image(env->mlx, WIN_W, WIN_H);
 	if (!env->img.img)
-		return (ft_putendl("Error: mlx", 2), clean_env_err(env));
+		return (ft_putstr("Error: mlx\n", 2), clean_env(env, 1));
 	env->img.img_pixels = mlx_get_data_addr(env->img.img,
 			&env->img.bits_per_pixel, &env->img.line_len, &env->img.endian);
 	if (!env->img.img_pixels)
-		return (ft_putendl("Error: mlx", 2), clean_env_err(env));
+		return (ft_putstr("Error: mlx\n", 2), clean_env(env, 1));
 	if (check_element(env))
 		return (1);
 	color_image(env);

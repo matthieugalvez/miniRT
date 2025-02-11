@@ -6,13 +6,13 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 11:26:30 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/11 13:39:16 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/11 19:22:06 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-void	ft_reinit(t_env *env)
+static void	ft_reinit(t_env *env)
 {
 	env->rot_x = 0;
 	env->rot_y = 0;
@@ -22,7 +22,7 @@ void	ft_reinit(t_env *env)
 int	ft_key(int keysym, t_env *env)
 {
 	if (keysym == KEY_ESC)
-		return (clean_env(env));
+		return (clean_env(env, 0));
 	/*else if (keysym == KEY_PLUS || keysym == KEY_MINUS)
 		ft_zoom(keysym, env);
 	else if (keysym >= KEY_LEFT && keysym <= KEY_DOWN)

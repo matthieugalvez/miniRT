@@ -6,13 +6,13 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 19:21:11 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/11 13:40:40 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/11 20:06:47 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-int	ft_is_color(char *data)
+static int	ft_is_color(char *data)
 {
 	int	i;
 	int	n_coma;
@@ -26,10 +26,8 @@ int	ft_is_color(char *data)
 		if (!ft_isdigit(data[i]))
 		{
 			if (i == 0 || i == len_data - 1 || !(data[i] == ',')
-				|| !ft_isdigit(data[i - 1]))
-				return (print_data_err("color"), 0);
-			else if (n_coma > 1)
-				return (print_data_err("color"), 0);
+				|| !ft_isdigit(data[i - 1]) || n_coma > 1)
+				return (ft_putstr("Error: wrong data: color\n", 2), 0);
 			else
 				n_coma += 1;
 		}
@@ -46,13 +44,13 @@ t_color	*ft_color(char *num1, char *num2, char *num3)
 	if (!color)
 		return (perror("Error"), NULL);
 	if (ft_strlen(num1) > 3 || ft_strlen(num2) > 3 || ft_strlen(num3) > 3)
-		return (free(color), print_data_err("color"), NULL);
+		return (free(color), ft_putstr("Error: wrong data: color\n", 2), NULL);
 	color->r = ft_atoi(num1);
 	color->g = ft_atoi(num2);
 	color->b = ft_atoi(num3);
 	if (color->r > 255 || color->g > 255 || color->b > 255 || color->r < 0
 		|| color->g < 0 || color->b < 0)
-		return (free(color), print_data_err("color"), NULL);
+		return (free(color), ft_putstr("Error: wrong data: color\n", 2), NULL);
 	return (color);
 }
 

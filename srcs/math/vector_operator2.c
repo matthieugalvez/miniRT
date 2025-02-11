@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 13:30:17 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/11 13:40:35 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/11 19:45:29 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_coordinates	*new_vec(double x, double y, double z)
 {
 	t_coordinates	*vec;
 
-	vec = malloc(sizeof(t_coordinates));
+	vec = ft_calloc(sizeof(t_coordinates), 1);
 	if (!vec)
 		return (NULL);
 	vec->x = x;
@@ -56,7 +56,7 @@ t_coordinates	*vectorial_prod_vec(t_coordinates v1, t_coordinates v2)
 {
 	t_coordinates	*vec;
 
-	vec = malloc(sizeof(t_coordinates));
+	vec = ft_calloc(sizeof(t_coordinates), 1);
 	if (!vec)
 		return (NULL);
 	vec->x = v1.y * v2.z - v1.z * v2.y;

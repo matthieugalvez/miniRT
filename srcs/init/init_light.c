@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 17:23:59 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/11 13:39:57 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/11 20:04:51 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,25 +19,16 @@
 		∗ (unused in mandatory part)R,G,B colors in range [0-255]: 10, 0, 255
 */
 
-t_light	*init_light(void)
-{
-	t_light	*light;
-
-	light = ft_calloc(sizeof(t_light), 1);
-	if (!light)
-		return (NULL);
-	return (light);
-}
-
 int	new_light(t_env *env, char **data)
 {
 	t_light	*light;
 
 	if (env->light)
-		return (ft_freetab(data), print_data_err("double L"), 1);
-	if (len_tab(data) != 4)
-		return (ft_freetab(data), print_data_err("L"), 1);
-	light = init_light();
+		return (ft_freetab(data),
+			ft_putstr("Error: wrong data: double L\n", 2), 1);
+	if (ft_tablen(data) != 4)
+		return (ft_freetab(data), ft_putstr("Error: wrong data: L\n", 2), 1);
+	light = ft_calloc(sizeof(t_light), 1);
 	if (!light)
 		return (ft_freetab(data), perror("Error"), 1);
 	light->coord = parse_coordinates(data[1]);

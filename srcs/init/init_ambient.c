@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 17:22:45 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/11 13:39:27 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/11 19:59:06 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,25 +18,16 @@
 		* R,G,B colors in range [0-255]: 255, 255, 255
 */
 
-t_amb	*init_ambient(void)
-{
-	t_amb	*amb;
-
-	amb = ft_calloc(sizeof(t_amb), 1);
-	if (!amb)
-		return (NULL);
-	return (amb);
-}
-
 int	new_ambient(t_env *env, char **data)
 {
 	t_amb	*amb;
 
 	if (env->amb)
-		return (ft_freetab(data), print_data_err("double A"), 1);
-	if (len_tab(data) != 3)
-		return (ft_freetab(data), print_data_err("A"), 1);
-	amb = init_ambient();
+		return (ft_freetab(data),
+			ft_putstr("Error: wrong data: double A\n", 2), 1);
+	if (ft_tablen(data) != 3)
+		return (ft_freetab(data), ft_putstr("Error: wrong data: A\n", 2), 1);
+	amb = ft_calloc(sizeof(t_amb), 1);
 	if (!amb)
 		return (ft_freetab(data), perror("Error"), 1);
 	amb->light = parse_ratio(data[1]);

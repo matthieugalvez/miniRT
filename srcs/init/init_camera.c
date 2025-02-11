@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 17:23:23 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/11 13:39:33 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/11 20:00:42 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,7 @@
 	∗ FOV : Horizontal field of view in degrees in range [0,180]: 70
 */
 
-t_camera	*init_camera(void)
-{
-	t_camera	*cam;
-
-	cam = ft_calloc(sizeof(t_camera), 1);
-	if (!cam)
-		return (NULL);
-	return (cam);
-}
-
-int	find_cam_direction(t_camera *cam)
+static int	find_cam_direction(t_camera *cam)
 {
 	t_coordinates	tmp_up;
 
@@ -55,10 +45,11 @@ int	new_camera(t_env *env, char **data)
 	t_camera	*cam;
 
 	if (env->camera)
-		return (ft_freetab(data), print_data_err("double C"), 1);
-	if (len_tab(data) != 4)
-		return (ft_freetab(data), print_data_err("C"), 1);
-	cam = init_camera();
+		return (ft_freetab(data),
+			ft_putstr("Error: wrong data: double C\n", 2), 1);
+	if (ft_tablen(data) != 4)
+		return (ft_freetab(data), ft_putstr("Error: wrong data: C\n", 2), 1);
+	cam = ft_calloc(sizeof(t_camera), 1);
 	if (!cam)
 		return (ft_freetab(data), perror("Error"), 1);
 	cam->coord = parse_coordinates(data[1]);
@@ -75,10 +66,4 @@ int	new_camera(t_env *env, char **data)
 	env->camera = cam;
 	find_viewport(env);
 	return (0);
-}
-
-void	find_viewport(t_env *env)
-{
-	env->vp_w = 2 * tan(env->camera->fov * M_PI / 360);
-	env->vp_h = env->vp_w / env->a_ratio;
 }

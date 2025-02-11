@@ -6,17 +6,17 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 12:08:44 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/11 13:38:20 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/11 20:18:08 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-int	find_ray_direction(int i, int j, t_env *env, t_ray *ray)
+static int	find_ray_direction(int i, int j, t_env *env, t_ray *ray)
 {
 	t_coordinates	*vector;
 
-	vector = malloc(sizeof(t_coordinates));
+	vector = ft_calloc(sizeof(t_coordinates), 1);
 	if (!vector)
 		return (1);
 	vector->x = (((2 * (i + 0.5)) / WIN_W) - 1) * env->vp_w / 2;
@@ -29,52 +29,52 @@ int	find_ray_direction(int i, int j, t_env *env, t_ray *ray)
 	return (0);
 }
 
-void	first_inter(double *position, int *color, t_element *form)
+static void	first_inter(double *position, int *color, t_element *figure)
 {
-	if (form->c_inter)
+	if (figure->c_inter)
 	{
-		if (form->c_inter[0] >= 0 && form->c_inter[0] < *position)
+		if (figure->c_inter[0] >= 0 && figure->c_inter[0] < *position)
 		{
-			*position = form->c_inter[0];
-			*color = rgb_to_hexa(form->color);
+			*position = figure->c_inter[0];
+			*color = rgb_to_hexa(figure->color);
 		}
-		if (form->c_inter[1] >= 0 && form->c_inter[1] < *position)
+		if (figure->c_inter[1] >= 0 && figure->c_inter[1] < *position)
 		{
-			*position = form->c_inter[1];
-			*color = rgb_to_hexa(form->color);
+			*position = figure->c_inter[1];
+			*color = rgb_to_hexa(figure->color);
 		}
 	}
 }
 
-int	first_color(t_env *env, t_ray *ray)
+static int	first_color(t_env *env, t_ray *ray)
 {
-	t_element	*form;
+	t_element	*figure;
 	int			color;
 	double		position;
 
 	position = __DBL_MAX__;
 	color = 0;
-	form = env->form;
-	while (form)
+	figure = env->figure;
+	while (figure)
 	{
-		if (form->c_inter)
+		if (figure->c_inter)
 		{
-			free(form->c_inter);
-			form->c_inter = NULL;
+			free(figure->c_inter);
+			figure->c_inter = NULL;
 		}
-		if (form->id == SPHERE)
-			intersect_sphere(env, form, ray);
-		else if (form->id == CYLINDER)
-			intersect_cylinder(env, form, ray);
-		/*else if (form->id == PLANE)
-			intersect_plane(env, form, ray);*/
-		first_inter(&position, &color, form);
-		form = form->next;
+		if (figure->id == SPHERE)
+			intersect_sphere(env, figure, ray);
+		else if (figure->id == CYLINDER)
+			intersect_cylinder(env, figure, ray);
+		/*else if (figure->id == PLANE)
+			intersect_plane(env, figure, ray);*/
+		first_inter(&position, &color, figure);
+		figure = figure->next;
 	}
 	return (color);
 }
 
-void	my_pixel_put(int i, int j, t_env *env, t_ray *ray)
+static void	my_pixel_put(int i, int j, t_env *env, t_ray *ray)
 {
 	int	offset;
 
@@ -90,9 +90,9 @@ int	color_image(t_env *env)
 	int		j;
 	t_ray	*ray;
 
-	ray = malloc(sizeof(t_ray));
+	ray = ft_calloc(sizeof(t_ray), 1);
 	if (!ray)
-		return (perror("Error:"), clean_env(env));
+		return (perror("Error"), clean_env(env, 1));
 	ray->origin = env->camera->coord;
 	i = 0;
 	while (i < WIN_W)
@@ -101,7 +101,7 @@ int	color_image(t_env *env)
 		while (j < WIN_H)
 		{
 			if (find_ray_direction(i, j, env, ray))
-				return (free(ray), perror("Error:"), clean_env_err(env));
+				return (free(ray), perror("Error"), clean_env(env, 1));
 			my_pixel_put(i, j, env, ray);
 			free(ray->direction);
 			j++;

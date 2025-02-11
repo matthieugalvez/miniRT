@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 12:33:04 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/11 13:41:58 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/11 20:15:57 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ typedef struct s_img
 
 typedef struct s_env
 {
-	t_element			*form;
+	t_element			*figure;
 	t_camera			*camera;
 	t_light				*light;
 	t_amb				*amb;

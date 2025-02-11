@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 21:12:30 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/11 13:37:56 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/11 20:16:07 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,16 +50,16 @@ void	clean_camera(t_camera *cam)
 	}
 }
 
-void	clean_form(t_element *form)
+void	clean_figure(t_element *figure)
 {
 	t_element	*buf;
 
-	if (form)
+	if (figure)
 	{
-		while (form)
+		while (figure)
 		{
-			buf = form;
-			form = form->next;
+			buf = figure;
+			figure = figure->next;
 			if (buf->coord)
 				free(buf->coord);
 			if (buf->vector)

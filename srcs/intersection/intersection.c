@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 13:46:27 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/11 13:40:10 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/11 19:46:23 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	intersect_sphere(t_env *env, t_element *sp, t_ray *ray)
 		root = malloc(sizeof(double) * 2);
 		if (!root)
 			return (perror("Error"), free(ray->direction), free(ray),
-				clean_env_err(env), 1);
+				clean_env(env, 1));
 		root[0] = (-b - sqrt(discriminent)) / (2 * a);
 		root[1] = (-b + sqrt(discriminent)) / (2 * a);
 		sp->c_inter = root;
@@ -39,7 +39,7 @@ int	intersect_sphere(t_env *env, t_element *sp, t_ray *ray)
 	return (0);
 }
 
-void	intersect_disk(t_element *cy, t_ray *ray, double *root)
+static void	intersect_disk(t_element *cy, t_ray *ray, double *root)
 {
 	t_coordinates	c_disk;
 	double			inter;
@@ -96,7 +96,7 @@ int	intersect_cylinder(t_env *env, t_element *cy, t_ray *ray)
 	root = malloc(sizeof(double) * 2);
 	if (!root)
 		return (perror("Error"), free(ray->direction), free(ray),
-			clean_env_err(env), 1);
+			clean_env(env, 1));
 	root[0] = __DBL_MAX__;
 	root[1] = __DBL_MAX__;
 	if (discriminent >= 0)

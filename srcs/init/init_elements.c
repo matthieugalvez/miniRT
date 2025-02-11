@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 15:50:11 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/11 13:39:39 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/11 20:01:16 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,5 @@ int	init_element(t_env *env, char *line)
 		return (new_sphere(env, data));
 	else if (!ft_strcmp(data[0], "pl"))
 		return (new_plane(env, data));
-	return (print_data_err(data[0]), 1);
+	return (ft_printf_fd(2, "Error: wrong data: %s\n", data[0]), 1);
 }

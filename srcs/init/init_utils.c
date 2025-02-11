@@ -6,11 +6,17 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 16:36:06 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/11 13:40:04 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/11 19:42:30 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
+
+void	find_viewport(t_env *env)
+{
+	env->vp_w = 2 * tan(env->camera->fov * M_PI / 360);
+	env->vp_h = env->vp_w / env->a_ratio;
+}
 
 int	ft_is_float(char *data)
 {
@@ -58,19 +64,7 @@ double	ft_atof(char *num1, char *num2)
 	return (integer + decimal);
 }
 
-int	len_tab(char **tab)
-{
-	int	i;
-
-	if (!tab)
-		return (0);
-	i = 0;
-	while (tab[i])
-		i++;
-	return (i);
-}
-
-t_element	*last_elem(t_element *elem)
+static t_element	*last_elem(t_element *elem)
 {
 	t_element	*last;
 
