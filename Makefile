@@ -6,7 +6,7 @@
 #    By: achantra <achantra@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/31 15:30:48 by achantra          #+#    #+#              #
-#    Updated: 2025/02/10 18:22:06 by mgalvez          ###   ########.fr        #
+#    Updated: 2025/02/11 13:29:55 by mgalvez          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,10 +19,8 @@ LIBS	= -lm -lX11 -lXext
 SRCS_DIR	= srcs
 INCS_DIR	= includes
 LIBFT_DIR	= libft
-
-MINILIBX_TAR	= minilibx-linux.tgz
-MINILIBX_DIR	= minilibx-linux
-MINILIBX		= $(MINILIBX_DIR)/libmlx_Linux.a
+MLX_DIR		= mlx_linux
+OBJS_DIR	= .objs
 
 CLEAN_SRCS	= clean_element.c clean_env.c
 IMAGE_SRCS	= cam_ray_tracing.c color.c generate_image.c manage_image.c manage_window.c
@@ -32,55 +30,75 @@ INTRSC_SRCS	= intersection.c
 MATH_SRCS	= double_operator.c vector_operator.c vector_operator2.c
 PARSE_SRCS	= parse_color.c parse_coordinates.c parse_number.c parsing.c print_error.c
 
-SRCS_LST	= $(addprefix clean/, ${CLEAN_SRCS}) \
-			  $(addprefix image/, ${IMAGE_SRCS}) \
-			  $(addprefix init/, ${INIT_SRCS}) \
-			  $(addprefix intersection/, ${INTRSC_SRCS}) \
-			  $(addprefix math/, ${MATH_SRCS}) \
-			  $(addprefix parsing/, ${PARSE_SRCS}) \
-			  main.c \
-			  debug.c
+SRCS_LST	= ${addprefix clean/, ${CLEAN_SRCS}} \
+			  ${addprefix image/, ${IMAGE_SRCS}} \
+			  ${addprefix init/, ${INIT_SRCS}} \
+			  ${addprefix intersection/, ${INTRSC_SRCS}} \
+			  ${addprefix math/, ${MATH_SRCS}} \
+			  ${addprefix parsing/, ${PARSE_SRCS}} \
+			  main.c debug.c
+OBJS_LST	= ${SRCS_LST:.c=.o}
 
-SRCS	= $(addprefix ${SRCS_DIR}/, ${SRCS_LST})
-LIBFT	= $(addprefix ${LIBFT_DIR}/, libft.a)
-OBJS	= $(SRCS:.c=.o)
+SRCS	= ${addprefix ${SRCS_DIR}/, ${SRCS_LST}}
+OBJS	= ${addprefix ${OBJS_DIR}/, ${OBJS_LST}}
+LIBFT	= ${LIBFT_DIR}/libft.a
+MLX		= ${MLX_DIR}/libmlx_Linux.a
 
 #BONUS = 
-#BONUS_SRCS = $(addprefix $(BONUS_PATH), $(BONUS))
-#OBJ_BONUS = $(BONUS_SRCS:.c=.o)
+#BONUS_SRCS = ${addprefix ${BONUS_PATH}, ${BONUS}}
+#BONUS_OBJS = ${BONUS_SRCS:.c=.o}
 
-all: $(NAME)
+ERASE		= \033[2K\r
+BLUE		= \033[34m
+YELLOW		= \033[33m
+GREEN		= \033[32m
+END			= \033[0m
 
-$(NAME): $(MINILIBX) $(LIBFT) $(OBJS)
-	$(CC) $(CFLAGS) $(LIBS) $(OBJS) $(MINILIBX) $(LIBFT) -o $@
+all: ${NAME}
 
-fsanitize: $(MINILIBX) $(LIBFT) $(OBJS)
-	$(CC) $(CFLAGS) $(LIBS) $(OBJS) $(MINILIBX) $(LIBFT) -o $@ -fsanitize=leak
+${NAME}: libft ${OBJS}
+	@ ${CC} ${CFLAGS} ${LIBS} ${OBJS} ${LIBFT} ${MLX} -I {INCS_DIR} -I {LIBFT_DIR} -I {MLX_DIR} -o $@
+	@ printf "${ERASE}${GREEN}$@ made\n${END}"
 
-g3: $(MINILIBX) $(LIBFT) $(OBJS)
-	$(CC) $(CFLAGS) $(LIBS) $(OBJS) $(MINILIBX) $(LIBFT) -o $@ -g3
+fsanitize: libft ${OBJS}
+	@ ${CC} ${CFLAGS} ${LIBS} ${OBJS} ${LIBFT} ${MLX} -I {INCS_DIR} -I {LIBFT_DIR} -I {MLX_DIR} -o $@ -fsanitize=leak
+	@ printf "${ERASE}${GREEN}$@ made\n${END}"
 
-$(LIBFT):
-	make -C $(LIBFT_DIR)
+g3: libft ${OBJS}
+	@ ${CC} ${CFLAGS} ${LIBS} ${OBJS} ${LIBFT} ${MLX} -I {INCS_DIR} -I {LIBFT_DIR} -I {MLX_DIR} -o $@ -g3
+	@ printf "${ERASE}${GREEN}$@ made\n${END}"
 
-$(MINILIBX) :
-	tar -xzvf $(MINILIBX_TAR)
-	make -C $(MINILIBX_DIR)
+libft:
+	@ make -C ${LIBFT_DIR}
 
-#bonus: $(LIBFT) $(MINILIBX) $(OBJ) $(OBJ_BONUS)
-#	$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(OBJ_BONUS) $(LIBFT) $(MINILIBX) -lm -lX11 -lXext
+${OBJS_DIR}/%.o: ${SRCS_DIR}/%.c
+	@ mkdir -p ${OBJS_DIR}
+	@ mkdir -p ${OBJS_DIR}/clean
+	@ mkdir -p ${OBJS_DIR}/image
+	@ mkdir -p ${OBJS_DIR}/init
+	@ mkdir -p ${OBJS_DIR}/intersection
+	@ mkdir -p ${OBJS_DIR}/math
+	@ mkdir -p ${OBJS_DIR}/parsing
+	@ ${CC} ${FLAGS} -c -o $@ $<
+	@ printf "${ERASE}${BLUE} > compilation: ${END}$<"
+
+#bonus: ${LIBFT} ${MINILIBX} ${OBJ} ${OBJ_BONUS}
+#	${CC} ${CFLAGS} -o ${NAME} ${OBJ} ${OBJ_BONUS} ${LIBFT} ${MINILIBX} -lm -lX11 -lXext
 
 clean:
-	rm -f $(OBJS)
-# rm -f $(OBJ_BONUS)
-	make clean -C $(LIBFT_DIR)
-#	if [ -d $(MINILIBXDIR) ]; then make clean -C $(MINILIBXDIR); fi
+	@ make clean -C ${LIBFT_DIR}
+	@ rm -rf ${OBJS_DIR}
+	@ printf "${YELLOW}${OBJS_DIR} removed\n${END}"
+#	rm -f ${OBJ_BONUS}
+#	if [ -d ${MINILIBXDIR} ]; then make clean -C ${MINILIBXDIR}; fi
 
-fclean: clean
-	rm -f $(NAME) fsanitize g3
-	rm -rf $(MINILIBX_DIR)
-	make fclean -C $(LIBFT_DIR)
+fclean:
+	@ make fclean -C ${LIBFT_DIR}
+	@ rm -rf ${OBJS_DIR}
+	@ printf "${YELLOW}${OBJS_DIR} removed\n${END}"
+	@ rm -f ${NAME} fsanitize g3
+	@ printf "${YELLOW}binary removed\n${END}"
 
 re: fclean all
 
-.PHONY: all clean fclean re fsanitize g3
+.PHONY: all fsanitize g3 libft clean fclean re

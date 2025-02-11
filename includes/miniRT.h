@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 15:37:52 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/10 16:53:35 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/11 13:12:21 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define MINIRT_H
 
 # include "../libft/libft.h"
-# include "../minilibx-linux/mlx.h"
+# include "../mlx_linux/mlx.h"
 # include "struct.h"
 # include <fcntl.h>
 # include <math.h>
