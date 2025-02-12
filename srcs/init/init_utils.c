@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 16:36:06 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/11 19:42:30 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/12 18:33:41 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,31 @@ void	find_viewport(t_env *env)
 {
 	env->vp_w = 2 * tan(env->camera->fov * M_PI / 360);
 	env->vp_h = env->vp_w / env->a_ratio;
+}
+
+t_coordinates	*parse_vector(char *data)
+{
+	t_coordinates	*vector;
+	char			**num;
+
+	vector = parse_coordinates(data);
+	if (!vector)
+		return (NULL);
+	if (vector->x < -1 || vector->y < -1 || vector->z < -1
+		|| vector->x > 1 || vector->y > 1 || vector->z > 1)
+	{
+		free(vector);
+		ft_putstr("Error: wrong data: vector\n", 2);
+		return (NULL);
+	}
+	if (equal_double(vector->x, 0) && equal_double(vector->y, 0)
+		&& equal_double(vector->z, 0))
+	{
+		free(vector);
+		ft_putstr("Error: wrong data: vector\n", 2);
+		return (NULL);
+	}
+	return (vector);
 }
 
 int	ft_is_float(char *data)
@@ -46,45 +71,25 @@ int	ft_is_float(char *data)
 	return (1);
 }
 
-double	ft_atof(char *num1, char *num2)
-{
-	int		len_num2;
-	double	integer;
-	double	decimal;
-
-	if (!num2)
-		return (ft_atol(num1));
-	len_num2 = 0;
-	while (num2[len_num2])
-		len_num2++;
-	integer = (double) ft_atol(num1);
-	decimal = ft_atol(num2) / pow(10, len_num2);
-	if (integer < 0)
-		decimal *= -1;
-	return (integer + decimal);
-}
-
 static t_element	*last_elem(t_element *elem)
 {
 	t_element	*last;
 
-	if (!elem)
-		return (NULL);
 	last = elem;
 	while (last->next)
 		last = last->next;
 	return (last);
 }
 
-void	add_back_elem(t_element **elem, t_element *new)
+void	add_back_elem(t_element **elem, t_element *new_elem)
 {
 	t_element	*last;
 
 	if (!elem || !*elem)
-		*elem = new;
+		*elem = new_elem;
 	else
 	{
 		last = last_elem(*elem);
-		last->next = new;
+		last->next = new_elem;
 	}
 }

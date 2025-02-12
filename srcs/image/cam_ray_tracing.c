@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 12:08:44 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/11 20:18:08 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/12 18:19:46 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ static int	find_ray_direction(int i, int j, t_env *env, t_ray *ray)
 	vector->x = (((2 * (i + 0.5)) / WIN_W) - 1) * env->vp_w / 2;
 	vector->y = (1 - (2 * (j + 0.5)) / WIN_H) * env->vp_h / 2;
 	vector->z = -1;
-	*(vector) = add_vec(multiply_vec(*(env->camera->dir_up), vector->y),
-			add_vec(*(env->camera->dir), multiply_vec(*(env->camera->dir_right),
+	*(vector) = add_vec(mult_vec(*(env->camera->dir_up), vector->y),
+			add_vec(*(env->camera->dir), mult_vec(*(env->camera->dir_right),
 					vector->x)));
 	ray->direction = vector;
 	return (0);
@@ -31,18 +31,15 @@ static int	find_ray_direction(int i, int j, t_env *env, t_ray *ray)
 
 static void	first_inter(double *position, int *color, t_element *figure)
 {
-	if (figure->c_inter)
+	if (figure->c_inter[0] >= 0 && figure->c_inter[0] < *position)
 	{
-		if (figure->c_inter[0] >= 0 && figure->c_inter[0] < *position)
-		{
-			*position = figure->c_inter[0];
-			*color = rgb_to_hexa(figure->color);
-		}
-		if (figure->c_inter[1] >= 0 && figure->c_inter[1] < *position)
-		{
-			*position = figure->c_inter[1];
-			*color = rgb_to_hexa(figure->color);
-		}
+		*position = figure->c_inter[0];
+		*color = rgb_to_hexa(figure->color);
+	}
+	if (figure->c_inter[1] >= 0 && figure->c_inter[1] < *position)
+	{
+		*position = figure->c_inter[1];
+		*color = rgb_to_hexa(figure->color);
 	}
 }
 
@@ -57,11 +54,7 @@ static int	first_color(t_env *env, t_ray *ray)
 	figure = env->figure;
 	while (figure)
 	{
-		if (figure->c_inter)
-		{
-			free(figure->c_inter);
-			figure->c_inter = NULL;
-		}
+		ft_bzero(&figure->c_inter[0], sizeof(double) * 2);
 		if (figure->id == SPHERE)
 			intersect_sphere(env, figure, ray);
 		else if (figure->id == CYLINDER)

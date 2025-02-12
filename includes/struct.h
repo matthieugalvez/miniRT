@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 12:33:04 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/11 20:15:57 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/12 16:59:29 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ typedef struct s_element
 	t_color				*color;
 	double				diameter;
 	double				height;
-	double				*c_inter;
+	double				c_inter[2];
 	struct s_element	*next;
 }						t_element;
 

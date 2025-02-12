@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 21:12:30 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/11 20:16:07 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/12 17:49:50 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,6 @@ void	clean_figure(t_element *figure)
 				free(buf->vector);
 			if (buf->color)
 				free(buf->color);
-			if (buf->c_inter)
-				free(buf->c_inter);
 			free(buf);
 		}
 	}

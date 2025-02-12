@@ -6,7 +6,7 @@
 #    By: achantra <achantra@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/31 15:30:48 by achantra          #+#    #+#              #
-#    Updated: 2025/02/11 20:21:23 by mgalvez          ###   ########.fr        #
+#    Updated: 2025/02/12 16:44:25 by mgalvez          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,7 +63,7 @@ ${NAME}: libft ${OBJS}
 	@ printf "${ERASE}${GREEN}$@ made\n${END}"
 
 fsanitize: libft ${OBJS}
-	@ ${CC} ${CFLAGS} ${LIBS} ${INCS_PARAM} ${OBJS} ${LIBFT} ${MLX} -o $@ -fsanitize=leak
+	@ ${CC} ${CFLAGS} ${LIBS} ${INCS_PARAM} ${OBJS} ${LIBFT} ${MLX} -o $@ -fsanitize=address
 	@ printf "${ERASE}${GREEN}$@ made\n${END}"
 
 g3: libft ${OBJS}

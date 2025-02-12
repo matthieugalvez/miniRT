@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 19:21:11 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/11 20:06:47 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/12 16:38:27 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,11 @@ t_color	*ft_color(char *num1, char *num2, char *num3)
 {
 	t_color	*color;
 
-	color = malloc(sizeof(t_color));
+	if (ft_strlen(num1) > 3 || ft_strlen(num2) > 3 || ft_strlen(num3) > 3)
+		return (ft_putstr("Error: wrong data: color\n", 2), NULL);
+	color = ft_calloc(sizeof(t_color), 1);
 	if (!color)
 		return (perror("Error"), NULL);
-	if (ft_strlen(num1) > 3 || ft_strlen(num2) > 3 || ft_strlen(num3) > 3)
-		return (free(color), ft_putstr("Error: wrong data: color\n", 2), NULL);
 	color->r = ft_atoi(num1);
 	color->g = ft_atoi(num2);
 	color->b = ft_atoi(num3);

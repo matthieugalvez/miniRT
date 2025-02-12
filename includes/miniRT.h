@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 15:37:52 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/11 20:15:44 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/12 18:41:55 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,13 +70,11 @@ int				new_ambient(t_env *env, char **data);
 int				new_light(t_env *env, char **data);
 void			find_viewport(t_env *env);
 int				ft_is_float(char *data);
-double			ft_atof(char *num1, char *num2);
 void			add_back_elem(t_element **elem, t_element *new_elem);
 
 // PARSING
 int				check_entry(int ac, char **av);
 int				parse_file(char *path, t_env *env);
-int				count_coma(char *data);
 t_color			*ft_color(char *num1, char *num2, char *num3);
 t_color			*parse_color(char *data);
 t_coordinates	*parse_coordinates(char *data);
@@ -109,9 +107,9 @@ int				intersect_cylinder(t_env *env, t_element *cy, t_ray *ray);
 t_coordinates	*new_vec(double x, double y, double z);
 t_coordinates	change_vec(double x, double y, double z);
 t_coordinates	add_vec(t_coordinates v1, t_coordinates v2);
-t_coordinates	substract_vec(t_coordinates v1, t_coordinates v2);
-t_coordinates	multiply_vec(t_coordinates v, double fact);
-t_coordinates	divide_vec(t_coordinates v, double fact);
+t_coordinates	sub_vec(t_coordinates v1, t_coordinates v2);
+t_coordinates	mult_vec(t_coordinates v, double fact);
+t_coordinates	div_vec(t_coordinates v, double fact);
 double			scalar_prod_vec(t_coordinates v1, t_coordinates v2);
 double			norm_vec(t_coordinates vector);
 void			normalize_vec(t_coordinates *vector);

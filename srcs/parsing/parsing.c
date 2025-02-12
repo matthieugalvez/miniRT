@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 16:49:38 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/11 19:50:04 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/12 17:52:02 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,7 @@ int	parse_file(char *path, t_env *env)
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
 		return (perror(path), 1);
-	else if (fill_env(fd, env))
-		return (1);
-	return (0);
+	return (fill_env(fd, env));
 }
 
 // Check the entry
