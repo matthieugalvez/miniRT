@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 12:08:44 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/13 16:57:06 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/13 17:53:15 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@ static void	find_ray_direction(int i, int j, t_env *env, t_coordinates *dir)
 
 static void	first_inter(double *position, int *color, t_element *figure)
 {
-	if (figure->c_inter[0] == 0 && figure->c_inter[1] == 0)
-		return ;
 	if (figure->c_inter[0] >= 0 && figure->c_inter[0] < *position)
 	{
 		*position = figure->c_inter[0];
@@ -49,7 +47,8 @@ static int	first_color(t_env *env, t_ray *ray)
 	figure = env->figure;
 	while (figure)
 	{
-		ft_bzero(&figure->c_inter[0], sizeof(double) * 2);
+		figure->c_inter[0] = __DBL_MAX__;
+		figure->c_inter[1] = __DBL_MAX__;
 		if (figure->id == SPHERE)
 			intersect_sphere(env, figure, ray);
 		else if (figure->id == CYLINDER)

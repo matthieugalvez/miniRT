@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 13:46:27 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/13 16:53:08 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/13 17:52:24 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,15 +90,10 @@ int	intersect_cylinder(t_env *env, t_element *cy, t_ray *ray)
 				scalar_prod_vec(*(ray->direction), *(cy->vector))));
 	bv = sub_vec(distance, mult_vec(*(cy->vector),
 				scalar_prod_vec(distance, *(cy->vector))));
-	cy->c_inter[0] = __DBL_MAX__;
-	cy->c_inter[1] = __DBL_MAX__;
 	choose_inter(cy, ray, av, bv);
 	intersect_disk(cy, ray,
 		add_vec(*(cy->coord), mult_vec(*(cy->vector), cy->height / 2)));
 	intersect_disk(cy, ray,
 		sub_vec(*(cy->coord), mult_vec(*(cy->vector), cy->height / 2)));
-	if (equal_double(cy->c_inter[0], __DBL_MAX__)
-		&& equal_double(cy->c_inter[1], __DBL_MAX__))
-		ft_bzero(&cy->c_inter[0], sizeof(double) * 2);
 	return (0);
 }
