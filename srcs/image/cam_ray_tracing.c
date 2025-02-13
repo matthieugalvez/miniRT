@@ -6,27 +6,20 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 12:08:44 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/12 18:19:46 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/13 12:54:00 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-static int	find_ray_direction(int i, int j, t_env *env, t_ray *ray)
+static void	find_ray_direction(int i, int j, t_env *env, t_coordinates *dir)
 {
-	t_coordinates	*vector;
-
-	vector = ft_calloc(sizeof(t_coordinates), 1);
-	if (!vector)
-		return (1);
-	vector->x = (((2 * (i + 0.5)) / WIN_W) - 1) * env->vp_w / 2;
-	vector->y = (1 - (2 * (j + 0.5)) / WIN_H) * env->vp_h / 2;
-	vector->z = -1;
-	*(vector) = add_vec(mult_vec(*(env->camera->dir_up), vector->y),
+	dir->x = (((2 * (i + 0.5)) / WIN_W) - 1) * env->vp_w / 2;
+	dir->y = (1 - (2 * (j + 0.5)) / WIN_H) * env->vp_h / 2;
+	dir->z = -1;
+	*(dir) = add_vec(mult_vec(*(env->camera->dir_up), dir->y),
 			add_vec(*(env->camera->dir), mult_vec(*(env->camera->dir_right),
-					vector->x)));
-	ray->direction = vector;
-	return (0);
+					dir->x)));
 }
 
 static void	first_inter(double *position, int *color, t_element *figure)
@@ -79,27 +72,25 @@ static void	my_pixel_put(int i, int j, t_env *env, t_ray *ray)
 
 int	color_image(t_env *env)
 {
-	int		i;
-	int		j;
-	t_ray	*ray;
+	int				i;
+	int				j;
+	t_ray			ray;
+	t_coordinates	direction;
 
-	ray = ft_calloc(sizeof(t_ray), 1);
-	if (!ray)
-		return (perror("Error"), clean_env(env, 1));
-	ray->origin = env->camera->coord;
+	ray.origin = env->camera->coord;
+	ray.direction = &direction;
 	i = 0;
 	while (i < WIN_W)
 	{
 		j = 0;
 		while (j < WIN_H)
 		{
-			if (find_ray_direction(i, j, env, ray))
-				return (free(ray), perror("Error"), clean_env(env, 1));
-			my_pixel_put(i, j, env, ray);
-			free(ray->direction);
+			find_ray_direction(i, j, env, &direction);
+			my_pixel_put(i, j, env, &ray);
+			ft_bzero(&direction, sizeof(t_coordinates));
 			j++;
 		}
 		i++;
 	}
-	return (free(ray), 0);
+	return (0);
 }

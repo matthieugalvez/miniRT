@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 17:23:23 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/11 20:00:42 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/13 13:14:47 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,46 @@ static int	find_cam_direction(t_camera *cam)
 		tmp_up = change_vec(0, 1, 0);
 	cam->dir_right = vectorial_prod_vec(tmp_up, *(cam->dir));
 	if (!cam->dir_right)
-		return (clean_camera(cam), 1);
+	{
+		clean_camera(cam);
+		return (1);
+	}
 	normalize_vec(cam->dir_right);
 	cam->dir_up = vectorial_prod_vec(*(cam->dir), *(cam->dir_right));
 	if (!cam->dir_up)
-		return (clean_camera(cam), 1);
+	{
+		clean_camera(cam);
+		return (1);
+	}
 	normalize_vec(cam->dir_up);
+	return (0);
+}
+
+static int	init_camera(t_camera *cam, char **data)
+{
+	cam->coord = parse_coordinates(data[1]);
+	if (!cam->coord)
+	{
+		clean_camera(cam);
+		ft_freetab(data);
+		return (1);
+	}
+	cam->dir = parse_vector(data[2]);
+	if (!cam->dir)
+	{
+		clean_camera(cam);
+		ft_freetab(data);
+		return (1);
+	}
+	cam->fov = parse_fov(data[3]);
+	if (cam->fov < 0)
+	{
+		clean_camera(cam);
+		ft_freetab(data);
+		return (1);
+	}
+	ft_freetab(data);
+	find_cam_direction(cam);
 	return (0);
 }
 
@@ -44,25 +78,21 @@ int	new_camera(t_env *env, char **data)
 {
 	t_camera	*cam;
 
-	if (env->camera)
-		return (ft_freetab(data),
-			ft_putstr("Error: wrong data: double C\n", 2), 1);
-	if (ft_tablen(data) != 4)
-		return (ft_freetab(data), ft_putstr("Error: wrong data: C\n", 2), 1);
+	if (env->camera || ft_tablen(data) != 4)
+	{
+		ft_freetab(data);
+		ft_putstr("Error: wrong data: camera\n", 2);
+		return (1);
+	}
 	cam = ft_calloc(sizeof(t_camera), 1);
 	if (!cam)
-		return (ft_freetab(data), perror("Error"), 1);
-	cam->coord = parse_coordinates(data[1]);
-	if (!cam->coord)
-		return (clean_camera(cam), ft_freetab(data), 1);
-	cam->dir = parse_vector(data[2]);
-	if (!cam->dir)
-		return (clean_camera(cam), ft_freetab(data), 1);
-	cam->fov = parse_fov(data[3]);
-	if (cam->fov < 0)
-		return (clean_camera(cam), ft_freetab(data), 1);
-	ft_freetab(data);
-	find_cam_direction(cam);
+	{
+		ft_freetab(data);
+		perror("Error");
+		return (1);
+	}
+	if (init_camera(cam, data))
+		return (1);
 	env->camera = cam;
 	find_viewport(env);
 	return (0);

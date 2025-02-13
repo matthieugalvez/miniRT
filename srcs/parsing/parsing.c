@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 16:49:38 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/12 17:52:02 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/13 14:15:29 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,10 @@ int	parse_file(char *path, t_env *env)
 
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
-		return (perror(path), 1);
+	{
+		perror(path);
+		return (1);
+	}
 	return (fill_env(fd, env));
 }
 
@@ -54,11 +57,20 @@ int	check_entry(int ac, char **av)
 	int	len;
 
 	if (ac < 2)
-		return (ft_putstr("Error: Missing file\n", 2), 1);
+	{
+		ft_putstr("Error: Missing file\n", 2);
+		return (1);
+	}
 	else if (ac > 2)
-		return (ft_putstr("Error: Too many arguments\n", 2), 1);
+	{
+		ft_putstr("Error: Too many arguments\n", 2);
+		return (1);
+	}
 	len = ft_strlen(av[1]);
 	if (len < 4 || ft_strncmp(av[1] + (len - 3), ".rt", 3))
-		return (ft_putstr("Error: Wrong file\n", 2), 1);
+	{
+		ft_putstr("Error: Wrong file\n", 2);
+		return (1);
+	}
 	return (0);
 }

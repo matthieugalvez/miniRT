@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 20:00:53 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/12 18:33:46 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/13 14:03:00 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,13 +95,22 @@ t_coordinates	*parse_coordinates(char *data)
 	char			**num;
 
 	if (count_coma(data) != 2)
-		return (ft_putstr("Error: wrong data: coord\n", 2), NULL);
+	{
+		ft_putstr("Error: wrong data: coord\n", 2);
+		return (NULL);
+	}
 	num = ft_split(data, ',');
 	if (!num)
-		return (perror("Error"), NULL);
+	{
+		perror("Error");
+		return (NULL);
+	}
 	if (!ft_is_float(num[0]) || !ft_is_float(num[1]) || !ft_is_float(num[2]))
-		return (ft_freetab(num),
-			ft_putstr("Error: wrong data: coord\n", 2), NULL);
+	{
+		ft_freetab(num);
+		ft_putstr("Error: wrong data: coord\n", 2);
+		return (NULL);
+	}
 	coord = ft_coordinates(num[0], num[1], num[2]);
 	return (ft_freetab(num), coord);
 }

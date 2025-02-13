@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 17:23:59 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/11 20:04:51 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/13 13:39:17 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,27 +19,52 @@
 		∗ (unused in mandatory part)R,G,B colors in range [0-255]: 10, 0, 255
 */
 
+static int	init_light(t_light *light, char **data)
+{
+	light->coord = parse_coordinates(data[1]);
+	if (!light->coord)
+	{
+		clean_light(light);
+		ft_freetab(data);
+		return (1);
+	}
+	light->bright = parse_ratio(data[2]);
+	if (light->bright < 0)
+	{
+		clean_light(light);
+		ft_freetab(data);
+		return (1);
+	}
+	light->color = parse_color(data[3]);
+	if (!light->color)
+	{
+		clean_light(light);
+		ft_freetab(data);
+		return (1);
+	}
+	return (0);
+}
+
 int	new_light(t_env *env, char **data)
 {
 	t_light	*light;
 
-	if (env->light)
-		return (ft_freetab(data),
-			ft_putstr("Error: wrong data: double L\n", 2), 1);
-	if (ft_tablen(data) != 4)
-		return (ft_freetab(data), ft_putstr("Error: wrong data: L\n", 2), 1);
+	if (env->light || ft_tablen(data) != 4)
+	{
+		ft_freetab(data);
+		ft_putstr("Error: wrong data: light source\n", 2);
+		return (1);
+	}
 	light = ft_calloc(sizeof(t_light), 1);
 	if (!light)
-		return (ft_freetab(data), perror("Error"), 1);
-	light->coord = parse_coordinates(data[1]);
-	if (!light->coord)
-		return (clean_light(light), ft_freetab(data), 1);
-	light->bright = parse_ratio(data[2]);
-	if (light->bright < 0)
-		return (clean_light(light), ft_freetab(data), 1);
-	light->color = parse_color(data[3]);
-	if (!light->color)
-		return (clean_light(light), ft_freetab(data), 1);
+	{
+		ft_freetab(data);
+		perror("Error");
+		return (1);
+	}
+	if (init_light(light, data))
+		return (1);
 	env->light = light;
-	return (ft_freetab(data), 0);
+	ft_freetab(data);
+	return (0);
 }
