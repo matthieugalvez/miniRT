@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 20:00:53 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/13 14:03:00 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/13 16:01:02 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,5 +112,6 @@ t_coordinates	*parse_coordinates(char *data)
 		return (NULL);
 	}
 	coord = ft_coordinates(num[0], num[1], num[2]);
-	return (ft_freetab(num), coord);
+	ft_freetab(num);
+	return (coord);
 }

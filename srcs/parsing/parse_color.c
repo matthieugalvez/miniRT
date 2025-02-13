@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 19:21:11 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/13 14:01:41 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/13 16:25:58 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ t_color	*parse_color(char *data)
 	t_color	*color;
 	char	**num;
 
-	ft_printf("%s\n", data);
 	if (!ft_is_color(data))
 		return (NULL);
 	num = ft_split(data, ',');

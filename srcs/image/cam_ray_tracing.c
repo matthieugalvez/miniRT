@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 12:08:44 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/13 12:54:00 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/13 16:57:06 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ static void	find_ray_direction(int i, int j, t_env *env, t_coordinates *dir)
 
 static void	first_inter(double *position, int *color, t_element *figure)
 {
+	if (figure->c_inter[0] == 0 && figure->c_inter[1] == 0)
+		return ;
 	if (figure->c_inter[0] >= 0 && figure->c_inter[0] < *position)
 	{
 		*position = figure->c_inter[0];
