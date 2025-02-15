@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 13:30:17 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/12 16:33:52 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/15 16:28:45 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ double	scalar_prod_vec(t_coordinates v1, t_coordinates v2)
 	return (v1.x * v2.x + v1.y * v2.y + v1.z * v2.z);
 }
 
-double	norm_vec(t_coordinates vector)
+double	get_norm(t_coordinates vector)
 {
 	double	norm;
 
@@ -48,7 +48,7 @@ void	normalize_vec(t_coordinates *vector)
 	if (equal_double(vector->x, 0) && equal_double(vector->y, 0)
 		&& equal_double(vector->z, 0))
 		return ;
-	norm = norm_vec(*(vector));
+	norm = get_norm(*(vector));
 	*vector = div_vec(*vector, norm);
 }
 

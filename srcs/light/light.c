@@ -1,18 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   color.c                                            :+:      :+:    :+:   */
+/*   light.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgalvez <mgalvez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/04 12:39:22 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/15 16:37:52 by mgalvez          ###   ########.fr       */
+/*   Created: 2025/02/15 16:33:10 by mgalvez           #+#    #+#             */
+/*   Updated: 2025/02/15 16:39:35 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-int	rgb_to_hexa(t_color *color)
+void	apply_ambiant(t_color *color, t_amb *amb)
 {
-	return (color->r << 16 | color->g << 8 | color->b);
+	color->r = (color->r + amb->color->r) * amb->light;
+	color->g = (color->g + amb->color->g) * amb->light;
+	color->b = (color->b + amb->color->b) * amb->light;
 }

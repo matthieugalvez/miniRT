@@ -6,33 +6,30 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 12:08:44 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/13 17:53:15 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/15 16:52:33 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-static void	find_ray_direction(int i, int j, t_env *env, t_coordinates *dir)
+static void	first_inter(double *position, t_element *figure,
+						int *color, t_amb *amb)
 {
-	dir->x = (((2 * (i + 0.5)) / WIN_W) - 1) * env->vp_w / 2;
-	dir->y = (1 - (2 * (j + 0.5)) / WIN_H) * env->vp_h / 2;
-	dir->z = -1;
-	*(dir) = add_vec(mult_vec(*(env->camera->dir_up), dir->y),
-			add_vec(*(env->camera->dir), mult_vec(*(env->camera->dir_right),
-					dir->x)));
-}
+	t_color	new_color;
 
-static void	first_inter(double *position, int *color, t_element *figure)
-{
 	if (figure->c_inter[0] >= 0 && figure->c_inter[0] < *position)
 	{
 		*position = figure->c_inter[0];
-		*color = rgb_to_hexa(figure->color);
+		new_color = *figure->color;
+		apply_ambiant(&new_color, amb);
+		*color = rgb_to_hexa(&new_color);
 	}
 	if (figure->c_inter[1] >= 0 && figure->c_inter[1] < *position)
 	{
 		*position = figure->c_inter[1];
-		*color = rgb_to_hexa(figure->color);
+		new_color = *figure->color;
+		apply_ambiant(&new_color, amb);
+		*color = rgb_to_hexa(&new_color);
 	}
 }
 
@@ -55,7 +52,7 @@ static int	first_color(t_env *env, t_ray *ray)
 			intersect_cylinder(env, figure, ray);
 		/*else if (figure->id == PLANE)
 			intersect_plane(env, figure, ray);*/
-		first_inter(&position, &color, figure);
+		first_inter(&position, figure, &color, env->amb);
 		figure = figure->next;
 	}
 	return (color);
@@ -69,6 +66,16 @@ static void	my_pixel_put(int i, int j, t_env *env, t_ray *ray)
 		return ;
 	offset = (env->img.line_len * j) + (i * (env->img.bits_per_pixel / 8));
 	*((unsigned int *)((env->img).img_pixels + offset)) = first_color(env, ray);
+}
+
+static void	find_ray_direction(int i, int j, t_env *env, t_coordinates *dir)
+{
+	dir->x = (((2 * (i + 0.5)) / WIN_W) - 1) * env->vp_w / 2;
+	dir->y = (1 - (2 * (j + 0.5)) / WIN_H) * env->vp_h / 2;
+	dir->z = -1;
+	*(dir) = add_vec(mult_vec(*(env->camera->dir_up), dir->y),
+			add_vec(*(env->camera->dir), mult_vec(*(env->camera->dir_right),
+					dir->x)));
 }
 
 int	color_image(t_env *env)

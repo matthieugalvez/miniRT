@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 13:46:27 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/13 17:52:24 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/15 16:28:33 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,19 @@
 int	intersect_sphere(t_env *env, t_element *sp, t_ray *ray)
 {
 	t_coordinates	distance;
-	double			discriminent;
+	double			discriminant;
 	double			a;
 	double			b;
 
 	distance = sub_vec(*(ray->origin), *(sp->coord));
 	a = scalar_prod_vec(*(ray->direction), *(ray->direction));
 	b = 2.0 * scalar_prod_vec(*(ray->direction), distance);
-	discriminent = b * b - 4 * a * (scalar_prod_vec(distance, distance)
+	discriminant = b * b - 4 * a * (scalar_prod_vec(distance, distance)
 			- (sp->diameter * sp->diameter) / 4);
-	if (discriminent >= 0)
+	if (discriminant >= 0)
 	{
-		sp->c_inter[0] = (-b - sqrt(discriminent)) / (2 * a);
-		sp->c_inter[1] = (-b + sqrt(discriminent)) / (2 * a);
+		sp->c_inter[0] = (-b - sqrt(discriminant)) / (2 * a);
+		sp->c_inter[1] = (-b + sqrt(discriminant)) / (2 * a);
 		return (1);
 	}
 	return (0);
@@ -41,13 +41,24 @@ static void	intersect_disk(t_element *cy, t_ray *ray, t_coordinates c_disk)
 	inter = scalar_prod_vec(sub_vec(c_disk, *(ray->origin)),
 			*(cy->vector)) / scalar_prod_vec(*(ray->direction), *(cy->vector));
 	point = add_vec(*(ray->origin), mult_vec(*(ray->direction), inter));
-	if (pow(norm_vec(sub_vec(point, c_disk)), 2) < pow(cy->diameter / 2, 2))
+	if (pow(get_norm(sub_vec(point, c_disk)), 2) < pow(cy->diameter / 2, 2))
 	{
 		if (equal_double(cy->c_inter[0], __DBL_MAX__))
 			cy->c_inter[0] = inter;
 		else
 			cy->c_inter[1] = inter;
 	}
+}
+
+static void	get_z_loc(t_element *cy, t_ray *ray, double *intersection)
+{
+	double			z_loc;
+
+	z_loc = scalar_prod_vec(add_vec(*(ray->origin),
+				sub_vec(mult_vec(*(ray->direction), *intersection),
+					*(cy->coord))), *(cy->vector));
+	if (z_loc < -cy->height / 2 || z_loc > cy->height / 2)
+		*intersection = __DBL_MAX__;
 }
 
 static void	choose_inter(t_element *cy, t_ray *ray,
@@ -66,17 +77,9 @@ static void	choose_inter(t_element *cy, t_ray *ray,
 	if (discriminent < 0)
 		return ;
 	cy->c_inter[0] = (-b - sqrt(discriminent)) / (2 * a);
+	get_z_loc(cy, ray, &cy->c_inter[0]);
 	cy->c_inter[1] = (-b + sqrt(discriminent)) / (2 * a);
-	z_loc = scalar_prod_vec(add_vec(*(ray->origin),
-				sub_vec(mult_vec(*(ray->direction), cy->c_inter[0]),
-					*(cy->coord))), *(cy->vector));
-	if (z_loc < -cy->height / 2 || z_loc > cy->height / 2)
-		cy->c_inter[0] = __DBL_MAX__;
-	z_loc = scalar_prod_vec(add_vec(*(ray->origin),
-				sub_vec(mult_vec(*(ray->direction), cy->c_inter[1]),
-					*(cy->coord))), *(cy->vector));
-	if (z_loc < -cy->height / 2 || z_loc > cy->height / 2)
-		cy->c_inter[1] = __DBL_MAX__;
+	get_z_loc(cy, ray, &cy->c_inter[1]);
 }
 
 int	intersect_cylinder(t_env *env, t_element *cy, t_ray *ray)
