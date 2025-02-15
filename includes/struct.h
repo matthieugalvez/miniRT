@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 12:33:04 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/12 16:59:29 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/15 17:04:53 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ typedef struct s_light
 
 typedef struct s_amb
 {
-	double				light;
+	double				bright;
 	t_color				*color;
 }						t_amb;
 

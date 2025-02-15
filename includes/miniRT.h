@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 15:37:52 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/15 16:40:13 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/15 19:06:16 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@
 
 # define HEXA "0123456789abcdef"
 
-# define WIN_W 1000
-# define WIN_H 1000
+# define WIN_W 960
+# define WIN_H 1025
 
 # define INCR_TRAN 1
 # define INCR_ROT 0.1
@@ -100,11 +100,12 @@ int				rgb_to_hexa(t_color *color);
 int				color_image(t_env *env);
 
 // INTERSECTION
-int				intersect_sphere(t_env *env, t_element *sp, t_ray *ray);
-int				intersect_cylinder(t_env *env, t_element *cy, t_ray *ray);
+int				intersect_sphere(t_element *sp, t_ray *ray);
+int				intersect_cylinder(t_element *cy, t_ray *ray);
 
 // LIGHT
-void			apply_ambiant(t_color *color, t_amb *amb);
+void			apply_light(t_env *env, t_ray *ray,
+					t_element *figure, t_color *color);
 
 // MATH
 t_coordinates	*new_vec(double x, double y, double z);

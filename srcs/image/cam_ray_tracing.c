@@ -6,31 +6,38 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 12:08:44 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/15 16:52:33 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/15 19:09:55 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-static void	first_inter(double *position, t_element *figure,
-						int *color, t_amb *amb)
+static int	first_inter(t_env *env, t_ray *ray,
+				double *position, t_element *figure)
 {
+	int		color;
+	int		update_color;
 	t_color	new_color;
 
+	color = 0;
+	update_color = 0;
 	if (figure->c_inter[0] >= 0 && figure->c_inter[0] < *position)
 	{
 		*position = figure->c_inter[0];
-		new_color = *figure->color;
-		apply_ambiant(&new_color, amb);
-		*color = rgb_to_hexa(&new_color);
+		update_color = 1;
 	}
 	if (figure->c_inter[1] >= 0 && figure->c_inter[1] < *position)
 	{
 		*position = figure->c_inter[1];
-		new_color = *figure->color;
-		apply_ambiant(&new_color, amb);
-		*color = rgb_to_hexa(&new_color);
+		update_color = 1;
 	}
+	if (update_color == 1)
+	{
+		new_color = *figure->color;
+		apply_light(env, ray, figure, &new_color);
+		color = rgb_to_hexa(&new_color);
+	}
+	return (color);
 }
 
 static int	first_color(t_env *env, t_ray *ray)
@@ -40,19 +47,18 @@ static int	first_color(t_env *env, t_ray *ray)
 	double		position;
 
 	position = __DBL_MAX__;
-	color = 0;
 	figure = env->figure;
 	while (figure)
 	{
 		figure->c_inter[0] = __DBL_MAX__;
 		figure->c_inter[1] = __DBL_MAX__;
 		if (figure->id == SPHERE)
-			intersect_sphere(env, figure, ray);
+			intersect_sphere(figure, ray);
 		else if (figure->id == CYLINDER)
-			intersect_cylinder(env, figure, ray);
+			intersect_cylinder(figure, ray);
 		/*else if (figure->id == PLANE)
 			intersect_plane(env, figure, ray);*/
-		first_inter(&position, figure, &color, env->amb);
+		color = first_inter(env, ray, &position, figure);
 		figure = figure->next;
 	}
 	return (color);

@@ -6,13 +6,13 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 13:46:27 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/15 16:28:33 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/15 19:00:08 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-int	intersect_sphere(t_env *env, t_element *sp, t_ray *ray)
+int	intersect_sphere(t_element *sp, t_ray *ray)
 {
 	t_coordinates	distance;
 	double			discriminant;
@@ -68,21 +68,21 @@ static void	choose_inter(t_element *cy, t_ray *ray,
 	double			b;
 	double			c;
 	double			z_loc;
-	double			discriminent;
+	double			discriminant;
 
 	a = scalar_prod_vec(av, av);
 	b = 2 * scalar_prod_vec(av, bv);
 	c = scalar_prod_vec(bv, bv) - ((cy->diameter * cy->diameter) / 4);
-	discriminent = b * b - 4 * a * c;
-	if (discriminent < 0)
+	discriminant = b * b - 4 * a * c;
+	if (discriminant < 0)
 		return ;
-	cy->c_inter[0] = (-b - sqrt(discriminent)) / (2 * a);
+	cy->c_inter[0] = (-b - sqrt(discriminant)) / (2 * a);
 	get_z_loc(cy, ray, &cy->c_inter[0]);
-	cy->c_inter[1] = (-b + sqrt(discriminent)) / (2 * a);
+	cy->c_inter[1] = (-b + sqrt(discriminant)) / (2 * a);
 	get_z_loc(cy, ray, &cy->c_inter[1]);
 }
 
-int	intersect_cylinder(t_env *env, t_element *cy, t_ray *ray)
+int	intersect_cylinder(t_element *cy, t_ray *ray)
 {
 	t_coordinates	distance;
 	t_coordinates	av;

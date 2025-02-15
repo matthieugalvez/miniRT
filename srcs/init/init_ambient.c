@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 17:22:45 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/13 13:14:54 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/15 17:06:08 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 
 static int	init_ambient(t_amb *amb, char **data)
 {
-	amb->light = parse_ratio(data[1]);
-	if (amb->light < 0)
+	amb->bright = parse_ratio(data[1]);
+	if (amb->bright < 0)
 	{
 		clean_ambient(amb);
 		ft_freetab(data);

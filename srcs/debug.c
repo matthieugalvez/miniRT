@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 18:21:37 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/13 16:13:55 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/15 17:06:33 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static void	debug_env_figure(t_element *figure)
 void	debug_env(t_env *env)
 {
 	if (env->amb)
-		printf("A %.2f %d,%d,%d\n", env->amb->light, env->amb->color->r,
+		printf("A %.2f %d,%d,%d\n", env->amb->bright, env->amb->color->r,
 			env->amb->color->g, env->amb->color->b);
 	if (env->light)
 		printf("L %.2f,%.2f,%.2f %.2f %d,%d,%d\n", env->light->coord->x,
