@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 12:08:44 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/16 18:19:38 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/16 18:32:52 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int	first_inter(t_env *env, t_ray *ray,
 	if (update_color == 1)
 	{
 		new_color = *figure->color;
-	//	apply_light(env, ray, figure, &new_color);
+		apply_light(env, ray, figure, &new_color);
 		color = rgb_to_hexa(&new_color);
 	}
 	return (color);
@@ -43,11 +43,13 @@ static int	first_inter(t_env *env, t_ray *ray,
 static int	first_color(t_env *env, t_ray *ray)
 {
 	t_element	*figure;
+	int			new_color;
 	int			color;
 	double		position;
 
 	position = __DBL_MAX__;
 	figure = env->figure;
+	color = 0;
 	while (figure)
 	{
 		figure->c_inter[0] = __DBL_MAX__;
@@ -58,7 +60,9 @@ static int	first_color(t_env *env, t_ray *ray)
 			intersect_cylinder(figure, ray);
 		/*else if (figure->id == PLANE)
 			intersect_plane(env, figure, ray);*/
-		color = first_inter(env, ray, &position, figure);
+		new_color = first_inter(env, ray, &position, figure);
+		if (new_color)
+			color = new_color;
 		figure = figure->next;
 	}
 	return (color);
@@ -86,7 +90,7 @@ static void	find_ray_direction(int i, int j, t_env *env, t_coordinates *dir)
 	x_dir = add_vec(*(env->camera->dir), x_dir);
 	y_dir = mult_vec(*(env->camera->dir_up), dir->y);
 	*(dir) = add_vec(x_dir, y_dir);
-//	normalize_vec(dir);
+	normalize_vec(dir);
 }
 
 int	color_image(t_env *env)
