@@ -6,7 +6,7 @@
 #    By: achantra <achantra@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/31 15:30:48 by achantra          #+#    #+#              #
-#    Updated: 2025/02/15 16:41:05 by mgalvez          ###   ########.fr        #
+#    Updated: 2025/02/16 19:49:59 by mgalvez          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,8 +27,8 @@ IMAGE_SRCS	= cam_ray_tracing.c color.c generate_image.c manage_image.c manage_wi
 INIT_SRCS	= init_ambient.c init_camera.c init_elements.c init_env.c init_figures.c \
 			  init_light.c init_utils.c
 LIGHT_SRCS	= light.c
-INTRSC_SRCS	= intersection.c
-MATH_SRCS	= double_operator.c vector_operator.c vector_operator2.c
+INTRSC_SRCS	= intersection.c intsec_cylinder.c
+MATH_SRCS	= double_operator.c vector_operator.c vector_operator2.c normal_operator.c
 PARSE_SRCS	= parse_color.c parse_coordinates.c parse_number.c parsing.c
 
 SRCS_LST	= ${addprefix clean/, ${CLEAN_SRCS}} \

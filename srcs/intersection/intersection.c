@@ -6,13 +6,13 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 13:46:27 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/15 19:00:08 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/16 19:51:28 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-int	intersect_sphere(t_element *sp, t_ray *ray)
+static void	intersect_sphere(t_element *sp, t_ray *ray)
 {
 	t_coordinates	distance;
 	double			discriminant;
@@ -28,75 +28,25 @@ int	intersect_sphere(t_element *sp, t_ray *ray)
 	{
 		sp->c_inter[0] = (-b - sqrt(discriminant)) / (2 * a);
 		sp->c_inter[1] = (-b + sqrt(discriminant)) / (2 * a);
-		return (1);
-	}
-	return (0);
-}
-
-static void	intersect_disk(t_element *cy, t_ray *ray, t_coordinates c_disk)
-{
-	double			inter;
-	t_coordinates	point;
-
-	inter = scalar_prod_vec(sub_vec(c_disk, *(ray->origin)),
-			*(cy->vector)) / scalar_prod_vec(*(ray->direction), *(cy->vector));
-	point = add_vec(*(ray->origin), mult_vec(*(ray->direction), inter));
-	if (pow(get_norm(sub_vec(point, c_disk)), 2) < pow(cy->diameter / 2, 2))
-	{
-		if (equal_double(cy->c_inter[0], __DBL_MAX__))
-			cy->c_inter[0] = inter;
-		else
-			cy->c_inter[1] = inter;
 	}
 }
 
-static void	get_z_loc(t_element *cy, t_ray *ray, double *intersection)
+double	find_intsec(t_ray *ray, t_element *figure)
 {
-	double			z_loc;
+	double	intersec;
 
-	z_loc = scalar_prod_vec(add_vec(*(ray->origin),
-				sub_vec(mult_vec(*(ray->direction), *intersection),
-					*(cy->coord))), *(cy->vector));
-	if (z_loc < -cy->height / 2 || z_loc > cy->height / 2)
-		*intersection = __DBL_MAX__;
-}
-
-static void	choose_inter(t_element *cy, t_ray *ray,
-						t_coordinates av, t_coordinates bv)
-{
-	double			a;
-	double			b;
-	double			c;
-	double			z_loc;
-	double			discriminant;
-
-	a = scalar_prod_vec(av, av);
-	b = 2 * scalar_prod_vec(av, bv);
-	c = scalar_prod_vec(bv, bv) - ((cy->diameter * cy->diameter) / 4);
-	discriminant = b * b - 4 * a * c;
-	if (discriminant < 0)
-		return ;
-	cy->c_inter[0] = (-b - sqrt(discriminant)) / (2 * a);
-	get_z_loc(cy, ray, &cy->c_inter[0]);
-	cy->c_inter[1] = (-b + sqrt(discriminant)) / (2 * a);
-	get_z_loc(cy, ray, &cy->c_inter[1]);
-}
-
-int	intersect_cylinder(t_element *cy, t_ray *ray)
-{
-	t_coordinates	distance;
-	t_coordinates	av;
-	t_coordinates	bv;
-
-	distance = sub_vec(*(ray->origin), *(cy->coord));
-	av = sub_vec(*(ray->direction), mult_vec(*(cy->vector),
-				scalar_prod_vec(*(ray->direction), *(cy->vector))));
-	bv = sub_vec(distance, mult_vec(*(cy->vector),
-				scalar_prod_vec(distance, *(cy->vector))));
-	choose_inter(cy, ray, av, bv);
-	intersect_disk(cy, ray,
-		add_vec(*(cy->coord), mult_vec(*(cy->vector), cy->height / 2)));
-	intersect_disk(cy, ray,
-		sub_vec(*(cy->coord), mult_vec(*(cy->vector), cy->height / 2)));
-	return (0);
+	intersec = __DBL_MAX__;
+	figure->c_inter[0] = __DBL_MAX__;
+	figure->c_inter[1] = __DBL_MAX__;
+	if (figure->id == SPHERE)
+		intersect_sphere(figure, ray);
+	else if (figure->id == CYLINDER)
+		intersect_cylinder(figure, ray);
+//	else if (figure->id == PLANE)
+//		intersect_plane(figure, ray);
+	if (figure->c_inter[0] < intersec)
+		intersec = figure->c_inter[0];
+	if (figure->c_inter[1] < intersec)
+		intersec = figure->c_inter[1];
+	return (intersec);
 }

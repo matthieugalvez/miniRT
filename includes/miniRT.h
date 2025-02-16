@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 15:37:52 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/16 18:26:34 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/16 20:25:11 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,17 +95,18 @@ int				init_mlx(t_env *env);
 int				ft_key(int keysym, t_env *env);
 
 // IMAGE
-int				print_image(t_env *env);
+int				draw_image(t_env *env);
 int				rgb_to_hexa(t_color *color);
-int				color_image(t_env *env);
+void			my_pixel_put(int i, int j, t_env *env, int color);
+int				print_image(t_env *env);
 
 // INTERSECTION
-int				intersect_sphere(t_element *sp, t_ray *ray);
-int				intersect_cylinder(t_element *cy, t_ray *ray);
+double			find_intsec(t_ray *ray, t_element *figure);
+void			intersect_cylinder(t_element *cy, t_ray *ray);
 
 // LIGHT
-void			apply_light(t_env *env, t_ray *ray,
-					t_element *figure, t_color *color);
+int				apply_light(t_env *env, t_ray *cam_ray,
+					t_element *figure, t_coordinates *hitpoint);
 
 // MATH
 t_coordinates	*new_vec(double x, double y, double z);
@@ -119,6 +120,7 @@ double			get_norm(t_coordinates vector);
 void			normalize_vec(t_coordinates *vector);
 t_coordinates	*vectorial_prod_vec(t_coordinates v1, t_coordinates v2);
 int				equal_double(double a, double b);
+t_coordinates	get_normal_at(t_element *figure, t_coordinates *point);
 
 // DEBUG
 void			debug_env(t_env *env);

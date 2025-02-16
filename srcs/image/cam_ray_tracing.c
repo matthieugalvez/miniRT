@@ -6,76 +6,43 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 12:08:44 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/16 18:32:52 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/16 20:18:44 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
+#include "struct.h"
 
-static int	first_inter(t_env *env, t_ray *ray,
-				double *position, t_element *figure)
+static void	find_hitpoint(t_coordinates *hitpoint, t_ray *ray, double distance)
 {
-	int		color;
-	int		update_color;
-	t_color	new_color;
-
-	color = 0;
-	update_color = 0;
-	if (figure->c_inter[0] >= 0 && figure->c_inter[0] < *position)
-	{
-		*position = figure->c_inter[0];
-		update_color = 1;
-	}
-	if (figure->c_inter[1] >= 0 && figure->c_inter[1] < *position)
-	{
-		*position = figure->c_inter[1];
-		update_color = 1;
-	}
-	if (update_color == 1)
-	{
-		new_color = *figure->color;
-		apply_light(env, ray, figure, &new_color);
-		color = rgb_to_hexa(&new_color);
-	}
-	return (color);
+	hitpoint->x = distance * ray->direction->x + ray->origin->x;
+	hitpoint->y = distance * ray->direction->y + ray->origin->y;
+	hitpoint->z = distance * ray->direction->z + ray->origin->z;
 }
 
-static int	first_color(t_env *env, t_ray *ray)
+static int	get_color(t_env *env, t_ray *ray)
 {
-	t_element	*figure;
-	int			new_color;
-	int			color;
-	double		position;
+	t_element		*figure;
+	int				color;
+	double			distance;
+	double			intersec;
+	t_coordinates	hitpoint;
 
-	position = __DBL_MAX__;
 	figure = env->figure;
 	color = 0;
+	distance = __DBL_MAX__;
 	while (figure)
 	{
-		figure->c_inter[0] = __DBL_MAX__;
-		figure->c_inter[1] = __DBL_MAX__;
-		if (figure->id == SPHERE)
-			intersect_sphere(figure, ray);
-		else if (figure->id == CYLINDER)
-			intersect_cylinder(figure, ray);
-		/*else if (figure->id == PLANE)
-			intersect_plane(env, figure, ray);*/
-		new_color = first_inter(env, ray, &position, figure);
-		if (new_color)
-			color = new_color;
+		intersec = find_intsec(ray, figure);
+		if (intersec < distance)
+		{
+			intersec = distance;
+			find_hitpoint(&hitpoint, ray, distance);
+			color = apply_light(env, ray, figure, &hitpoint);
+		}
 		figure = figure->next;
 	}
 	return (color);
-}
-
-static void	my_pixel_put(int i, int j, t_env *env, t_ray *ray)
-{
-	int	offset;
-
-	if (j >= WIN_H || i >= WIN_W || i < 0 || j < 0)
-		return ;
-	offset = (env->img.line_len * j) + (i * (env->img.bits_per_pixel / 8));
-	*((unsigned int *)((env->img).img_pixels + offset)) = first_color(env, ray);
 }
 
 static void	find_ray_direction(int i, int j, t_env *env, t_coordinates *dir)
@@ -93,10 +60,11 @@ static void	find_ray_direction(int i, int j, t_env *env, t_coordinates *dir)
 	normalize_vec(dir);
 }
 
-int	color_image(t_env *env)
+int	draw_image(t_env *env)
 {
 	int				i;
 	int				j;
+	int				color;
 	t_ray			ray;
 	t_coordinates	direction;
 
@@ -109,7 +77,8 @@ int	color_image(t_env *env)
 		while (j < WIN_H)
 		{
 			find_ray_direction(i, j, env, &direction);
-			my_pixel_put(i, j, env, &ray);
+			color = get_color(env, &ray);
+			my_pixel_put(i, j, env, color);
 			ft_bzero(&direction, sizeof(t_coordinates));
 			j++;
 		}
