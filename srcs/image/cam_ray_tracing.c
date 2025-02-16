@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 12:08:44 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/15 19:09:55 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/16 18:19:38 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int	first_inter(t_env *env, t_ray *ray,
 	if (update_color == 1)
 	{
 		new_color = *figure->color;
-		apply_light(env, ray, figure, &new_color);
+	//	apply_light(env, ray, figure, &new_color);
 		color = rgb_to_hexa(&new_color);
 	}
 	return (color);
@@ -76,12 +76,17 @@ static void	my_pixel_put(int i, int j, t_env *env, t_ray *ray)
 
 static void	find_ray_direction(int i, int j, t_env *env, t_coordinates *dir)
 {
+	t_coordinates	x_dir;
+	t_coordinates	y_dir;
+
 	dir->x = (((2 * (i + 0.5)) / WIN_W) - 1) * env->vp_w / 2;
 	dir->y = (1 - (2 * (j + 0.5)) / WIN_H) * env->vp_h / 2;
 	dir->z = -1;
-	*(dir) = add_vec(mult_vec(*(env->camera->dir_up), dir->y),
-			add_vec(*(env->camera->dir), mult_vec(*(env->camera->dir_right),
-					dir->x)));
+	x_dir = mult_vec(*(env->camera->dir_right), dir->x);
+	x_dir = add_vec(*(env->camera->dir), x_dir);
+	y_dir = mult_vec(*(env->camera->dir_up), dir->y);
+	*(dir) = add_vec(x_dir, y_dir);
+//	normalize_vec(dir);
 }
 
 int	color_image(t_env *env)
