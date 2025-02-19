@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 12:08:44 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/16 20:18:44 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/19 12:25:43 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ static int	get_color(t_env *env, t_ray *ray)
 	while (figure)
 	{
 		intersec = find_intsec(ray, figure);
-		if (intersec < distance)
+		if (!equal_double(intersec, distance) && intersec < distance)
 		{
-			intersec = distance;
+			distance = intersec;
 			find_hitpoint(&hitpoint, ray, distance);
 			color = apply_light(env, ray, figure, &hitpoint);
 		}
@@ -56,8 +56,7 @@ static void	find_ray_direction(int i, int j, t_env *env, t_coordinates *dir)
 	x_dir = mult_vec(*(env->camera->dir_right), dir->x);
 	x_dir = add_vec(*(env->camera->dir), x_dir);
 	y_dir = mult_vec(*(env->camera->dir_up), dir->y);
-	*(dir) = add_vec(x_dir, y_dir);
-	normalize_vec(dir);
+	*dir = add_vec(x_dir, y_dir);
 }
 
 int	draw_image(t_env *env)
