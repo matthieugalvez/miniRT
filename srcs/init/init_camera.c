@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 17:23:23 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/13 13:14:47 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/20 10:56:24 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,32 +19,6 @@
 		In range [-1,1] for each x,y,z axis: 0.0,0.0,1.0
 	∗ FOV : Horizontal field of view in degrees in range [0,180]: 70
 */
-
-static int	find_cam_direction(t_camera *cam)
-{
-	t_coordinates	tmp_up;
-
-	normalize_vec(cam->dir);
-	if (!equal_double(cam->dir->y, 0) || !equal_double(cam->dir->z, 0))
-		tmp_up = change_vec(1, 0, 0);
-	else
-		tmp_up = change_vec(0, 1, 0);
-	cam->dir_right = vectorial_prod_vec(tmp_up, *(cam->dir));
-	if (!cam->dir_right)
-	{
-		clean_camera(cam);
-		return (1);
-	}
-	normalize_vec(cam->dir_right);
-	cam->dir_up = vectorial_prod_vec(*(cam->dir), *(cam->dir_right));
-	if (!cam->dir_up)
-	{
-		clean_camera(cam);
-		return (1);
-	}
-	normalize_vec(cam->dir_up);
-	return (0);
-}
 
 static int	init_camera(t_camera *cam, char **data)
 {
@@ -70,7 +44,6 @@ static int	init_camera(t_camera *cam, char **data)
 		return (1);
 	}
 	ft_freetab(data);
-	find_cam_direction(cam);
 	return (0);
 }
 
