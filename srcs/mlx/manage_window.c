@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   generate_image.c                                   :+:      :+:    :+:   */
+/*   manage_window.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/04 11:36:59 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/16 19:33:15 by mgalvez          ###   ########.fr       */
+/*   Created: 2025/02/04 10:55:30 by achantra          #+#    #+#             */
+/*   Updated: 2025/02/20 14:21:42 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,47 @@ int	print_image(t_env *env)
 		return (1);
 	draw_image(env);
 	mlx_put_image_to_window(env->mlx, env->win, env->img.img, 0, 0);
+	return (0);
+}
+
+int	ft_key(int keysym, t_env *env)
+{
+	if (keysym == XK_Escape)
+		return (clean_env(env, 0));
+	else if (keysym == XK_KP_Add || keysym == XK_KP_Subtract)
+		ft_zoom(keysym, env);
+	else if (keysym == XK_w || keysym == XK_a
+		|| keysym == XK_s || keysym == XK_d)
+		ft_translate(keysym, env);
+	else if ((keysym >= XK_Left && keysym <= XK_Down))
+		ft_rotate(keysym, env);
+	else if (keysym == XK_q || keysym == XK_e)
+		ft_elevate(keysym, env);
+	else if (keysym == XK_space)
+		ft_reinit(env);
+	print_image(env);
+	return (0);
+}
+
+int	init_mlx(t_env *env)
+{
+	env->mlx = mlx_init();
+	if (!env->mlx)
+	{
+		ft_putstr("Error: mlx\n", 2);
+		return (clean_env(env, 1));
+	}
+	env->win = mlx_new_window(env->mlx, WIN_W, WIN_H, "miniRT");
+	if (!env->win)
+	{
+		ft_putstr("Error: mlx\n", 2);
+		return (clean_env(env, 1));
+	}
+	env->img.img = mlx_new_image(env->mlx, WIN_W, WIN_H);
+	if (!env->img.img)
+	{
+		ft_putstr("Error: mlx\n", 2);
+		return (clean_env(env, 1));
+	}
 	return (0);
 }

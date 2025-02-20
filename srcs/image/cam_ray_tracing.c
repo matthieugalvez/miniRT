@@ -6,12 +6,11 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 12:08:44 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/20 10:56:00 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/20 13:42:14 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
-#include "struct.h"
 
 static void	find_hitpoint(t_coordinates *hitpoint, t_ray *ray, double distance)
 {

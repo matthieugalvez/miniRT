@@ -6,12 +6,11 @@
 /*   By: mgalvez <mgalvez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:33:10 by mgalvez           #+#    #+#             */
-/*   Updated: 2025/02/20 11:50:16 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/20 13:42:31 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
-#include "struct.h"
 
 /*static t_coordinates	get_reflexion_vec(t_coordinates *light_ray,
 							t_coordinates *normal_at_hp)

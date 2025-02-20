@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 15:37:52 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/20 11:49:32 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/20 14:11:30 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdio.h>
+# include <X11/keysym.h>
 
 # define SPHERE 0
 # define PLANE 1
@@ -40,24 +41,22 @@
 # define LBLUE 0x1e90ff
 # define TBLUE 0x40e0d0
 
-# define KEY_ESC 65307
-# define KEY_PLUS 65451
-# define KEY_MINUS 65453
+/*# define KEY_ESC 65307
+# define KEY_SPACE
 # define KEY_LEFT 65361
 # define KEY_UP 65362
 # define KEY_RIGHT 65363
 # define KEY_DOWN 65364
-# define KEY_X 120
-# define KEY_Y 121
-# define KEY_Z 122
-# define KEY_A 97
-# define KEY_B 98
-# define KEY_C 99
-# define KEY_I 105
-# define KEY_P 112
-# define KEY_K 107
-# define KEY_D 100
-# define KEY_E 101
+# define KEY_PLUS 65451
+# define KEY_MINUS 65453
+# define KEY_W
+# define KEY_A
+# define KEY_S
+# define KEY_D
+# define KEY_Q
+# define KEY_E
+# define KEY_R
+# define KEY_F*/
 
 // INIT
 void			init_env(t_env *env);
@@ -93,12 +92,17 @@ int				clean_env(t_env *env, int exit_code);
 // MLX
 int				init_mlx(t_env *env);
 int				ft_key(int keysym, t_env *env);
+void			ft_zoom(int keysym, t_env *env);
+void			ft_translate(int keysym, t_env *env);
+void			ft_rotate(int keysym, t_env *env);
+void			ft_elevate(int keysym, t_env *env);
+void			ft_reinit(t_env *env);
+int				print_image(t_env *env);
 
 // IMAGE
 int				draw_image(t_env *env);
 int				rgb_to_hexa(t_color *color);
 void			my_pixel_put(int i, int j, t_env *env, int color);
-int				print_image(t_env *env);
 
 // INTERSECTION
 double			find_intsec(t_ray *ray, t_element *figure);
