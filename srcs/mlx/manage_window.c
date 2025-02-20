@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 10:55:30 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/20 14:21:42 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/20 15:51:37 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,10 @@ int	ft_key(int keysym, t_env *env)
 	else if (keysym == XK_w || keysym == XK_a
 		|| keysym == XK_s || keysym == XK_d)
 		ft_translate(keysym, env);
-	else if ((keysym >= XK_Left && keysym <= XK_Down))
-		ft_rotate(keysym, env);
 	else if (keysym == XK_q || keysym == XK_e)
 		ft_elevate(keysym, env);
+	else if ((keysym >= XK_Left && keysym <= XK_Down))
+		ft_rotate(keysym, env);
 	else if (keysym == XK_space)
 		ft_reinit(env);
 	print_image(env);

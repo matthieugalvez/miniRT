@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 15:37:52 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/20 14:11:30 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/20 16:01:22 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,23 +40,6 @@
 # define DBLUE 0x00008b
 # define LBLUE 0x1e90ff
 # define TBLUE 0x40e0d0
-
-/*# define KEY_ESC 65307
-# define KEY_SPACE
-# define KEY_LEFT 65361
-# define KEY_UP 65362
-# define KEY_RIGHT 65363
-# define KEY_DOWN 65364
-# define KEY_PLUS 65451
-# define KEY_MINUS 65453
-# define KEY_W
-# define KEY_A
-# define KEY_S
-# define KEY_D
-# define KEY_Q
-# define KEY_E
-# define KEY_R
-# define KEY_F*/
 
 // INIT
 void			init_env(t_env *env);
