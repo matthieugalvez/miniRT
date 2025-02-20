@@ -6,7 +6,7 @@
 /*   By: mgalvez <mgalvez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:33:10 by mgalvez           #+#    #+#             */
-/*   Updated: 2025/02/19 15:26:34 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/20 11:03:21 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void	get_specular(t_coordinates reflexion_vec, t_ray *cam_ray,
 	if (cos_angle <= 0)
 		return ;
 	factor = pow(cos_angle, 200);
-	specular = light->bright * 0.0025 * factor;
+	specular = light->bright * 0.075 * factor;
 	color->r += light->color->r * specular;
 	color->g += light->color->g * specular;
 	color->b += light->color->b * specular;
@@ -64,9 +64,9 @@ static void	get_diffuse(t_light *light, t_color *color, t_color *figure_color,
 	color->r += applied_diffuse.r;
 	color->g += applied_diffuse.g;
 	color->b += applied_diffuse.b;
-//	reflexion_vec = get_reflexion_vec(light_ray->direction, normal_at_hp);
-//	normalize_vec(&reflexion_vec);
-//	get_specular(reflexion_vec, cam_ray, light, color);
+	reflexion_vec = get_reflexion_vec(light_ray->direction, normal_at_hp);
+	normalize_vec(&reflexion_vec);
+	get_specular(reflexion_vec, cam_ray, light, color);
 }
 
 static void	get_ambiant(t_color *color, t_amb *amb)
