@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 15:37:52 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/16 20:25:11 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/20 11:49:32 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ void			intersect_cylinder(t_element *cy, t_ray *ray);
 // LIGHT
 int				apply_light(t_env *env, t_ray *cam_ray,
 					t_element *figure, t_coordinates *hitpoint);
+void			init_ray(t_ray *ray, t_env *env, t_coordinates *hitpoint);
 
 // MATH
 t_coordinates	*new_vec(double x, double y, double z);
