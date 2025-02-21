@@ -6,13 +6,14 @@
 /*   By: mgalvez <mgalvez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 19:37:18 by mgalvez           #+#    #+#             */
-/*   Updated: 2025/02/16 19:39:31 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/21 15:07:04 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-static void	intersect_disk(t_element *cy, t_ray *ray, t_coordinates c_disk)
+static void	intersect_disk(t_element *cy, t_ray *ray,
+				t_coordinates c_disk, int disk_case)
 {
 	double			inter;
 	t_coordinates	point;
@@ -23,9 +24,17 @@ static void	intersect_disk(t_element *cy, t_ray *ray, t_coordinates c_disk)
 	if (pow(get_norm(sub_vec(point, c_disk)), 2) < pow(cy->diameter / 2, 2))
 	{
 		if (equal_double(cy->c_inter[0], __DBL_MAX__))
+		{
 			cy->c_inter[0] = inter;
+			if (cy->c_inter[0] <= cy->c_inter[1])
+				cy->intersec_type = disk_case;
+		}
 		else
+		{
 			cy->c_inter[1] = inter;
+			if (cy->c_inter[1] < cy->c_inter[0])
+				cy->intersec_type = disk_case;
+		}
 	}
 }
 
@@ -40,7 +49,7 @@ static void	get_z_loc(t_element *cy, t_ray *ray, double *intersection)
 		*intersection = __DBL_MAX__;
 }
 
-static void	choose_inter(t_element *cy, t_ray *ray,
+static void	intersect_pipe(t_element *cy, t_ray *ray,
 						t_coordinates av, t_coordinates bv)
 {
 	double			a;
@@ -55,6 +64,7 @@ static void	choose_inter(t_element *cy, t_ray *ray,
 	discriminant = b * b - 4 * a * c;
 	if (discriminant < 0)
 		return ;
+	cy->intersec_type = 1;
 	cy->c_inter[0] = (-b - sqrt(discriminant)) / (2 * a);
 	get_z_loc(cy, ray, &cy->c_inter[0]);
 	cy->c_inter[1] = (-b + sqrt(discriminant)) / (2 * a);
@@ -73,9 +83,9 @@ void	intersect_cylinder(t_element *cy, t_ray *ray)
 				scalar_prod_vec(*(ray->direction), *(cy->vector))));
 	bv = sub_vec(distance, mult_vec(*(cy->vector),
 				scalar_prod_vec(distance, *(cy->vector))));
-	choose_inter(cy, ray, av, bv);
+	intersect_pipe(cy, ray, av, bv);
 	disk_vec = add_vec(*(cy->coord), mult_vec(*(cy->vector), cy->height / 2));
-	intersect_disk(cy, ray, disk_vec);
+	intersect_disk(cy, ray, disk_vec, 2);
 	disk_vec = sub_vec(*(cy->coord), mult_vec(*(cy->vector), cy->height / 2));
-	intersect_disk(cy, ray, disk_vec);
+	intersect_disk(cy, ray, disk_vec, 3);
 }
