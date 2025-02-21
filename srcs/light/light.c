@@ -6,7 +6,7 @@
 /*   By: mgalvez <mgalvez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:33:10 by mgalvez           #+#    #+#             */
-/*   Updated: 2025/02/20 13:42:31 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/21 15:44:08 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,9 @@ static void	get_diffuse(t_light *light, t_color *color,
 
 static void	get_ambiant(t_color *color, t_amb *amb)
 {
-	color->r = (color->r * (amb->color->r * amb->bright)) / 255;
-	color->g = (color->g * (amb->color->g * amb->bright)) / 255;
-	color->b = (color->b * (amb->color->b * amb->bright)) / 255;
+	color->r = (color->r * (amb->color->r * amb->bright * 0.5)) / 255;
+	color->g = (color->g * (amb->color->g * amb->bright * 0.5)) / 255;
+	color->b = (color->b * (amb->color->b * amb->bright * 0.5)) / 255;
 }
 
 int	apply_light(t_env *env, t_ray *cam_ray,

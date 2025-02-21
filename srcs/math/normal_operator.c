@@ -6,13 +6,13 @@
 /*   By: mgalvez <mgalvez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 18:54:12 by mgalvez           #+#    #+#             */
-/*   Updated: 2025/02/21 15:33:34 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/21 15:52:50 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-static t_coordinates	normal_on_pipe(t_element *cylinder, t_coordinates *point)
+static t_coordinates	pipe_normal(t_element *cylinder, t_coordinates *point)
 {
 	t_coordinates	bottom_disk_center;
 	double			t;
@@ -33,7 +33,7 @@ static t_coordinates	normal_at_cy(t_element *cylinder, t_coordinates *point)
 	t_coordinates	normal_at_vec;
 
 	if (cylinder->intersec_type == 1)
-		normal_at_vec = normal_on_pipe(cylinder, point);
+		normal_at_vec = pipe_normal(cylinder, point);
 	if (cylinder->intersec_type == 2)
 		normal_at_vec = *cylinder->vector;
 	if (cylinder->intersec_type == 3)
