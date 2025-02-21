@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 11:26:30 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/20 16:38:43 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/21 13:16:43 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 
 void	ft_reinit(t_env *env)
 {
-	env->rot_x = 0;
-	env->rot_y = 0;
-	env->rot_z = 0;
 }
 
 void	ft_rotate(int keysym, t_env *env)
@@ -42,7 +39,7 @@ void	ft_rotate(int keysym, t_env *env)
 	if (keysym == XK_Left || keysym == XK_Right)
 	{
 		*env->camera->dir_right = add_vec(*env->camera->dir_right, lerp);
-		normalize_vec(env->camera->dir_up);
+		normalize_vec(env->camera->dir_right);
 	}
 	*env->camera->dir = add_vec(*env->camera->dir, lerp);
 	normalize_vec(env->camera->dir);
