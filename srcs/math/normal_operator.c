@@ -6,11 +6,18 @@
 /*   By: mgalvez <mgalvez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 18:54:12 by mgalvez           #+#    #+#             */
-/*   Updated: 2025/02/21 15:52:50 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/21 15:59:53 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
+
+static t_coordinates	normal_at_pl(t_element *plane, t_coordinates *point)
+{
+	if (!plane->intersec_type)
+		return (*plane->vector);
+	return (mult_vec(*plane->vector, -1));
+}
 
 static t_coordinates	pipe_normal(t_element *cylinder, t_coordinates *point)
 {
@@ -54,6 +61,7 @@ t_coordinates	get_normal_at(t_element *figure, t_coordinates *point)
 {
 	if (figure->id == SPHERE)
 		return (normal_at_sp(figure, point));
-//	if (figure->id == CYLINDER)
-	return (normal_at_cy(figure, point));
+	if (figure->id == CYLINDER)
+		return (normal_at_cy(figure, point));
+	return (normal_at_pl(figure, point));
 }

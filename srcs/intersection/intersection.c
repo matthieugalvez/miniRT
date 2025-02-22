@@ -6,11 +6,26 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 13:46:27 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/18 19:17:45 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/22 13:05:45 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
+
+static void	intersect_plane(t_element *pl, t_ray *ray)
+{
+	double	denom;
+	double	t;
+
+	denom = scalar_prod_vec(*pl->vector, *ray->direction);
+	if (equal_double(denom, 0))
+		return ;
+	if (denom > 0)
+		pl->intersec_type = 1;
+	t = scalar_prod_vec(sub_vec(*pl->coord, *ray->origin), *pl->vector);
+	if (t >= 0)
+		pl->c_inter[0] = t;
+}
 
 static void	intersect_sphere(t_element *sp, t_ray *ray)
 {
@@ -42,11 +57,13 @@ double	find_intsec(t_ray *ray, t_element *figure)
 		intersect_sphere(figure, ray);
 	else if (figure->id == CYLINDER)
 		intersect_cylinder(figure, ray);
-//	else if (figure->id == PLANE)
-//		intersect_plane(figure, ray);
-	if (!equal_double(figure->c_inter[0], intersec) && figure->c_inter[0] < intersec)
+	else if (figure->id == PLANE)
+		intersect_plane(figure, ray);
+	if (!equal_double(figure->c_inter[0], intersec)
+		&& figure->c_inter[0] < intersec)
 		intersec = figure->c_inter[0];
-	if (!equal_double(figure->c_inter[1], intersec) && figure->c_inter[1] < intersec)
+	if (!equal_double(figure->c_inter[1], intersec)
+		&& figure->c_inter[1] < intersec)
 		intersec = figure->c_inter[1];
 	return (intersec);
 }
