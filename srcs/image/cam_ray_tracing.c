@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 12:08:44 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/21 13:10:45 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/22 14:41:54 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,7 @@ static int	get_color(t_env *env, t_ray *ray)
 	while (figure)
 	{
 		intersec = find_intsec(ray, figure);
-		if (!equal_double(intersec, distance) && intersec < distance
-			&& intersec > 0)
+		if (!equal_double(intersec, distance) && intersec < distance)
 		{
 			distance = intersec;
 			find_hitpoint(&hitpoint, ray, distance);

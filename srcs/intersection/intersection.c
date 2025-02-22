@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 13:46:27 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/22 13:05:45 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/22 14:40:20 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,10 @@ double	find_intsec(t_ray *ray, t_element *figure)
 	else if (figure->id == PLANE)
 		intersect_plane(figure, ray);
 	if (!equal_double(figure->c_inter[0], intersec)
-		&& figure->c_inter[0] < intersec)
+		&& figure->c_inter[0] < intersec && figure->c_inter[0] > 0)
 		intersec = figure->c_inter[0];
 	if (!equal_double(figure->c_inter[1], intersec)
-		&& figure->c_inter[1] < intersec)
+		&& figure->c_inter[1] < intersec && figure->c_inter[1] > 0)
 		intersec = figure->c_inter[1];
 	return (intersec);
 }

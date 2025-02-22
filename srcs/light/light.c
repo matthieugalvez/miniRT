@@ -6,7 +6,7 @@
 /*   By: mgalvez <mgalvez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:33:10 by mgalvez           #+#    #+#             */
-/*   Updated: 2025/02/21 15:44:08 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/22 15:02:41 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,29 @@ static void	get_diffuse(t_light *light, t_color *color,
 	color->b += applied_diffuse.b;
 }
 
+static int	find_shadow(t_env *env, t_element *current_figure, t_ray *light_ray)
+{
+	t_element	*figure;
+	double		intsec;
+	double		distance;
+	double		new_distance;
+
+	figure = env->figure;
+	distance = find_intsec(light_ray, current_figure);
+	while (figure)
+	{
+		if (figure != current_figure)
+		{
+			new_distance = find_intsec(light_ray, figure);
+			if (!equal_double(new_distance, distance)
+				&& new_distance < distance)
+				return (1);
+		}
+		figure = figure->next;
+	}
+	return (0);
+}
+
 static void	get_ambiant(t_color *color, t_amb *amb)
 {
 	color->r = (color->r * (amb->color->r * amb->bright * 0.5)) / 255;
@@ -80,8 +103,9 @@ int	apply_light(t_env *env, t_ray *cam_ray,
 	normal_at_hp = get_normal_at(figure, hitpoint);
 	init_ray(&light_ray, env, hitpoint);
 	get_ambiant(&color, env->amb);
-	cos_angle = scalar_prod_vec(normal_at_hp, mult_vec(*light_ray.direction, -1));
-	if (cos_angle >= 0)
+	cos_angle = scalar_prod_vec(normal_at_hp,
+			mult_vec(*light_ray.direction, -1));
+	if (!find_shadow(env, figure, &light_ray) && cos_angle >= 0)
 		get_diffuse(env->light, &color, figure->color, cos_angle);
 //	reflexion_vec = get_reflexion_vec(light_ray.direction, &normal_at_hp);
 //	normalize_vec(&reflexion_vec);
@@ -92,5 +116,6 @@ int	apply_light(t_env *env, t_ray *cam_ray,
 		color.g = 255;
 	if (color.b > 255)
 		color.b = 255;
+	free(light_ray.direction);
 	return (rgb_to_hexa(&color));
 }
