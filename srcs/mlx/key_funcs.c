@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 11:26:30 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/21 13:16:43 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/24 15:03:37 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,28 +20,28 @@ void	ft_rotate(int keysym, t_env *env)
 {
 	t_coordinates	lerp;
 
-	ft_bzero(&lerp, sizeof(t_coordinates));
 	if (keysym == XK_Up)
-		lerp = mult_vec(sub_vec(*env->camera->dir, *env->camera->dir_up), 0.1);
+		lerp = sub_vec(*env->camera->dir, *env->camera->dir_up);
 	if (keysym == XK_Down)
-		lerp = mult_vec(sub_vec(*env->camera->dir_up, *env->camera->dir), 0.1);
+		lerp = sub_vec(*env->camera->dir_up, *env->camera->dir);
 	if (keysym == XK_Up || keysym == XK_Down)
 	{
+		lerp = mult_vec(lerp, 0.1);
 		*env->camera->dir_up = add_vec(*env->camera->dir_up, lerp);
 		normalize_vec(env->camera->dir_up);
 	}
 	if (keysym == XK_Left)
-		lerp = mult_vec(sub_vec(*env->camera->dir, *env->camera->dir_right),
-				0.1);
+		lerp = sub_vec(*env->camera->dir, *env->camera->dir_right);
 	if (keysym == XK_Right)
-		lerp = mult_vec(sub_vec(*env->camera->dir_right, *env->camera->dir),
-				0.1);
+		lerp = sub_vec(*env->camera->dir_right, *env->camera->dir);
 	if (keysym == XK_Left || keysym == XK_Right)
 	{
+		lerp = mult_vec(lerp, 0.1);
 		*env->camera->dir_right = add_vec(*env->camera->dir_right, lerp);
 		normalize_vec(env->camera->dir_right);
 	}
-	*env->camera->dir = add_vec(*env->camera->dir, lerp);
+	env->camera->dir
+		= vectorial_prod_vec(*env->camera->dir_right, *env->camera->dir_up);
 	normalize_vec(env->camera->dir);
 }
 
