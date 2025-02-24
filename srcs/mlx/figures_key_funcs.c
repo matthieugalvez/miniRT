@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 17:24:45 by mgalvez           #+#    #+#             */
-/*   Updated: 2025/02/24 17:46:32 by achantra         ###   ########.fr       */
+/*   Updated: 2025/02/24 18:00:55 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,16 @@
 
 void	ft_rotate_figure(int keysym, t_env *env, t_element *figure)
 {
-    
 }
 
 void	ft_elevate_figure(int keysym, t_env *env, t_element *figure)
 {
-    
 }
 
 void	ft_translate_figure(int keysym, t_env *env, t_element *figure)
 {
-    
 }
 
 void	ft_scale(int keysym, t_env *env, t_element *figure)
 {
-    
 }
