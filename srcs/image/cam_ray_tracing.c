@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 12:08:44 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/24 11:23:35 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/24 13:57:50 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,17 +44,17 @@ static int	get_color(t_env *env, t_ray *ray)
 	return (color);
 }
 
-static void	find_ray_direction(int i, int j, t_env *env, t_coordinates *dir)
+static void	find_ray_direction(int i, int j, t_env *env, t_ray *ray)
 {
-	double	x_dir;
-	double	y_dir;
+	t_coordinates	vector;
 
-	x_dir = ((2 * (i + 0.5)) / WIN_W - 1) * env->vp_w / 2;
-	dir->x = env->camera->dir->x + x_dir;
-	y_dir = (1 - (2 * (j + 0.5)) / WIN_H) * env->vp_h / 2;
-	dir->y = env->camera->dir->y + y_dir;
-	dir->z = env->camera->dir->z;
-	normalize_vec(dir);
+	vector.x = (((2 * (i + 0.5)) / WIN_W) - 1) * env->vp_w / 2;
+	vector.y = (1 - (2 * (j + 0.5)) / WIN_H) * env->vp_h / 2;
+	vector.z = -1;
+	vector = add_vec(mult_vec(*(env->camera->dir_up), vector.y),
+			add_vec(*(env->camera->dir), mult_vec(*(env->camera->dir_right),
+					vector.x)));
+	*(ray->direction) = vector;
 }
 
 int	draw_image(t_env *env)
@@ -76,7 +76,7 @@ int	draw_image(t_env *env)
 		i = 0;
 		while (i < WIN_W)
 		{
-			find_ray_direction(i, j, env, &direction);
+			find_ray_direction(i, j, env, &ray);
 			color = get_color(env, &ray);
 			my_pixel_put(i, j, env, color);
 			ft_bzero(&direction, sizeof(t_coordinates));
