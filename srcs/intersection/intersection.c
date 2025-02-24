@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 13:46:27 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/24 16:34:03 by achantra         ###   ########.fr       */
+/*   Updated: 2025/02/24 17:32:26 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,7 @@ static void	intersect_plane(t_element *pl, t_ray *ray)
 		return ;
 	t = -scalar_prod_vec(*pl->vector, sub_vec(*ray->origin, *pl->coord))
 		/ scalar_prod_vec(*pl->vector, *ray->direction);
-	if (t >= 0)
-	{
-		pl->c_inter[0] = t;
-		pl->intersec_type = 1;
-	}
-	
+	pl->c_inter[0] = t;
 }
 
 static void	intersect_sphere(t_element *sp, t_ray *ray)

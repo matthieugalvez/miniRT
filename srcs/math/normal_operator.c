@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   normal_operator.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgalvez <mgalvez@student.42.fr>            +#+  +:+       +#+        */
+/*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 18:54:12 by mgalvez           #+#    #+#             */
-/*   Updated: 2025/02/24 17:01:45 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/24 17:38:03 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,12 @@ static t_coordinates	normal_at_pl(t_element *plane, t_coordinates *point,
 	scalar_prod_light = scalar_prod_vec(*light_ray->direction, *plane->vector);
 	scalar_prod_cam = scalar_prod_vec(*cam_ray->direction, *plane->vector);
 	if (scalar_prod_light * scalar_prod_cam >= 0)
-		return (*plane->vector);
+	{
+		if (scalar_prod_light)
+			return (mult_vec(*plane->vector, -1.0));
+		else
+			return (*plane->vector);
+	}
 	return (*light_ray->direction);
 }
 
