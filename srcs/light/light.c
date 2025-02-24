@@ -6,7 +6,7 @@
 /*   By: mgalvez <mgalvez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:33:10 by mgalvez           #+#    #+#             */
-/*   Updated: 2025/02/24 15:44:40 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/24 16:52:51 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,8 +99,8 @@ int	apply_light(t_env *env, t_ray *cam_ray,
 //	t_coordinates	reflexion_vec;
 
 	color = *figure->color;
-	normal_at_hp = get_normal_at(figure, hitpoint);
 	init_ray(&light_ray, env, hitpoint);
+	normal_at_hp = get_normal_at(figure, hitpoint, &light_ray, cam_ray);
 	get_ambiant(&color, env->amb);
 	cos_angle = scalar_prod_vec(normal_at_hp,
 			mult_vec(*light_ray.direction, -1));

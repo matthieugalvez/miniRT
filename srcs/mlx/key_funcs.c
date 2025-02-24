@@ -6,14 +6,31 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 11:26:30 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/24 15:03:37 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/24 16:22:50 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-void	ft_reinit(t_env *env)
+void	ft_select(t_env *env)
 {
+	int			i;
+	t_element	*current_figure;
+
+	env->selected_object += 1;
+	i = 1;
+	current_figure = env->figure;
+	while (i < env->selected_object)
+	{
+		if (!current_figure)
+		{
+			env->selected_object = 0;
+			return ;
+		}
+		current_figure = current_figure->next;
+		i++;
+	}
+	return ;
 }
 
 void	ft_rotate(int keysym, t_env *env)
