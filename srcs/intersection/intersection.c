@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 13:46:27 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/24 16:34:03 by achantra         ###   ########.fr       */
+/*   Updated: 2025/02/24 17:05:13 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ static void	intersect_plane(t_element *pl, t_ray *ray)
 		pl->c_inter[0] = t;
 		pl->intersec_type = 1;
 	}
-	
 }
 
 static void	intersect_sphere(t_element *sp, t_ray *ray)
