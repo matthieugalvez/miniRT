@@ -6,19 +6,24 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 11:26:30 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/24 16:22:50 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/24 17:19:25 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-void	ft_select(t_env *env)
+void	ft_select(int keysym, t_env *env)
 {
 	int			i;
 	t_element	*current_figure;
 
+	if (keysym == XK_Return)
+	{
+		env->selected_object = 0;
+		return ;
+	}
 	env->selected_object += 1;
-	i = 1;
+	i = 0;
 	current_figure = env->figure;
 	while (i < env->selected_object)
 	{
