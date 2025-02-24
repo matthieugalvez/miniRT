@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 13:46:27 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/22 14:40:20 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/24 16:02:40 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ static void	intersect_plane(t_element *pl, t_ray *ray)
 	denom = scalar_prod_vec(*pl->vector, *ray->direction);
 	if (equal_double(denom, 0))
 		return ;
-	if (denom > 0)
+	if (denom < 0)
 		pl->intersec_type = 1;
 	t = scalar_prod_vec(sub_vec(*pl->coord, *ray->origin), *pl->vector);
-	if (t >= 0)
+	if (t > 0 || equal_double(t, 0))
 		pl->c_inter[0] = t;
 }
 
