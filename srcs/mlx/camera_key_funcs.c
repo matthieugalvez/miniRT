@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 11:26:30 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/24 17:19:25 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/25 14:06:45 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,8 @@ void	ft_rotate(int keysym, t_env *env)
 		*env->camera->dir_right = add_vec(*env->camera->dir_right, lerp);
 		normalize_vec(env->camera->dir_right);
 	}
-	env->camera->dir
-		= vectorial_prod_vec(*env->camera->dir_right, *env->camera->dir_up);
+	free(env->camera->dir);
+	env->camera->dir = vect_prod_vec(*env->camera->dir_right, *env->camera->dir_up);
 	normalize_vec(env->camera->dir);
 }
 
