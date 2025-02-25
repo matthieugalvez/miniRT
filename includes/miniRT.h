@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 15:37:52 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/25 14:06:21 by achantra         ###   ########.fr       */
+/*   Updated: 2025/02/25 15:03:44 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,12 +80,10 @@ void			ft_select(int keysym, t_env *env);
 void			ft_translate_light(int keysym, t_env *env);
 void			ft_dim(int keysym, t_env *env);
 void			ft_zoom(int keysym, t_env *env);
-void			ft_translate(int keysym, t_env *env);
-void			ft_rotate(int keysym, t_env *env);
-void			ft_elevate(int keysym, t_env *env);
-void			ft_scale(int keysym, t_env *env, t_element *figure);
-void			ft_translate_figure(int keysym, t_env *env, t_element *figure);
-void			ft_rotate_figure(int keysym, t_env *env, t_element *figure);
+void			ft_translate(int keysym, t_camera *camera);
+void			ft_rotate(int keysym, t_camera *camera);
+void			ft_elevate(int keysym, t_camera *camera);
+void			move_object(int keysym, t_env *env);
 
 // IMAGE
 int				draw_image(t_env *env);

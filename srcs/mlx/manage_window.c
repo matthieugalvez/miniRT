@@ -6,21 +6,17 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 10:55:30 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/25 13:16:26 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/25 15:07:54 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-static void	print_selected_object(t_env *env)
+static int	find_object_id(t_env *env, char *str)
 {
 	t_element	*figure;
 	int			i;
 
-	mlx_string_put(env->mlx, env->win, WIN_W - 160, WIN_H - 25,
-		0xffffff, "Selected object: ");
-	mlx_string_put(env->mlx, env->win, WIN_W - 60, WIN_H - 25,
-		0xffffff, ft_itoa(env->selected_object));
 	figure = env->figure;
 	i = 1;
 	while (i < env->selected_object)
@@ -29,14 +25,39 @@ static void	print_selected_object(t_env *env)
 		i++;
 	}
 	if (!figure->id)
-		mlx_string_put(env->mlx, env->win, WIN_W - 50, WIN_H - 25,
-			0xffffff, "Sphere");
+		str = ft_strjoin_free(str, ". Sphere", 1);
 	if (figure->id == 1)
-		mlx_string_put(env->mlx, env->win, WIN_W - 50, WIN_H - 25,
-			0xffffff, "Plane");
+		str = ft_strjoin_free(str, ". Plane", 1);
 	if (figure->id == 2)
-		mlx_string_put(env->mlx, env->win, WIN_W - 50, WIN_H - 25,
-			0xffffff, "Cylinder");
+		str = ft_strjoin_free(str, ". Cylinder", 1);
+	if (!str)
+		return (clean_env(env, 1));
+	mlx_string_put(env->mlx, env->win, WIN_W - 175, WIN_H - 25, 0xffffff, str);
+	free(str);
+	return (0);
+}
+
+static int	print_selected_object(t_env *env)
+{
+	char		*str;
+	char		*itoa_str;
+
+	str = ft_calloc(sizeof(char), 1);
+	if (!str)
+		return (clean_env(env, 1));
+	str = ft_strjoin_free(str, "Selected object: ", 1);
+	if (!str)
+		return (clean_env(env, 1));
+	itoa_str = ft_itoa(env->selected_object);
+	if (!itoa_str)
+	{
+		free(str);
+		return (clean_env(env, 1));
+	}
+	str = ft_strjoin_free(str, itoa_str, 3);
+	if (!str)
+		return (clean_env(env, 1));
+	return (find_object_id(env, str));
 }
 
 static int	check_element(t_env *env)
@@ -79,28 +100,6 @@ static int	print_image(t_env *env)
 	return (0);
 }
 
-static void	move_object(int keysym, t_env *env)
-{
-	t_element	*figure;
-	int			i;
-
-	figure = env->figure;
-	i = 1;
-	while (i < env->selected_object)
-	{
-		figure = figure->next;
-		i++;
-	}
-	if (keysym == XK_KP_Add || keysym == XK_KP_Subtract)
-		ft_scale(keysym, env, figure);
-	else if (keysym == XK_w || keysym == XK_a
-		|| keysym == XK_s || keysym == XK_d
-		|| keysym == XK_q || keysym == XK_e)
-		ft_translate_figure(keysym, env, figure);
-	else if (keysym >= XK_Left && keysym <= XK_Down && figure->id != SPHERE)
-		ft_rotate_figure(keysym, env, figure);
-}
-
 int	ft_key(int keysym, t_env *env)
 {
 	if (keysym == XK_Escape)
@@ -119,11 +118,11 @@ int	ft_key(int keysym, t_env *env)
 			ft_zoom(keysym, env);
 		else if (keysym == XK_w || keysym == XK_a
 			|| keysym == XK_s || keysym == XK_d)
-			ft_translate(keysym, env);
+			ft_translate(keysym, env->camera);
 		else if (keysym == XK_q || keysym == XK_e)
-			ft_elevate(keysym, env);
+			ft_elevate(keysym, env->camera);
 		else if (keysym >= XK_Left && keysym <= XK_Down)
-			ft_rotate(keysym, env);
+			ft_rotate(keysym, env->camera);
 	}
 	else
 		move_object(keysym, env);
