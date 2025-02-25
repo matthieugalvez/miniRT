@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 10:54:11 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/25 13:12:37 by achantra         ###   ########.fr       */
+/*   Updated: 2025/02/25 13:55:44 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,16 +52,15 @@ static void	get_z_loc_co(t_element *co, t_ray *ray, double *intersection)
 
 void	intersect_cone(t_element *co, t_ray *ray)
 {
-	double a;
-	double b;
-	double c;
-	double delta;
-	double teta;
-	t_coordinates dis;
+	double			a;
+	double			b;
+	double			c;
+	double			delta;
+	double			teta;
+	t_coordinates	dis;
 
 	teta = co->diameter / (2 * co->height);
 	dis = sub_vec(*ray->origin, *co->coord);
-
 	a = scalar_prod_vec(*ray->direction, *ray->direction) - pow(tan(teta), 2)
 		* scalar_prod_vec(*co->vector, *co->vector);
 	b = 2 * pow((scalar_prod_vec(dis, *co->vector)
@@ -69,7 +68,6 @@ void	intersect_cone(t_element *co, t_ray *ray)
 				* pow(tan(teta), 2) * scalar_prod_vec(dis, *co->vector)), 2);
 	c = scalar_prod_vec(dis, dis) - pow(tan(teta), 2) * pow(scalar_prod_vec(dis,
 				*co->vector), 2);
-
 	delta = b * b - (4 * a * c);
 	if (delta >= 0)
 	{

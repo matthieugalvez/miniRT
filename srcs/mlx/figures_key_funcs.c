@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 17:24:45 by mgalvez           #+#    #+#             */
-/*   Updated: 2025/02/25 12:14:21 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/25 14:12:15 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,48 +41,18 @@ void	ft_translate_figure(int keysym, t_env *env, t_element *figure)
 		figure->coord->z += 0.1;
 }
 
-void	ft_scale(int keysym, t_env *env, t_element *figure)
+void	ft_change_height(int keysym, t_env *env, t_element *figure)
 {
-	if (keysym == XK_KP_Subtract)
-	{
-		if (figure->diameter > 0)
-		{
-			figure->diameter--;
-			if (figure->height > 0)
-				figure->height--;
-		}
-	}
-	if (keysym == XK_KP_Add)
-	{
-		if (figure->diameter < __DBL_MAX__)
-		{
-			figure->diameter++;
-			if (figure->height < __DBL_MAX__)
-				figure->height++;
-		}
-	}
+	if (keysym == XK_KP_Divide && figure->height > 0)
+			figure->height--;
+	if (keysym == XK_KP_Multiply && figure->height < __DBL_MAX__)
+			figure->height++;
 }
 
-void	ft_translate_light(int keysym, t_env *env)
+void	ft_change_diameter(int keysym, t_env *env, t_element *figure)
 {
-	if (keysym == XK_j)
-		env->light->coord->x -= 1;
-	if (keysym == XK_l)
-		env->light->coord->x += 1;
-	if (keysym == XK_u)
-		env->light->coord->y -= 1;
-	if (keysym == XK_o)
-		env->light->coord->y += 1;
-	if (keysym == XK_k)
-		env->light->coord->z -= 1;
-	if (keysym == XK_i)
-		env->light->coord->z += 1;
-}
-
-void	ft_dim(int keysym, t_env *env)
-{
-	if (keysym == XK_semicolon && env->light->bright > 0)
-		env->light->bright -= 0.1;
-	if (keysym == XK_p && env->light->bright < 1)
-		env->light->bright += 0.1;
+	if (keysym == XK_KP_Subtract && figure->diameter > 0)
+		figure->diameter--;
+	if (keysym == XK_KP_Add && figure->diameter < __DBL_MAX__)
+		figure->diameter++;
 }

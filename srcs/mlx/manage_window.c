@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 10:55:30 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/25 13:16:26 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/25 14:03:36 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,11 @@ static void	move_object(int keysym, t_env *env)
 		figure = figure->next;
 		i++;
 	}
-	if (keysym == XK_KP_Add || keysym == XK_KP_Subtract)
-		ft_scale(keysym, env, figure);
+	if (keysym == XK_KP_Add || keysym == XK_KP_Subtract || figure->id != PLANE)
+		ft_change_diameter(keysym, env, figure);
+	if (keysym == XK_KP_Divide || keysym == XK_KP_Multiply
+		|| figure->id == CYLINDER)
+		ft_change_height(keysym, env, figure);
 	else if (keysym == XK_w || keysym == XK_a
 		|| keysym == XK_s || keysym == XK_d
 		|| keysym == XK_q || keysym == XK_e)
