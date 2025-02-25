@@ -6,7 +6,7 @@
 #    By: achantra <achantra@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/31 15:30:48 by achantra          #+#    #+#              #
-#    Updated: 2025/02/25 18:10:01 by mgalvez          ###   ########.fr        #
+#    Updated: 2025/02/25 18:17:00 by mgalvez          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,7 @@ SRCS_LST			= ${addprefix clean/, ${CLEAN_SRCS}} \
 					  ${addprefix math/, ${MATH_SRCS}} \
 					  ${addprefix mlx/, ${MLX_SRCS}} \
 					  ${addprefix parsing/, ${PARSE_SRCS}} \
-					  main.c debug.c
+					  main.c
 OBJS_LST			= ${SRCS_LST:.c=.o}
 
 BONUS_CLEAN_SRCS	= clean_element.c clean_env.c
@@ -86,7 +86,7 @@ YELLOW				= \033[33m
 GREEN				= \033[32m
 END					= \033[0m
 
-all: ${NAME}
+all: ${NAME} ${BONUS}
 
 bonus: ${BONUS}
 
