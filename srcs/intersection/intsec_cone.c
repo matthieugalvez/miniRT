@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 10:54:11 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/25 13:12:37 by achantra         ###   ########.fr       */
+/*   Updated: 2025/02/25 15:49:21 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ static void	intersect_disk_co(t_element *co, t_ray *ray)
 	inter = scalar_prod_vec(sub_vec(disk_pos, *(ray->origin)), *(co->vector))
 		/ scalar_prod_vec(*(ray->direction), *(co->vector));
 	point = add_vec(*(ray->origin), mult_vec(*(ray->direction), inter));
-	if (pow(get_norm(sub_vec(point, disk_pos)), 2) < pow(co->diameter / 2, 2))
+	if (scalar_prod_vec(sub_vec(point, disk_pos), sub_vec(point,
+				disk_pos)) < pow(co->diameter / 2, 2))
 	{
 		if (equal_double(co->c_inter[0], __DBL_MAX__))
 		{
@@ -52,24 +53,23 @@ static void	get_z_loc_co(t_element *co, t_ray *ray, double *intersection)
 
 void	intersect_cone(t_element *co, t_ray *ray)
 {
-	double a;
-	double b;
-	double c;
-	double delta;
-	double teta;
-	t_coordinates dis;
+	double			a;
+	double			b;
+	double			c;
+	double			delta;
+	double			tan_teta;
+	t_coordinates	dis;
 
-	teta = co->diameter / (2 * co->height);
+	tan_teta = 1 + pow(tan(co->diameter / (2 * co->height)), 2);
 	dis = sub_vec(*ray->origin, *co->coord);
-
-	a = scalar_prod_vec(*ray->direction, *ray->direction) - pow(tan(teta), 2)
-		* scalar_prod_vec(*co->vector, *co->vector);
-	b = 2 * pow((scalar_prod_vec(dis, *co->vector)
-				* scalar_prod_vec(*ray->direction, *co->vector) - 2
-				* pow(tan(teta), 2) * scalar_prod_vec(dis, *co->vector)), 2);
-	c = scalar_prod_vec(dis, dis) - pow(tan(teta), 2) * pow(scalar_prod_vec(dis,
+	a = scalar_prod_vec(*ray->direction, *ray->direction) - tan_teta
+		* scalar_prod_vec(*ray->direction, *co->vector)
+		* scalar_prod_vec(*ray->direction, *co->vector);
+	b = 2 * (scalar_prod_vec(*ray->direction, dis) - tan_teta
+			* scalar_prod_vec(*ray->direction, *co->vector)
+			* scalar_prod_vec(dis, *co->vector));
+	c = scalar_prod_vec(dis, dis) - tan_teta * pow(scalar_prod_vec(dis,
 				*co->vector), 2);
-
 	delta = b * b - (4 * a * c);
 	if (delta >= 0)
 	{
