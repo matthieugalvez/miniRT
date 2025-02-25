@@ -6,7 +6,7 @@
 #    By: achantra <achantra@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/31 15:30:48 by achantra          #+#    #+#              #
-#    Updated: 2025/02/25 14:18:02 by mgalvez          ###   ########.fr        #
+#    Updated: 2025/02/25 15:52:40 by mgalvez          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,8 @@ INIT_SRCS	= init_ambient.c init_camera.c init_elements.c init_env.c init_figures
 LIGHT_SRCS	= light.c light_utils.c
 INTRSC_SRCS	= intersection.c intsec_cylinder.c intsec_cone.c
 MATH_SRCS	= double_operator.c vector_operator.c vector_operator2.c normal_operator.c
-MLX_SRCS	= camera_key_funcs.c figures_key_funcs.c light_key_funcs.c manage_window.c
+MLX_SRCS	= manage_window.c camera_key_funcs.c figures_key_funcs.c light_key_funcs.c \
+			  mlx_utils.c
 PARSE_SRCS	= parse_color.c parse_coordinates.c parse_number.c parsing.c
 
 SRCS_LST	= ${addprefix clean/, ${CLEAN_SRCS}} \

@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 10:55:30 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/25 15:07:54 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/25 15:50:30 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,21 +60,6 @@ static int	print_selected_object(t_env *env)
 	return (find_object_id(env, str));
 }
 
-static int	check_element(t_env *env)
-{
-	if (env->camera && env->amb && env->light && env->figure)
-		return (0);
-	if (!env->camera)
-		ft_putstr("Warning: missing camera\n", 2);
-	if (!env->amb)
-		ft_putstr("Warning: missing ambiant light\n", 2);
-	if (!env->light)
-		ft_putstr("Warning: missing light\n", 2);
-	if (!env->figure)
-		ft_putstr("Warning: missing figure\n", 2);
-	return (1);
-}
-
 static int	print_image(t_env *env)
 {
 	mlx_destroy_image(env->mlx, env->img.img);
@@ -100,6 +85,32 @@ static int	print_image(t_env *env)
 	return (0);
 }
 
+static void	ft_select(int keysym, t_env *env)
+{
+	int			i;
+	t_element	*current_figure;
+
+	if (keysym == XK_Return)
+	{
+		env->selected_object = 0;
+		return ;
+	}
+	env->selected_object += 1;
+	i = 0;
+	current_figure = env->figure;
+	while (i < env->selected_object)
+	{
+		if (!current_figure)
+		{
+			env->selected_object = 0;
+			return ;
+		}
+		current_figure = current_figure->next;
+		i++;
+	}
+	return ;
+}
+
 int	ft_key(int keysym, t_env *env)
 {
 	if (keysym == XK_Escape)
@@ -113,17 +124,7 @@ int	ft_key(int keysym, t_env *env)
 	else if (keysym == XK_p || keysym == XK_semicolon)
 		ft_dim(keysym, env);
 	else if (!env->selected_object)
-	{
-		if (keysym == XK_KP_Add || keysym == XK_KP_Subtract)
-			ft_zoom(keysym, env);
-		else if (keysym == XK_w || keysym == XK_a
-			|| keysym == XK_s || keysym == XK_d)
-			ft_translate(keysym, env->camera);
-		else if (keysym == XK_q || keysym == XK_e)
-			ft_elevate(keysym, env->camera);
-		else if (keysym >= XK_Left && keysym <= XK_Down)
-			ft_rotate(keysym, env->camera);
-	}
+		move_camera(keysym, env);
 	else
 		move_object(keysym, env);
 	return (print_image(env));

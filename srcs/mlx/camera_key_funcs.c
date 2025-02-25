@@ -6,39 +6,13 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 11:26:30 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/25 14:29:42 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/25 16:55:58 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-void	ft_select(int keysym, t_env *env)
-{
-	int			i;
-	t_element	*current_figure;
-
-	if (keysym == XK_Return)
-	{
-		env->selected_object = 0;
-		return ;
-	}
-	env->selected_object += 1;
-	i = 0;
-	current_figure = env->figure;
-	while (i < env->selected_object)
-	{
-		if (!current_figure)
-		{
-			env->selected_object = 0;
-			return ;
-		}
-		current_figure = current_figure->next;
-		i++;
-	}
-	return ;
-}
-
-void	ft_rotate(int keysym, t_camera *camera)
+static void	ft_rotate(int keysym, t_camera *camera)
 {
 	t_coordinates	lerp;
 
@@ -67,15 +41,7 @@ void	ft_rotate(int keysym, t_camera *camera)
 	normalize_vec(camera->dir);
 }
 
-void	ft_elevate(int keysym, t_camera *camera)
-{
-	if (keysym == XK_q)
-		*camera->coord = sub_vec(*camera->coord, *camera->dir_up);
-	if (keysym == XK_e)
-		*camera->coord = add_vec(*camera->coord, *camera->dir_up);
-}
-
-void	ft_translate(int keysym, t_camera *camera)
+static void	ft_translate(int keysym, t_camera *camera)
 {
 	if (keysym == XK_w)
 		*camera->coord = add_vec(*camera->coord, *camera->dir);
@@ -85,9 +51,13 @@ void	ft_translate(int keysym, t_camera *camera)
 		*camera->coord = sub_vec(*camera->coord, *camera->dir_right);
 	if (keysym == XK_d)
 		*camera->coord = add_vec(*camera->coord, *camera->dir_right);
+	if (keysym == XK_q)
+		*camera->coord = sub_vec(*camera->coord, *camera->dir_up);
+	if (keysym == XK_e)
+		*camera->coord = add_vec(*camera->coord, *camera->dir_up);
 }
 
-void	ft_zoom(int keysym, t_env *env)
+static void	ft_zoom(int keysym, t_env *env)
 {
 	if (env->camera->fov < 180 && keysym == XK_KP_Subtract)
 	{
@@ -102,4 +72,16 @@ void	ft_zoom(int keysym, t_env *env)
 			env->camera->fov = 0;
 	}
 	find_viewport(env);
+}
+
+void	move_camera(int keysym, t_env *env)
+{
+	if (keysym == XK_KP_Add || keysym == XK_KP_Subtract)
+		ft_zoom(keysym, env);
+	else if (keysym == XK_w || keysym == XK_a
+		|| keysym == XK_s || keysym == XK_d
+		|| keysym == XK_q || keysym == XK_e)
+		ft_translate(keysym, env->camera);
+	else if (keysym >= XK_Left && keysym <= XK_Down)
+		ft_rotate(keysym, env->camera);
 }

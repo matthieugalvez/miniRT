@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 15:37:52 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/25 15:03:44 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/25 17:13:31 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,10 @@ int				new_sphere(t_env *env, char **data);
 int				new_cylinder(t_env *env, char **data);
 int				new_ambient(t_env *env, char **data);
 int				new_light(t_env *env, char **data);
+int				init_mlx(t_env *env);
 void			find_viewport(t_env *env);
 int				ft_is_float(char *data);
 void			add_back_elem(t_element **elem, t_element *new_elem);
-int				init_mlx(t_env *env);
 
 // PARSING
 int				check_entry(int ac, char **av);
@@ -76,14 +76,11 @@ int				clean_env(t_env *env, int exit_code);
 
 // MLX
 int				ft_key(int keysym, t_env *env);
-void			ft_select(int keysym, t_env *env);
 void			ft_translate_light(int keysym, t_env *env);
 void			ft_dim(int keysym, t_env *env);
-void			ft_zoom(int keysym, t_env *env);
-void			ft_translate(int keysym, t_camera *camera);
-void			ft_rotate(int keysym, t_camera *camera);
-void			ft_elevate(int keysym, t_camera *camera);
+void			move_camera(int keysym, t_env *env);
 void			move_object(int keysym, t_env *env);
+int				check_element(t_env *env);
 
 // IMAGE
 int				draw_image(t_env *env);
@@ -100,6 +97,9 @@ int				apply_light(t_env *env, t_ray *cam_ray, t_element *figure,
 void			init_ray(t_ray *ray, t_env *env, t_coordinates *hitpoint);
 
 // MATH
+void			double_increment(double *d);
+void			double_decrement(double *d);
+int				equal_double(double a, double b);
 t_coordinates	*new_vec(double x, double y, double z);
 t_coordinates	change_vec(double x, double y, double z);
 t_coordinates	add_vec(t_coordinates v1, t_coordinates v2);
@@ -110,7 +110,6 @@ double			scalar_prod_vec(t_coordinates v1, t_coordinates v2);
 double			get_norm(t_coordinates vector);
 void			normalize_vec(t_coordinates *vector);
 t_coordinates	*vect_prod_vec(t_coordinates v1, t_coordinates v2);
-int				equal_double(double a, double b);
 t_coordinates	get_normal_at(t_element *figure, t_coordinates *point,
 					t_ray *light_ray, t_ray *cam_ray);
 
