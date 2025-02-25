@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 17:24:45 by mgalvez           #+#    #+#             */
-/*   Updated: 2025/02/24 18:00:55 by achantra         ###   ########.fr       */
+/*   Updated: 2025/02/25 12:14:21 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,75 @@
 
 void	ft_rotate_figure(int keysym, t_env *env, t_element *figure)
 {
-}
-
-void	ft_elevate_figure(int keysym, t_env *env, t_element *figure)
-{
+	if (keysym == XK_Right)
+		figure->vector->x -= 0.1;
+	if (keysym == XK_Left)
+		figure->vector->x += 0.1;
+	if (keysym == XK_Up)
+		figure->vector->y -= 0.1;
+	if (keysym == XK_Down)
+		figure->vector->y += 0.1;
+	normalize_vec(figure->vector);
 }
 
 void	ft_translate_figure(int keysym, t_env *env, t_element *figure)
 {
+	if (keysym == XK_a)
+		figure->coord->x -= 0.1;
+	if (keysym == XK_d)
+		figure->coord->x += 0.1;
+	if (keysym == XK_q)
+		figure->coord->y -= 0.1;
+	if (keysym == XK_e)
+		figure->coord->y += 0.1;
+	if (keysym == XK_s)
+		figure->coord->z -= 0.1;
+	if (keysym == XK_w)
+		figure->coord->z += 0.1;
 }
 
 void	ft_scale(int keysym, t_env *env, t_element *figure)
 {
+	if (keysym == XK_KP_Subtract)
+	{
+		if (figure->diameter > 0)
+		{
+			figure->diameter--;
+			if (figure->height > 0)
+				figure->height--;
+		}
+	}
+	if (keysym == XK_KP_Add)
+	{
+		if (figure->diameter < __DBL_MAX__)
+		{
+			figure->diameter++;
+			if (figure->height < __DBL_MAX__)
+				figure->height++;
+		}
+	}
+}
+
+void	ft_translate_light(int keysym, t_env *env)
+{
+	if (keysym == XK_j)
+		env->light->coord->x -= 1;
+	if (keysym == XK_l)
+		env->light->coord->x += 1;
+	if (keysym == XK_u)
+		env->light->coord->y -= 1;
+	if (keysym == XK_o)
+		env->light->coord->y += 1;
+	if (keysym == XK_k)
+		env->light->coord->z -= 1;
+	if (keysym == XK_i)
+		env->light->coord->z += 1;
+}
+
+void	ft_dim(int keysym, t_env *env)
+{
+	if (keysym == XK_semicolon && env->light->bright > 0)
+		env->light->bright -= 0.1;
+	if (keysym == XK_p && env->light->bright < 1)
+		env->light->bright += 0.1;
 }

@@ -6,12 +6,38 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 10:55:30 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/24 17:23:47 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/25 13:16:26 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
-#include "struct.h"
+
+static void	print_selected_object(t_env *env)
+{
+	t_element	*figure;
+	int			i;
+
+	mlx_string_put(env->mlx, env->win, WIN_W - 160, WIN_H - 25,
+		0xffffff, "Selected object: ");
+	mlx_string_put(env->mlx, env->win, WIN_W - 60, WIN_H - 25,
+		0xffffff, ft_itoa(env->selected_object));
+	figure = env->figure;
+	i = 1;
+	while (i < env->selected_object)
+	{
+		figure = figure->next;
+		i++;
+	}
+	if (!figure->id)
+		mlx_string_put(env->mlx, env->win, WIN_W - 50, WIN_H - 25,
+			0xffffff, "Sphere");
+	if (figure->id == 1)
+		mlx_string_put(env->mlx, env->win, WIN_W - 50, WIN_H - 25,
+			0xffffff, "Plane");
+	if (figure->id == 2)
+		mlx_string_put(env->mlx, env->win, WIN_W - 50, WIN_H - 25,
+			0xffffff, "Cylinder");
+}
 
 static int	check_element(t_env *env)
 {
@@ -28,7 +54,7 @@ static int	check_element(t_env *env)
 	return (1);
 }
 
-int	print_image(t_env *env)
+static int	print_image(t_env *env)
 {
 	mlx_destroy_image(env->mlx, env->img.img);
 	env->img.img = mlx_new_image(env->mlx, WIN_W, WIN_H);
@@ -48,6 +74,8 @@ int	print_image(t_env *env)
 		return (1);
 	draw_image(env);
 	mlx_put_image_to_window(env->mlx, env->win, env->img.img, 0, 0);
+	if (env->selected_object)
+		print_selected_object(env);
 	return (0);
 }
 
@@ -66,10 +94,9 @@ static void	move_object(int keysym, t_env *env)
 	if (keysym == XK_KP_Add || keysym == XK_KP_Subtract)
 		ft_scale(keysym, env, figure);
 	else if (keysym == XK_w || keysym == XK_a
-		|| keysym == XK_s || keysym == XK_d)
+		|| keysym == XK_s || keysym == XK_d
+		|| keysym == XK_q || keysym == XK_e)
 		ft_translate_figure(keysym, env, figure);
-	else if (keysym == XK_q || keysym == XK_e)
-		ft_elevate_figure(keysym, env, figure);
 	else if (keysym >= XK_Left && keysym <= XK_Down && figure->id != SPHERE)
 		ft_rotate_figure(keysym, env, figure);
 }
@@ -80,6 +107,12 @@ int	ft_key(int keysym, t_env *env)
 		return (clean_env(env, 0));
 	else if (keysym == XK_space || keysym == XK_Return)
 		ft_select(keysym, env);
+	else if (keysym == XK_i || keysym == XK_k
+		|| keysym == XK_j || keysym == XK_l
+		|| keysym == XK_u || keysym == XK_o)
+		ft_translate_light(keysym, env);
+	else if (keysym == XK_p || keysym == XK_semicolon)
+		ft_dim(keysym, env);
 	else if (!env->selected_object)
 	{
 		if (keysym == XK_KP_Add || keysym == XK_KP_Subtract)
@@ -94,29 +127,5 @@ int	ft_key(int keysym, t_env *env)
 	}
 	else
 		move_object(keysym, env);
-	print_image(env);
-	return (0);
-}
-
-int	init_mlx(t_env *env)
-{
-	env->mlx = mlx_init();
-	if (!env->mlx)
-	{
-		ft_putstr("Error: mlx\n", 2);
-		return (clean_env(env, 1));
-	}
-	env->win = mlx_new_window(env->mlx, WIN_W, WIN_H, "miniRT");
-	if (!env->win)
-	{
-		ft_putstr("Error: mlx\n", 2);
-		return (clean_env(env, 1));
-	}
-	env->img.img = mlx_new_image(env->mlx, WIN_W, WIN_H);
-	if (!env->img.img)
-	{
-		ft_putstr("Error: mlx\n", 2);
-		return (clean_env(env, 1));
-	}
-	return (0);
+	return (print_image(env));
 }

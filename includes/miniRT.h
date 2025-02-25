@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 15:37:52 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/25 11:14:30 by achantra         ###   ########.fr       */
+/*   Updated: 2025/02/25 13:26:08 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ int				new_light(t_env *env, char **data);
 void			find_viewport(t_env *env);
 int				ft_is_float(char *data);
 void			add_back_elem(t_element **elem, t_element *new_elem);
+int				init_mlx(t_env *env);
 
 // PARSING
 int				check_entry(int ac, char **av);
@@ -74,18 +75,17 @@ void			clean_figure(t_element *figure);
 int				clean_env(t_env *env, int exit_code);
 
 // MLX
-int				init_mlx(t_env *env);
 int				ft_key(int keysym, t_env *env);
 void			ft_select(int keysym, t_env *env);
+void			ft_translate_light(int keysym, t_env *env);
+void			ft_dim(int keysym, t_env *env);
 void			ft_zoom(int keysym, t_env *env);
 void			ft_translate(int keysym, t_env *env);
 void			ft_rotate(int keysym, t_env *env);
 void			ft_elevate(int keysym, t_env *env);
 void			ft_scale(int keysym, t_env *env, t_element *figure);
 void			ft_translate_figure(int keysym, t_env *env, t_element *figure);
-void			ft_elevate_figure(int keysym, t_env *env, t_element *figure);
 void			ft_rotate_figure(int keysym, t_env *env, t_element *figure);
-int				print_image(t_env *env);
 
 // IMAGE
 int				draw_image(t_env *env);
