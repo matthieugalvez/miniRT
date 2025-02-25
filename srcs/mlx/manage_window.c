@@ -6,11 +6,38 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 10:55:30 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/25 12:02:16 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/25 13:16:26 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
+
+static void	print_selected_object(t_env *env)
+{
+	t_element	*figure;
+	int			i;
+
+	mlx_string_put(env->mlx, env->win, WIN_W - 160, WIN_H - 25,
+		0xffffff, "Selected object: ");
+	mlx_string_put(env->mlx, env->win, WIN_W - 60, WIN_H - 25,
+		0xffffff, ft_itoa(env->selected_object));
+	figure = env->figure;
+	i = 1;
+	while (i < env->selected_object)
+	{
+		figure = figure->next;
+		i++;
+	}
+	if (!figure->id)
+		mlx_string_put(env->mlx, env->win, WIN_W - 50, WIN_H - 25,
+			0xffffff, "Sphere");
+	if (figure->id == 1)
+		mlx_string_put(env->mlx, env->win, WIN_W - 50, WIN_H - 25,
+			0xffffff, "Plane");
+	if (figure->id == 2)
+		mlx_string_put(env->mlx, env->win, WIN_W - 50, WIN_H - 25,
+			0xffffff, "Cylinder");
+}
 
 static int	check_element(t_env *env)
 {
@@ -27,7 +54,7 @@ static int	check_element(t_env *env)
 	return (1);
 }
 
-int	print_image(t_env *env)
+static int	print_image(t_env *env)
 {
 	mlx_destroy_image(env->mlx, env->img.img);
 	env->img.img = mlx_new_image(env->mlx, WIN_W, WIN_H);
@@ -47,6 +74,8 @@ int	print_image(t_env *env)
 		return (1);
 	draw_image(env);
 	mlx_put_image_to_window(env->mlx, env->win, env->img.img, 0, 0);
+	if (env->selected_object)
+		print_selected_object(env);
 	return (0);
 }
 
@@ -99,27 +128,4 @@ int	ft_key(int keysym, t_env *env)
 	else
 		move_object(keysym, env);
 	return (print_image(env));
-}
-
-int	init_mlx(t_env *env)
-{
-	env->mlx = mlx_init();
-	if (!env->mlx)
-	{
-		ft_putstr("Error: mlx\n", 2);
-		return (clean_env(env, 1));
-	}
-	env->win = mlx_new_window(env->mlx, WIN_W, WIN_H, "miniRT");
-	if (!env->win)
-	{
-		ft_putstr("Error: mlx\n", 2);
-		return (clean_env(env, 1));
-	}
-	env->img.img = mlx_new_image(env->mlx, WIN_W, WIN_H);
-	if (!env->img.img)
-	{
-		ft_putstr("Error: mlx\n", 2);
-		return (clean_env(env, 1));
-	}
-	return (0);
 }
