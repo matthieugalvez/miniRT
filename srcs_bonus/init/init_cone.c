@@ -6,11 +6,11 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 10:50:45 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/25 15:50:26 by achantra         ###   ########.fr       */
+/*   Updated: 2025/02/25 18:00:34 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "miniRT_bonus.h"
 
 static int	init_cone(t_element *cone, t_env *env, char **data)
 {

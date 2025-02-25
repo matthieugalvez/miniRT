@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   miniRT.h                                           :+:      :+:    :+:   */
+/*   miniRT_bonus.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 15:37:52 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/25 17:33:42 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/25 18:05:31 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINIRT_H
-# define MINIRT_H
+#ifndef MINIRT_BONUS_H
+# define MINIRT_BONUS_H
 
 # include "libft.h"
 # include "mlx.h"
@@ -49,6 +49,7 @@ int				new_camera(t_env *env, char **data);
 int				new_plane(t_env *env, char **data);
 int				new_sphere(t_env *env, char **data);
 int				new_cylinder(t_env *env, char **data);
+int				new_cone(t_env *env, char **data);
 int				new_ambient(t_env *env, char **data);
 int				new_light(t_env *env, char **data);
 int				init_mlx(t_env *env);
@@ -90,6 +91,7 @@ void			my_pixel_put(int i, int j, t_env *env, int color);
 // INTERSECTION
 double			find_intsec(t_ray *ray, t_element *figure);
 void			intersect_cylinder(t_element *cy, t_ray *ray);
+void			intersect_cone(t_element *co, t_ray *ray);
 
 // LIGHT
 int				apply_light(t_env *env, t_ray *cam_ray, t_element *figure,
