@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 15:37:52 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/24 17:27:46 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/25 11:14:30 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,17 @@
 # include "libft.h"
 # include "mlx.h"
 # include "struct.h"
+# include <X11/keysym.h>
 # include <fcntl.h>
 # include <math.h>
+# include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
-# include <stdio.h>
-# include <X11/keysym.h>
 
 # define SPHERE 0
 # define PLANE 1
 # define CYLINDER 2
+# define CONE 3
 
 # define HEXA "0123456789abcdef"
 
@@ -96,8 +97,8 @@ double			find_intsec(t_ray *ray, t_element *figure);
 void			intersect_cylinder(t_element *cy, t_ray *ray);
 
 // LIGHT
-int				apply_light(t_env *env, t_ray *cam_ray,
-					t_element *figure, t_coordinates *hitpoint);
+int				apply_light(t_env *env, t_ray *cam_ray, t_element *figure,
+					t_coordinates *hitpoint);
 void			init_ray(t_ray *ray, t_env *env, t_coordinates *hitpoint);
 
 // MATH
@@ -117,5 +118,10 @@ t_coordinates	get_normal_at(t_element *figure, t_coordinates *point,
 
 // DEBUG
 void			debug_env(t_env *env);
+
+// BONUS
+
+int				new_cone(t_env *env, char **data);
+void			intersect_cone(t_element *co, t_ray *ray);
 
 #endif

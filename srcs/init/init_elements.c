@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 15:50:11 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/13 13:10:18 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/25 10:53:07 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ int	init_element(t_env *env, char *line)
 		return (new_sphere(env, data));
 	else if (!ft_strcmp(data[0], "pl"))
 		return (new_plane(env, data));
+	else if ((!ft_strcmp(data[0], "co")))
+		return (new_cone(env, data));
 	ft_printf_fd(2, "Error: wrong data: %s\n", data[0]);
 	return (1);
 }

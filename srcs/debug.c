@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 18:21:37 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/15 17:06:33 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/25 12:16:29 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,13 @@ static void	debug_env_figure(t_element *figure)
 				figure->vector->x, figure->vector->y, figure->vector->z,
 				figure->diameter, figure->height,
 				figure->color->r, figure->color->g, figure->color->b);
-		figure = figure->next;
+		else if (figure->id == CONE)
+			printf("co %.2f,%.2f,%.2f %.2f,%.2f,%.2f %.2f %.2f %d,%d,%d\n",
+				figure->coord->x, figure->coord->y, figure->coord->z,
+				figure->vector->x, figure->vector->y, figure->vector->z,
+				figure->diameter, figure->height,
+				figure->color->r, figure->color->g, figure->color->b);
+			figure = figure->next;
 	}
 }
 
