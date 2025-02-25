@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 10:55:30 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/25 11:49:17 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/25 12:02:16 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,12 @@ int	ft_key(int keysym, t_env *env)
 		return (clean_env(env, 0));
 	else if (keysym == XK_space || keysym == XK_Return)
 		ft_select(keysym, env);
+	else if (keysym == XK_i || keysym == XK_k
+		|| keysym == XK_j || keysym == XK_l
+		|| keysym == XK_u || keysym == XK_o)
+		ft_translate_light(keysym, env);
+	else if (keysym == XK_p || keysym == XK_semicolon)
+		ft_dim(keysym, env);
 	else if (!env->selected_object)
 	{
 		if (keysym == XK_KP_Add || keysym == XK_KP_Subtract)
