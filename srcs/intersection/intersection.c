@@ -6,25 +6,37 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 13:46:27 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/22 14:40:20 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/24 17:43:57 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
+
+// static void	intersect_plane(t_element *pl, t_ray *ray)
+// {
+// 	double	denom;
+// 	double	t;
+
+// 	denom = scalar_prod_vec(*pl->vector, *ray->direction);
+// 	if (equal_double(denom, 0))
+// 		return ;
+// 	if (denom < 0)
+// 		pl->intersec_type = 1;
+// 	t = scalar_prod_vec(sub_vec(*pl->coord, *ray->origin), *pl->vector);
+// 	if (t > 0 || equal_double(t, 0))
+// 		pl->c_inter[0] = t;
+// }
 
 static void	intersect_plane(t_element *pl, t_ray *ray)
 {
 	double	denom;
 	double	t;
 
-	denom = scalar_prod_vec(*pl->vector, *ray->direction);
-	if (equal_double(denom, 0))
+	if (equal_double(scalar_prod_vec(*pl->vector, *ray->direction), 0))
 		return ;
-	if (denom > 0)
-		pl->intersec_type = 1;
-	t = scalar_prod_vec(sub_vec(*pl->coord, *ray->origin), *pl->vector);
-	if (t >= 0)
-		pl->c_inter[0] = t;
+	t = -scalar_prod_vec(*pl->vector, sub_vec(*ray->origin, *pl->coord))
+		/ scalar_prod_vec(*pl->vector, *ray->direction);
+	pl->c_inter[0] = t;
 }
 
 static void	intersect_sphere(t_element *sp, t_ray *ray)

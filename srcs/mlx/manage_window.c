@@ -6,11 +6,12 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 10:55:30 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/20 15:51:37 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/24 17:23:47 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
+#include "struct.h"
 
 static int	check_element(t_env *env)
 {
@@ -50,21 +51,49 @@ int	print_image(t_env *env)
 	return (0);
 }
 
+static void	move_object(int keysym, t_env *env)
+{
+	t_element	*figure;
+	int			i;
+
+	figure = env->figure;
+	i = 1;
+	while (i < env->selected_object)
+	{
+		figure = figure->next;
+		i++;
+	}
+	if (keysym == XK_KP_Add || keysym == XK_KP_Subtract)
+		ft_scale(keysym, env, figure);
+	else if (keysym == XK_w || keysym == XK_a
+		|| keysym == XK_s || keysym == XK_d)
+		ft_translate_figure(keysym, env, figure);
+	else if (keysym == XK_q || keysym == XK_e)
+		ft_elevate_figure(keysym, env, figure);
+	else if (keysym >= XK_Left && keysym <= XK_Down && figure->id != SPHERE)
+		ft_rotate_figure(keysym, env, figure);
+}
+
 int	ft_key(int keysym, t_env *env)
 {
 	if (keysym == XK_Escape)
 		return (clean_env(env, 0));
-	else if (keysym == XK_KP_Add || keysym == XK_KP_Subtract)
-		ft_zoom(keysym, env);
-	else if (keysym == XK_w || keysym == XK_a
-		|| keysym == XK_s || keysym == XK_d)
-		ft_translate(keysym, env);
-	else if (keysym == XK_q || keysym == XK_e)
-		ft_elevate(keysym, env);
-	else if ((keysym >= XK_Left && keysym <= XK_Down))
-		ft_rotate(keysym, env);
-	else if (keysym == XK_space)
-		ft_reinit(env);
+	else if (keysym == XK_space || keysym == XK_Return)
+		ft_select(keysym, env);
+	else if (!env->selected_object)
+	{
+		if (keysym == XK_KP_Add || keysym == XK_KP_Subtract)
+			ft_zoom(keysym, env);
+		else if (keysym == XK_w || keysym == XK_a
+			|| keysym == XK_s || keysym == XK_d)
+			ft_translate(keysym, env);
+		else if (keysym == XK_q || keysym == XK_e)
+			ft_elevate(keysym, env);
+		else if (keysym >= XK_Left && keysym <= XK_Down)
+			ft_rotate(keysym, env);
+	}
+	else
+		move_object(keysym, env);
 	print_image(env);
 	return (0);
 }

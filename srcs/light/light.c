@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   light.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgalvez <mgalvez@student.42.fr>            +#+  +:+       +#+        */
+/*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:33:10 by mgalvez           #+#    #+#             */
-/*   Updated: 2025/02/22 15:02:41 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/24 18:01:11 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ static void	get_specular(t_coordinates reflexion_vec, t_ray *cam_ray,
 	double	factor;
 	double	specular;
 
-	cos_angle = scalar_prod_vec(reflexion_vec, mult_vec(*cam_ray->direction, -1));
+	cos_angle = scalar_prod_vec(reflexion_vec, mult_vec(*cam_ray->direction,
+				-1));
 	if (cos_angle <= 0)
 		return ;
 	factor = pow(cos_angle, 200);
@@ -40,11 +41,11 @@ static void	get_specular(t_coordinates reflexion_vec, t_ray *cam_ray,
 	color->b += light->color->b * specular;
 }
 */
-static void	get_diffuse(t_light *light, t_color *color,
-						t_color *figure_color, double cos_angle)
+static void	get_diffuse(t_light *light, t_color *color, t_color *figure_color,
+		double cos_angle)
 {
-	double			specular_factor;
-	t_color			applied_diffuse;
+	double	specular_factor;
+	t_color	applied_diffuse;
 
 	applied_diffuse.r = figure_color->r * (light->color->r * light->bright);
 	applied_diffuse.g = figure_color->g * (light->color->g * light->bright);
@@ -74,8 +75,7 @@ static int	find_shadow(t_env *env, t_element *current_figure, t_ray *light_ray)
 		if (figure != current_figure)
 		{
 			new_distance = find_intsec(light_ray, figure);
-			if (!equal_double(new_distance, distance)
-				&& new_distance < distance)
+			if (equal_double(new_distance, distance) || new_distance < distance)
 				return (1);
 		}
 		figure = figure->next;
@@ -90,26 +90,26 @@ static void	get_ambiant(t_color *color, t_amb *amb)
 	color->b = (color->b * (amb->color->b * amb->bright * 0.5)) / 255;
 }
 
-int	apply_light(t_env *env, t_ray *cam_ray,
-					t_element *figure, t_coordinates *hitpoint)
+int	apply_light(t_env *env, t_ray *cam_ray, t_element *figure,
+		t_coordinates *hitpoint)
 {
 	t_color			color;
 	t_coordinates	normal_at_hp;
 	t_ray			light_ray;
 	double			cos_angle;
-//	t_coordinates	reflexion_vec;
 
+	//	t_coordinates	reflexion_vec;
 	color = *figure->color;
-	normal_at_hp = get_normal_at(figure, hitpoint);
 	init_ray(&light_ray, env, hitpoint);
+	normal_at_hp = get_normal_at(figure, hitpoint, &light_ray, cam_ray);
 	get_ambiant(&color, env->amb);
-	cos_angle = scalar_prod_vec(normal_at_hp,
-			mult_vec(*light_ray.direction, -1));
+	cos_angle = scalar_prod_vec(normal_at_hp, mult_vec(*light_ray.direction,
+				-1));
 	if (!find_shadow(env, figure, &light_ray) && cos_angle >= 0)
 		get_diffuse(env->light, &color, figure->color, cos_angle);
-//	reflexion_vec = get_reflexion_vec(light_ray.direction, &normal_at_hp);
-//	normalize_vec(&reflexion_vec);
-//	get_specular(reflexion_vec, cam_ray, env->light, &color);
+	//	reflexion_vec = get_reflexion_vec(light_ray.direction, &normal_at_hp);
+	//	normalize_vec(&reflexion_vec);
+	//	get_specular(reflexion_vec, cam_ray, env->light, &color);
 	if (color.r > 255)
 		color.r = 255;
 	if (color.g > 255)

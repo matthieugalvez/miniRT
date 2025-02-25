@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 15:37:52 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/22 14:23:55 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/24 17:27:46 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,11 +75,15 @@ int				clean_env(t_env *env, int exit_code);
 // MLX
 int				init_mlx(t_env *env);
 int				ft_key(int keysym, t_env *env);
+void			ft_select(int keysym, t_env *env);
 void			ft_zoom(int keysym, t_env *env);
 void			ft_translate(int keysym, t_env *env);
 void			ft_rotate(int keysym, t_env *env);
 void			ft_elevate(int keysym, t_env *env);
-void			ft_reinit(t_env *env);
+void			ft_scale(int keysym, t_env *env, t_element *figure);
+void			ft_translate_figure(int keysym, t_env *env, t_element *figure);
+void			ft_elevate_figure(int keysym, t_env *env, t_element *figure);
+void			ft_rotate_figure(int keysym, t_env *env, t_element *figure);
 int				print_image(t_env *env);
 
 // IMAGE
@@ -108,7 +112,8 @@ double			get_norm(t_coordinates vector);
 void			normalize_vec(t_coordinates *vector);
 t_coordinates	*vectorial_prod_vec(t_coordinates v1, t_coordinates v2);
 int				equal_double(double a, double b);
-t_coordinates	get_normal_at(t_element *figure, t_coordinates *point);
+t_coordinates	get_normal_at(t_element *figure, t_coordinates *point,
+					t_ray *light_ray, t_ray *cam_ray);
 
 // DEBUG
 void			debug_env(t_env *env);

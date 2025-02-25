@@ -3,20 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   normal_operator.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgalvez <mgalvez@student.42.fr>            +#+  +:+       +#+        */
+/*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 18:54:12 by mgalvez           #+#    #+#             */
-/*   Updated: 2025/02/21 15:59:53 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/24 17:38:03 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-static t_coordinates	normal_at_pl(t_element *plane, t_coordinates *point)
+static t_coordinates	normal_at_pl(t_element *plane, t_coordinates *point,
+								t_ray *light_ray, t_ray *cam_ray)
 {
-	if (!plane->intersec_type)
-		return (*plane->vector);
-	return (mult_vec(*plane->vector, -1));
+	double	scalar_prod_light;
+	double	scalar_prod_cam;
+
+	scalar_prod_light = scalar_prod_vec(*light_ray->direction, *plane->vector);
+	scalar_prod_cam = scalar_prod_vec(*cam_ray->direction, *plane->vector);
+	if (scalar_prod_light * scalar_prod_cam >= 0)
+	{
+		if (scalar_prod_light)
+			return (mult_vec(*plane->vector, -1.0));
+		else
+			return (*plane->vector);
+	}
+	return (*light_ray->direction);
 }
 
 static t_coordinates	pipe_normal(t_element *cylinder, t_coordinates *point)
@@ -57,11 +68,12 @@ static t_coordinates	normal_at_sp(t_element *sphere, t_coordinates *point)
 	return (normal_at_vec);
 }
 
-t_coordinates	get_normal_at(t_element *figure, t_coordinates *point)
+t_coordinates	get_normal_at(t_element *figure, t_coordinates *point,
+							t_ray *light_ray, t_ray *cam_ray)
 {
 	if (figure->id == SPHERE)
 		return (normal_at_sp(figure, point));
 	if (figure->id == CYLINDER)
 		return (normal_at_cy(figure, point));
-	return (normal_at_pl(figure, point));
+	return (normal_at_pl(figure, point, light_ray, cam_ray));
 }

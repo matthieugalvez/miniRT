@@ -1,32 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atof.c                                          :+:      :+:    :+:   */
+/*   figures_key_funcs.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/12 18:31:30 by mgalvez           #+#    #+#             */
-/*   Updated: 2025/02/24 15:08:21 by mgalvez          ###   ########.fr       */
+/*   Created: 2025/02/24 17:24:45 by mgalvez           #+#    #+#             */
+/*   Updated: 2025/02/24 18:00:55 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include <math.h>
+#include "miniRT.h"
 
-double	ft_atof(char *num1, char *num2)
+void	ft_rotate_figure(int keysym, t_env *env, t_element *figure)
 {
-	int		len_num2;
-	double	integer;
-	double	decimal;
+}
 
-	if (!num2)
-		return (ft_atol(num1));
-	len_num2 = 0;
-	while (num2[len_num2])
-		len_num2++;
-	integer = (double) ft_atol(num1);
-	decimal = ft_atol(num2) / pow(10, len_num2);
-	if (num1[0] == '-')
-		decimal *= -1;
-	return (integer + decimal);
+void	ft_elevate_figure(int keysym, t_env *env, t_element *figure)
+{
+}
+
+void	ft_translate_figure(int keysym, t_env *env, t_element *figure)
+{
+}
+
+void	ft_scale(int keysym, t_env *env, t_element *figure)
+{
 }
