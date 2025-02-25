@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   key_funcs.c                                        :+:      :+:    :+:   */
+/*   camera_key_funcs.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 11:26:30 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/25 14:06:45 by achantra         ###   ########.fr       */
+/*   Updated: 2025/02/25 14:29:42 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,57 +38,53 @@ void	ft_select(int keysym, t_env *env)
 	return ;
 }
 
-void	ft_rotate(int keysym, t_env *env)
+void	ft_rotate(int keysym, t_camera *camera)
 {
 	t_coordinates	lerp;
 
 	if (keysym == XK_Up)
-		lerp = sub_vec(*env->camera->dir, *env->camera->dir_up);
+		lerp = sub_vec(*camera->dir, *camera->dir_up);
 	if (keysym == XK_Down)
-		lerp = sub_vec(*env->camera->dir_up, *env->camera->dir);
+		lerp = sub_vec(*camera->dir_up, *camera->dir);
 	if (keysym == XK_Up || keysym == XK_Down)
 	{
 		lerp = mult_vec(lerp, 0.1);
-		*env->camera->dir_up = add_vec(*env->camera->dir_up, lerp);
-		normalize_vec(env->camera->dir_up);
+		*camera->dir_up = add_vec(*camera->dir_up, lerp);
+		normalize_vec(camera->dir_up);
 	}
 	if (keysym == XK_Left)
-		lerp = sub_vec(*env->camera->dir, *env->camera->dir_right);
+		lerp = sub_vec(*camera->dir, *camera->dir_right);
 	if (keysym == XK_Right)
-		lerp = sub_vec(*env->camera->dir_right, *env->camera->dir);
+		lerp = sub_vec(*camera->dir_right, *camera->dir);
 	if (keysym == XK_Left || keysym == XK_Right)
 	{
 		lerp = mult_vec(lerp, 0.1);
-		*env->camera->dir_right = add_vec(*env->camera->dir_right, lerp);
-		normalize_vec(env->camera->dir_right);
+		*camera->dir_right = add_vec(*camera->dir_right, lerp);
+		normalize_vec(camera->dir_right);
 	}
-	free(env->camera->dir);
-	env->camera->dir = vect_prod_vec(*env->camera->dir_right, *env->camera->dir_up);
-	normalize_vec(env->camera->dir);
+	free(camera->dir);
+	camera->dir = vect_prod_vec(*camera->dir_right, *camera->dir_up);
+	normalize_vec(camera->dir);
 }
 
-void	ft_elevate(int keysym, t_env *env)
+void	ft_elevate(int keysym, t_camera *camera)
 {
 	if (keysym == XK_q)
-		*env->camera->coord
-			= sub_vec(*env->camera->coord, *env->camera->dir_up);
+		*camera->coord = sub_vec(*camera->coord, *camera->dir_up);
 	if (keysym == XK_e)
-		*env->camera->coord
-			= add_vec(*env->camera->coord, *env->camera->dir_up);
+		*camera->coord = add_vec(*camera->coord, *camera->dir_up);
 }
 
-void	ft_translate(int keysym, t_env *env)
+void	ft_translate(int keysym, t_camera *camera)
 {
 	if (keysym == XK_w)
-		*env->camera->coord = add_vec(*env->camera->coord, *env->camera->dir);
+		*camera->coord = add_vec(*camera->coord, *camera->dir);
 	if (keysym == XK_s)
-		*env->camera->coord = sub_vec(*env->camera->coord, *env->camera->dir);
+		*camera->coord = sub_vec(*camera->coord, *camera->dir);
 	if (keysym == XK_a)
-		*env->camera->coord
-			= sub_vec(*env->camera->coord, *env->camera->dir_right);
+		*camera->coord = sub_vec(*camera->coord, *camera->dir_right);
 	if (keysym == XK_d)
-		*env->camera->coord
-			= add_vec(*env->camera->coord, *env->camera->dir_right);
+		*camera->coord = add_vec(*camera->coord, *camera->dir_right);
 }
 
 void	ft_zoom(int keysym, t_env *env)
