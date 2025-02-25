@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 12:08:44 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/22 14:41:54 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/25 11:31:03 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,6 @@ int	draw_image(t_env *env)
 	t_ray			ray;
 	t_coordinates	direction;
 
-	printf("camera:\n%f\n%f\n%f\n\n%f\n%f\n%f\n\n\n",
-		env->camera->coord->x, env->camera->coord->y, env->camera->coord->z,
-		env->camera->dir->x, env->camera->dir->y, env->camera->dir->z);
 	ray.origin = env->camera->coord;
 	ray.direction = &direction;
 	j = 0;
