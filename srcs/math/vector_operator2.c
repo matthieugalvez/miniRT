@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 13:30:17 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/15 16:28:45 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/25 14:06:34 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	normalize_vec(t_coordinates *vector)
 	*vector = div_vec(*vector, norm);
 }
 
-t_coordinates	*vectorial_prod_vec(t_coordinates v1, t_coordinates v2)
+t_coordinates	*vect_prod_vec(t_coordinates v1, t_coordinates v2)
 {
 	t_coordinates	*vec;
 
