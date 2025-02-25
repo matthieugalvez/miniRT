@@ -6,12 +6,11 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 10:55:30 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/24 17:23:47 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/25 11:49:17 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
-#include "struct.h"
 
 static int	check_element(t_env *env)
 {
@@ -66,10 +65,9 @@ static void	move_object(int keysym, t_env *env)
 	if (keysym == XK_KP_Add || keysym == XK_KP_Subtract)
 		ft_scale(keysym, env, figure);
 	else if (keysym == XK_w || keysym == XK_a
-		|| keysym == XK_s || keysym == XK_d)
+		|| keysym == XK_s || keysym == XK_d
+		|| keysym == XK_q || keysym == XK_e)
 		ft_translate_figure(keysym, env, figure);
-	else if (keysym == XK_q || keysym == XK_e)
-		ft_elevate_figure(keysym, env, figure);
 	else if (keysym >= XK_Left && keysym <= XK_Down && figure->id != SPHERE)
 		ft_rotate_figure(keysym, env, figure);
 }
@@ -94,8 +92,7 @@ int	ft_key(int keysym, t_env *env)
 	}
 	else
 		move_object(keysym, env);
-	print_image(env);
-	return (0);
+	return (print_image(env));
 }
 
 int	init_mlx(t_env *env)
