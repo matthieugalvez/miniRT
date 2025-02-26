@@ -6,13 +6,13 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 10:54:11 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/26 13:48:05 by achantra         ###   ########.fr       */
+/*   Updated: 2025/02/26 16:50:29 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT_bonus.h"
 
-static void	intersect_disk_co(t_element *co, t_ray *ray)
+static void	intersect_disk(t_element *co, t_ray *ray)
 {
 	double			inter;
 	t_coordinates	point;
@@ -44,6 +44,8 @@ static void	get_z_loc_co(t_element *co, t_ray *ray, double *intersection)
 {
 	double	z_loc;
 
+	if (equal_double(*intersection, __DBL_MAX__))
+		return ;
 	z_loc = scalar_prod_vec(add_vec(*(ray->origin),
 				sub_vec(mult_vec(*(ray->direction), *intersection),
 					*(co->coord))), *(co->vector));
@@ -53,14 +55,25 @@ static void	get_z_loc_co(t_element *co, t_ray *ray, double *intersection)
 		co->intersec_type = 1;
 }
 
+static void	intersect_pyramid(t_element *co, double a, double b, double c)
+{
+	double			delta;
+
+	delta = b * b - (4 * a * c);
+	if (delta > 0 || equal_double(delta, 0))
+	{
+		co->c_inter[0] = (-b + sqrt(delta)) / (2 * a);
+		co->c_inter[1] = (-b - sqrt(delta)) / (2 * a);
+	}
+}
+
 void	intersect_cone(t_element *co, t_ray *ray)
 {
+	double			tan_teta;
+	t_coordinates	dis;
 	double			a;
 	double			b;
 	double			c;
-	double			delta;
-	double			tan_teta;
-	t_coordinates	dis;
 
 	tan_teta = 1 + pow(co->diameter / (2 * co->height), 2);
 	dis = sub_vec(*ray->origin, *co->coord);
@@ -72,13 +85,8 @@ void	intersect_cone(t_element *co, t_ray *ray)
 			* scalar_prod_vec(dis, *co->vector));
 	c = scalar_prod_vec(dis, dis) - tan_teta * pow(scalar_prod_vec(dis,
 				*co->vector), 2);
-	delta = b * b - (4 * a * c);
-	if (delta > 0 || equal_double(delta, 0))
-	{
-		co->c_inter[0] = (-b + sqrt(delta)) / (2 * a);
-		get_z_loc_co(co, ray, &co->c_inter[0]);
-		co->c_inter[1] = (-b - sqrt(delta)) / (2 * a);
-		get_z_loc_co(co, ray, &co->c_inter[1]);
-	}
-	intersect_disk_co(co, ray);
+	intersect_pyramid(co, a, b, c);
+	get_z_loc_co(co, ray, &co->c_inter[0]);
+	get_z_loc_co(co, ray, &co->c_inter[1]);
+	intersect_disk(co, ray);
 }

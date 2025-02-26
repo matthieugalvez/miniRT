@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 12:33:04 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/26 12:12:59 by achantra         ###   ########.fr       */
+/*   Updated: 2025/02/26 15:44:59 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ typedef struct s_element
 	int					id;
 	t_coordinates		*coord;
 	t_coordinates		*vector;
+	t_coordinates		*vector_right;
+	t_coordinates		*vector_up;
 	t_color				*color;
 	t_color				*colorbis;
 	double				diameter;

@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 15:37:52 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/26 12:12:43 by achantra         ###   ########.fr       */
+/*   Updated: 2025/02/26 16:05:54 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ int				new_plane(t_env *env, char **data);
 int				new_sphere(t_env *env, char **data);
 int				new_cylinder(t_env *env, char **data);
 int				new_cone(t_env *env, char **data);
+int				find_vectors(t_element *element);
 int				new_ambient(t_env *env, char **data);
 int				new_light(t_env *env, char **data);
 int				init_mlx(t_env *env);

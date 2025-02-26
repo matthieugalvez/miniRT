@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:33:10 by mgalvez           #+#    #+#             */
-/*   Updated: 2025/02/26 14:47:02 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/26 16:11:31 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,6 @@ int	apply_light(t_env *env, t_element *figure,
 		light = light->next;
 	}
 	free(hitpoint->coord);
-//	free(hitpoint->color);
+	free(hitpoint->color);
 	return (rgb_to_hexa(&color));
 }

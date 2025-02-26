@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 17:21:35 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/25 10:51:12 by achantra         ###   ########.fr       */
+/*   Updated: 2025/02/26 16:21:09 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static int	init_cylinder(t_element *cylinder, t_env *env, char **data)
 	}
 	add_back_elem(&env->figure, cylinder);
 	ft_freetab(data);
-	return (0);
+	return (find_vectors(cylinder));
 }
 
 int	new_cylinder(t_env *env, char **data)
@@ -87,6 +87,8 @@ static int	init_figure(t_element *figure, t_env *env, char **data)
 	}
 	add_back_elem(&env->figure, figure);
 	ft_freetab(data);
+	if (figure->id == PLANE)
+		return (find_vectors(figure));
 	return (0);
 }
 

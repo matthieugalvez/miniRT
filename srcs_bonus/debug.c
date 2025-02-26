@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 18:21:37 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/26 12:08:46 by achantra         ###   ########.fr       */
+/*   Updated: 2025/02/26 15:52:47 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,9 @@ static void	debug_env_figure(t_element *figure)
 				figure->diameter, figure->height,
 				figure->color->r, figure->color->g, figure->color->b);
 		if (figure->colorbis)
-			printf(" %d,%d,%d\n",
+			printf(" %d,%d,%d",
 				figure->colorbis->r, figure->colorbis->g, figure->colorbis->b);
-		else
-				printf("\n");
+		printf("\n");
 		figure = figure->next;
 	}
 }
