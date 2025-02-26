@@ -6,21 +6,23 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 12:08:44 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/26 10:30:33 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/26 11:07:04 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT_bonus.h"
 
-static void	init_hitpoint(t_env *env, t_hitpoint *hitpoint,
-				t_ray *ray, double distance)
+static void	init_hitpoint(t_env *env, t_hitpoint *hitpoint, double distance)
 {
+	t_ray	*ray;
+
 	hitpoint->coord = ft_calloc(sizeof(t_coordinates), 1);
 	if (!hitpoint->coord)
 		clean_env(env, 1);
 	hitpoint->color = ft_calloc(sizeof(t_color), 1);
 	if (!hitpoint->color)
 		clean_env(env, 1);
+	ray = env->camera->ray;
 	hitpoint->coord->x = distance * ray->direction->x + ray->origin->x;
 	hitpoint->coord->y = distance * ray->direction->y + ray->origin->y;
 	hitpoint->coord->z = distance * ray->direction->z + ray->origin->z;
@@ -43,17 +45,17 @@ static int	get_color(t_env *env, t_ray *ray)
 		if (!equal_double(intersec, distance) && intersec < distance)
 		{
 			distance = intersec;
-			init_hitpoint(env, &hitpoint, ray, distance);
+			init_hitpoint(env, &hitpoint, distance);
 			//find_hitpoint_color();
-			hitpoint.color = figure->color;
-			color = apply_light(env, ray, figure, &hitpoint);
+			hitpoint.color = figure->color; //A SUPPRIMER !!!!!!
+			color = apply_light(env, figure, &hitpoint);
 		}
 		figure = figure->next;
 	}
 	return (color);
 }
 
-static void	find_ray_direction(int i, int j, t_env *env, t_ray *ray)
+static void	find_ray_direction(int i, int j, t_env *env)
 {
 	t_coordinates	vector;
 
@@ -63,7 +65,7 @@ static void	find_ray_direction(int i, int j, t_env *env, t_ray *ray)
 	vector = add_vec(mult_vec(*(env->camera->dir_up), vector.y),
 			add_vec(*(env->camera->dir), mult_vec(*(env->camera->dir_right),
 					vector.x)));
-	*(ray->direction) = vector;
+	*(env->camera->ray->direction) = vector;
 }
 
 int	draw_image(t_env *env)
@@ -76,13 +78,14 @@ int	draw_image(t_env *env)
 
 	ray.origin = env->camera->coord;
 	ray.direction = &direction;
+	env->camera->ray = &ray;
 	j = 0;
 	while (j < WIN_H)
 	{
 		i = 0;
 		while (i < WIN_W)
 		{
-			find_ray_direction(i, j, env, &ray);
+			find_ray_direction(i, j, env);
 			color = get_color(env, &ray);
 			my_pixel_put(i, j, env, color);
 			ft_bzero(&direction, sizeof(t_coordinates));

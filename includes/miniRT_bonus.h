@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 15:37:52 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/26 11:33:18 by achantra         ###   ########.fr       */
+/*   Updated: 2025/02/26 12:12:43 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,9 +96,11 @@ void			intersect_cylinder(t_element *cy, t_ray *ray);
 void			intersect_cone(t_element *co, t_ray *ray);
 
 // LIGHT
-int				apply_light(t_env *env, t_ray *cam_ray, t_element *figure,
+int				apply_light(t_env *env, t_element *figure,
 					t_hitpoint *hitpoint);
-void			init_ray(t_ray *ray, t_env *env, t_coordinates *hitpoint);
+void			compute_light_source(t_env *env, t_hitpoint *hitpoint,
+					t_element *figure, t_color *color);
+void			init_ray(t_ray *ray, t_env *env, t_hitpoint *hitpoint);
 
 // MATH
 void			double_increment(double *d);
@@ -116,6 +118,8 @@ void			normalize_vec(t_coordinates *vector);
 t_coordinates	*vect_prod_vec(t_coordinates v1, t_coordinates v2);
 t_coordinates	get_normal_at(t_element *figure, t_coordinates *point,
 					t_ray *light_ray, t_ray *cam_ray);
+t_coordinates	normal_at_cy(t_element *cylinder, t_coordinates *point);
+t_coordinates	normal_at_co(t_element *cone, t_coordinates *point);
 
 // DEBUG
 void			debug_env(t_env *env);

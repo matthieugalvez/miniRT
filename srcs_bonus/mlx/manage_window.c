@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 10:55:30 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/26 11:50:53 by achantra         ###   ########.fr       */
+/*   Updated: 2025/02/26 12:12:29 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ static int	find_object_id(t_env *env, char *str)
 		str = ft_strjoin_free(str, ". Plane", 1);
 	if (figure->id == 2)
 		str = ft_strjoin_free(str, ". Cylinder", 1);
+	if (figure->id == 3)
+		str = ft_strjoin_free(str, ". Cone", 1);
 	if (!str)
 		return (clean_env(env, 1));
 	mlx_string_put(env->mlx, env->win, WIN_W - 175, WIN_H - 25, 0xffffff, str);
@@ -77,7 +79,7 @@ static void	print_help(t_env *env)
 	mlx_string_put(env->mlx, env->win, 0, 115, 0xffffff,
 		"-+: Resize selected object / change cam FoV");
 	mlx_string_put(env->mlx, env->win, 0, 130, 0xffffff,
-		"/*: Change object lenght (cylinder/cone only)");
+		"/*: Change object height (cylinder/cone only)");
 	mlx_string_put(env->mlx, env->win, 0, 145, 0xffffff,
 		"m: Select next light source");
 	mlx_string_put(env->mlx, env->win, 0, 160, 0xffffff,

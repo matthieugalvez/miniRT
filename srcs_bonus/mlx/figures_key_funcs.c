@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 17:24:45 by mgalvez           #+#    #+#             */
-/*   Updated: 2025/02/25 18:02:49 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/26 11:12:11 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	move_object(int keysym, t_env *env)
 		&& figure->id != PLANE)
 		ft_change_diameter(keysym, env, figure);
 	else if ((keysym == XK_KP_Divide || keysym == XK_KP_Multiply)
-		&& figure->id == CYLINDER)
+		&& (figure->id == CYLINDER || figure->id == CONE))
 		ft_change_height(keysym, env, figure);
 	else if (keysym == XK_w || keysym == XK_a
 		|| keysym == XK_s || keysym == XK_d
