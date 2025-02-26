@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 10:55:30 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/26 10:01:48 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/26 11:13:08 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ static void	print_help(t_env *env)
 	mlx_string_put(env->mlx, env->win, 0, 115, 0xffffff,
 		"-+: Resize selected object / change cam FoV");
 	mlx_string_put(env->mlx, env->win, 0, 130, 0xffffff,
-		"/*: Change object lenght (cylinder only)");
+		"/*: Change object height (cylinder only)");
 	mlx_string_put(env->mlx, env->win, 0, 145, 0xffffff,
 		"ijkl: Translate light source");
 	mlx_string_put(env->mlx, env->win, 0, 160, 0xffffff,

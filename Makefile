@@ -6,7 +6,7 @@
 #    By: achantra <achantra@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/31 15:30:48 by achantra          #+#    #+#              #
-#    Updated: 2025/02/26 11:01:52 by mgalvez          ###   ########.fr        #
+#    Updated: 2025/02/26 11:35:57 by mgalvez          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,7 +55,7 @@ BONUS_INIT_SRCS		= init_ambient.c init_camera.c init_elements.c init_env.c \
 BONUS_LIGHT_SRCS	= light.c compute_light_source.c light_utils.c
 BONUS_INTRSC_SRCS	= intersection.c intsec_cylinder.c intsec_cone.c
 BONUS_MATH_SRCS		= double_operator.c vector_operator.c vector_operator2.c \
-					  normal_operator.c
+					  normal_operator.c normal_operator2.c
 BONUS_MLX_SRCS		= key_funcs.c camera_key_funcs.c figures_key_funcs.c \
 					  light_key_funcs.c manage_window.c mlx_utils.c
 BONUS_PARSE_SRCS	= parse_color.c parse_coordinates.c parse_number.c parsing.c
