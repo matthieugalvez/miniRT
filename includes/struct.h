@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 12:33:04 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/26 10:25:27 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/26 10:53:05 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct s_camera
 	t_coordinates		*dir_right;
 	t_coordinates		*dir_up;
 	double				fov;
+	t_ray				*ray;
 }						t_camera;
 
 typedef struct s_light
