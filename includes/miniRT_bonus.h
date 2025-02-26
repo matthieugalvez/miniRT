@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 15:37:52 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/26 16:05:54 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/26 16:54:37 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ int				print_image(t_env *env);
 int				draw_image(t_env *env);
 int				rgb_to_hexa(t_color *color);
 void			my_pixel_put(int i, int j, t_env *env, int color);
+void			find_hitpoint_color(t_hitpoint *hitpoint, t_element *figure);
 
 // INTERSECTION
 double			find_intsec(t_ray *ray, t_element *figure);

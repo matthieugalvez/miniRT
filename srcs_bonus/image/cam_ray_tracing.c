@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 12:08:44 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/26 16:11:17 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/26 16:54:23 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,7 @@ static int	get_color(t_env *env, t_ray *ray)
 		{
 			distance = intersec;
 			init_hitpoint(env, &hitpoint, distance);
-			//find_hitpoint_color();
-			*hitpoint.color = *figure->color; //A SUPPRIMER !!!!!!
+			find_hitpoint_color(&hitpoint, figure);
 			color = apply_light(env, figure, &hitpoint);
 		}
 		figure = figure->next;
