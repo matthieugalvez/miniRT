@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 15:37:52 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/26 17:24:21 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/26 19:00:47 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,12 +79,13 @@ int				clean_env(t_env *env, int exit_code);
 
 // MLX
 int				ft_key(int keysym, t_env *env);
-void			ft_translate_light(int keysym, t_env *env);
-void			ft_dim(int keysym, t_env *env);
+void			move_light(int keysym, t_env *env);
 void			move_camera(int keysym, t_env *env);
 void			move_object(int keysym, t_env *env);
-int				check_element(t_env *env);
 int				print_image(t_env *env);
+void			check_help(t_env *env);
+int				print_selected_light(t_env *env);
+int				print_selected_object(t_env *env);
 
 // IMAGE
 int				draw_image(t_env *env);
