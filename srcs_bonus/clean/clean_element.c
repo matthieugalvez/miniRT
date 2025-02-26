@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 21:12:30 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/25 18:00:01 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/26 11:43:38 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,20 @@ void	clean_ambient(t_amb *amb)
 
 void	clean_light(t_light *light)
 {
+	t_light	*buf;
+
 	if (light)
 	{
-		if (light->coord)
-			free(light->coord);
-		if (light->color)
-			free(light->color);
-		free(light);
+		while (light)
+		{
+			buf = light;
+			light = light->next;
+			if (buf->coord)
+				free(buf->coord);
+			if (buf->color)
+				free(buf->color);
+			free(buf);
+		}
 	}
 }
 
@@ -66,6 +73,8 @@ void	clean_figure(t_element *figure)
 				free(buf->vector);
 			if (buf->color)
 				free(buf->color);
+			if (buf->colorbis)
+				free(buf->colorbis);
 			free(buf);
 		}
 	}

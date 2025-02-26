@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 15:37:52 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/26 10:27:02 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/26 11:33:18 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ int				init_mlx(t_env *env);
 void			find_viewport(t_env *env);
 int				ft_is_float(char *data);
 void			add_back_elem(t_element **elem, t_element *new_elem);
+void			add_back_light(t_light **light, t_light *new_light);
 
 // PARSING
 int				check_entry(int ac, char **av);

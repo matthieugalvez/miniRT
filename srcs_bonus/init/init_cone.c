@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 10:50:45 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/25 18:00:34 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/26 11:24:31 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@ static int	init_cone(t_element *cone, t_env *env, char **data)
 	cone->coord = parse_coordinates(data[1]);
 	cone->vector = parse_vector(data[2]);
 	cone->color = parse_color(data[5]);
-	if (!cone->coord || !cone->vector || !cone->color)
+	if (data[6])
+		cone->colorbis = parse_color(data[6]);
+	if (!cone->coord || !cone->vector || !cone->color || (data[6] && !cone->colorbis))
 	{
 		clean_figure(cone);
 		ft_freetab(data);
@@ -42,7 +44,7 @@ int	new_cone(t_env *env, char **data)
 {
 	t_element	*cone;
 
-	if (ft_tablen(data) != 6)
+	if (ft_tablen(data) < 6 || ft_tablen(data) > 7)
 	{
 		ft_freetab(data);
 		ft_putstr("Error: wrong data: cone\n", 2);

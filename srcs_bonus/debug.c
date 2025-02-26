@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 18:21:37 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/25 18:03:49 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/26 12:08:46 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,27 +17,43 @@ static void	debug_env_figure(t_element *figure)
 	while (figure)
 	{
 		if (figure->id == SPHERE)
-			printf("sp %.2f,%.2f,%.2f %.2f %d,%d,%d\n", figure->coord->x,
+			printf("sp %.2f,%.2f,%.2f %.2f %d,%d,%d", figure->coord->x,
 				figure->coord->y, figure->coord->z, figure->diameter,
 				figure->color->r, figure->color->g, figure->color->b);
 		else if (figure->id == PLANE)
-			printf("pl %.2f,%.2f,%.2f %.2f,%.2f,%.2f %d,%d,%d\n",
+			printf("pl %.2f,%.2f,%.2f %.2f,%.2f,%.2f %d,%d,%d",
 				figure->coord->x, figure->coord->y, figure->coord->z,
 				figure->vector->x, figure->vector->y, figure->vector->z,
 				figure->color->r, figure->color->g, figure->color->b);
 		else if (figure->id == CYLINDER)
-			printf("cy %.2f,%.2f,%.2f %.2f,%.2f,%.2f %.2f %.2f %d,%d,%d\n",
+			printf("cy %.2f,%.2f,%.2f %.2f,%.2f,%.2f %.2f %.2f %d,%d,%d",
 				figure->coord->x, figure->coord->y, figure->coord->z,
 				figure->vector->x, figure->vector->y, figure->vector->z,
 				figure->diameter, figure->height,
 				figure->color->r, figure->color->g, figure->color->b);
 		else if (figure->id == CONE)
-			printf("co %.2f,%.2f,%.2f %.2f,%.2f,%.2f %.2f %.2f %d,%d,%d\n",
+			printf("co %.2f,%.2f,%.2f %.2f,%.2f,%.2f %.2f %.2f %d,%d,%d",
 				figure->coord->x, figure->coord->y, figure->coord->z,
 				figure->vector->x, figure->vector->y, figure->vector->z,
 				figure->diameter, figure->height,
 				figure->color->r, figure->color->g, figure->color->b);
-			figure = figure->next;
+		if (figure->colorbis)
+			printf(" %d,%d,%d\n",
+				figure->colorbis->r, figure->colorbis->g, figure->colorbis->b);
+		else
+				printf("\n");
+		figure = figure->next;
+	}
+}
+
+static void	debug_env_light(t_light *light)
+{
+	while (light)
+	{
+		printf("L %.2f,%.2f,%.2f %.2f %d,%d,%d\n", light->coord->x,
+			light->coord->y, light->coord->z, light->bright,
+			light->color->r, light->color->g, light->color->b);
+		light = light->next;
 	}
 }
 
@@ -47,9 +63,7 @@ void	debug_env(t_env *env)
 		printf("A %.2f %d,%d,%d\n", env->amb->bright, env->amb->color->r,
 			env->amb->color->g, env->amb->color->b);
 	if (env->light)
-		printf("L %.2f,%.2f,%.2f %.2f %d,%d,%d\n", env->light->coord->x,
-			env->light->coord->y, env->light->coord->z, env->light->bright,
-			env->light->color->r, env->light->color->g, env->light->color->b);
+		debug_env_light(env->light);
 	if (env->camera)
 		printf("C %.2f,%.2f,%.2f, %.2f,%.2f,%.2f, %.2f\n",
 			env->camera->coord->x, env->camera->coord->y, env->camera->coord->z,

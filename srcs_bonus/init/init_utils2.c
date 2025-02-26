@@ -1,30 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   init_utils2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/31 15:36:53 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/26 12:01:42 by achantra         ###   ########.fr       */
+/*   Created: 2025/02/26 11:30:55 by achantra          #+#    #+#             */
+/*   Updated: 2025/02/26 11:32:54 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT_bonus.h"
 
-int	main(int ac, char **av)
+static t_light	*last_light(t_light *light)
 {
-	t_env	env;
+	t_light	*last;
 
-	if (check_entry(ac, av))
-		return (1);
-	init_env(&env);
-	if (parse_file(av[1], &env))
-		return (clean_env(&env, 1));
-	debug_env(&env);
-	init_mlx(&env);
-	mlx_key_hook(env.win, ft_key, &env);
-	mlx_hook(env.win, 17, 0, clean_env, &env);
-	mlx_loop(env.mlx);
-	return (clean_env(&env, 0));
+	last = light;
+	while (last->next)
+		last = last->next;
+	return (last);
+}
+
+void	add_back_light(t_light **light, t_light *new_light)
+{
+	t_light	*last;
+
+	if (!light || !*light)
+		*light = new_light;
+	else
+	{
+		last = last_light(*light);
+		last->next = new_light;
+	}
 }

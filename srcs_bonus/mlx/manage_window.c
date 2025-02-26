@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 10:55:30 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/26 10:05:35 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/26 11:50:53 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ int	print_image(t_env *env)
 		return (clean_env(env, 1));
 	}
 	if (check_element(env))
-		return (1);
+		return (ft_putstr("check", 1), 1);
 	draw_image(env);
 	mlx_put_image_to_window(env->mlx, env->win, env->img.img, 0, 0);
 	check_help(env);

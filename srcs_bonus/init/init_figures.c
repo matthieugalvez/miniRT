@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 17:21:35 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/25 18:00:52 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/26 11:21:43 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,10 @@ static int	init_cylinder(t_element *cylinder, t_env *env, char **data)
 	cylinder->coord = parse_coordinates(data[1]);
 	cylinder->vector = parse_vector(data[2]);
 	cylinder->color = parse_color(data[5]);
-	if (!cylinder->coord || !cylinder->vector || !cylinder->color)
+	if (data[6])
+		cylinder->colorbis = parse_color(data[6]);
+	if (!cylinder->coord || !cylinder->vector || !cylinder->color || (data[6]
+			&& !cylinder->colorbis))
 	{
 		clean_figure(cylinder);
 		ft_freetab(data);
@@ -52,7 +55,7 @@ int	new_cylinder(t_env *env, char **data)
 {
 	t_element	*cylinder;
 
-	if (ft_tablen(data) != 6)
+	if (ft_tablen(data) < 6 || ft_tablen(data) > 7)
 	{
 		ft_freetab(data);
 		ft_putstr("Error: wrong data: cylinder\n", 2);
@@ -66,6 +69,7 @@ int	new_cylinder(t_env *env, char **data)
 		return (1);
 	}
 	cylinder->id = CYLINDER;
+	cylinder->colorbis = NULL;
 	return (init_cylinder(cylinder, env, data));
 }
 
@@ -79,7 +83,10 @@ static int	init_figure(t_element *figure, t_env *env, char **data)
 		return (1);
 	}
 	figure->color = parse_color(data[3]);
-	if (!figure->color)
+	figure->colorbis = NULL;
+	if (data[4])
+		figure->colorbis = parse_color(data[4]);
+	if (!figure->color || (data[4] && !figure->colorbis))
 	{
 		clean_figure(figure);
 		ft_freetab(data);
@@ -101,7 +108,7 @@ int	new_sphere(t_env *env, char **data)
 {
 	t_element	*sphere;
 
-	if (ft_tablen(data) != 4)
+	if (ft_tablen(data) < 4 || ft_tablen(data) > 5)
 	{
 		ft_freetab(data);
 		ft_putstr("Error: wrong data: sphere\n", 2);
@@ -138,7 +145,7 @@ int	new_plane(t_env *env, char **data)
 {
 	t_element	*plane;
 
-	if (ft_tablen(data) != 4)
+	if (ft_tablen(data) < 4 || ft_tablen(data) > 5)
 	{
 		ft_freetab(data);
 		ft_putstr("Error: wrong data: plane\n", 2);
