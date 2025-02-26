@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:33:10 by mgalvez           #+#    #+#             */
-/*   Updated: 2025/02/25 18:01:41 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/26 10:31:43 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,15 +41,15 @@ static void	get_specular(t_coordinates reflexion_vec, t_ray *cam_ray,
 	color->b += light->color->b * specular;
 }
 
-static void	get_diffuse(t_light *light, t_color *color, t_color *figure_color,
+static void	get_diffuse(t_light *light, t_color *color, t_color *hitpoint_color,
 		double cos_angle)
 {
 	double	specular_factor;
 	t_color	applied_diffuse;
 
-	applied_diffuse.r = figure_color->r * (light->color->r * light->bright);
-	applied_diffuse.g = figure_color->g * (light->color->g * light->bright);
-	applied_diffuse.b = figure_color->b * (light->color->b * light->bright);
+	applied_diffuse.r = hitpoint_color->r * (light->color->r * light->bright);
+	applied_diffuse.g = hitpoint_color->g * (light->color->g * light->bright);
+	applied_diffuse.b = hitpoint_color->b * (light->color->b * light->bright);
 	applied_diffuse.r /= 255;
 	applied_diffuse.g /= 255;
 	applied_diffuse.b /= 255;
@@ -83,15 +83,15 @@ static int	find_shadow(t_env *env, t_element *current_figure, t_ray *light_ray)
 	return (0);
 }
 
-static void	get_ambiant(t_color *color, t_amb *amb)
+static void	get_ambiant(t_color *color, t_amb *amb, t_color *hitpoint_color)
 {
-	color->r = (color->r * (amb->color->r * amb->bright * 0.5)) / 255;
-	color->g = (color->g * (amb->color->g * amb->bright * 0.5)) / 255;
-	color->b = (color->b * (amb->color->b * amb->bright * 0.5)) / 255;
+	color->r = (hitpoint_color->r * (amb->color->r * amb->bright * 0.5)) / 255;
+	color->g = (hitpoint_color->g * (amb->color->g * amb->bright * 0.5)) / 255;
+	color->b = (hitpoint_color->b * (amb->color->b * amb->bright * 0.5)) / 255;
 }
 
 int	apply_light(t_env *env, t_ray *cam_ray, t_element *figure,
-		t_coordinates *hitpoint)
+		t_hitpoint *hitpoint)
 {
 	t_color			color;
 	t_coordinates	normal_at_hp;
@@ -100,13 +100,13 @@ int	apply_light(t_env *env, t_ray *cam_ray, t_element *figure,
 	t_coordinates	reflexion_vec;
 
 	color = *figure->color;
-	init_ray(&light_ray, env, hitpoint);
-	normal_at_hp = get_normal_at(figure, hitpoint, &light_ray, cam_ray);
-	get_ambiant(&color, env->amb);
+	init_ray(&light_ray, env, hitpoint->coord);
+	normal_at_hp = get_normal_at(figure, hitpoint->coord, &light_ray, cam_ray);
+	get_ambiant(&color, env->amb, hitpoint->color);
 	cos_angle = scalar_prod_vec(normal_at_hp, mult_vec(*light_ray.direction,
 				-1));
 	if (!find_shadow(env, figure, &light_ray) && cos_angle >= 0)
-		get_diffuse(env->light, &color, figure->color, cos_angle);
+		get_diffuse(env->light, &color, hitpoint->color, cos_angle);
 	reflexion_vec = get_reflexion_vec(light_ray.direction, &normal_at_hp);
 	normalize_vec(&reflexion_vec);
 	get_specular(reflexion_vec, cam_ray, env->light, &color);
