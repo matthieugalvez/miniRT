@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 10:55:30 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/25 18:03:02 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/26 10:05:35 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,44 @@ static int	print_selected_object(t_env *env)
 	return (find_object_id(env, str));
 }
 
-static int	print_image(t_env *env)
+static void	print_help(t_env *env)
+{
+	mlx_string_put(env->mlx, env->win, 0, 10, 0xffffff, "Esc: Close window");
+	mlx_string_put(env->mlx, env->win, 0, 25, 0xffffff, "Tab: Toggle help");
+	mlx_string_put(env->mlx, env->win, 0, 40, 0xffffff,
+		"Space: Select next object");
+	mlx_string_put(env->mlx, env->win, 0, 55, 0xffffff,
+		"Return: Select camera");
+	mlx_string_put(env->mlx, env->win, 0, 70, 0xffffff,
+		"wasd: Translate selected object");
+	mlx_string_put(env->mlx, env->win, 0, 85, 0xffffff,
+		"qe: Change selected object elevation");
+	mlx_string_put(env->mlx, env->win, 0, 100, 0xffffff,
+		"Arrows: Rotate selected object");
+	mlx_string_put(env->mlx, env->win, 0, 115, 0xffffff,
+		"-+: Resize selected object / change cam FoV");
+	mlx_string_put(env->mlx, env->win, 0, 130, 0xffffff,
+		"/*: Change object lenght (cylinder/cone only)");
+	mlx_string_put(env->mlx, env->win, 0, 145, 0xffffff,
+		"m: Select next light source");
+	mlx_string_put(env->mlx, env->win, 0, 160, 0xffffff,
+		"ijkl: Translate selected light source");
+	mlx_string_put(env->mlx, env->win, 0, 175, 0xffffff,
+		"uo: Change selected light source elevation");
+	mlx_string_put(env->mlx, env->win, 0, 190, 0xffffff,
+		";p: Dim selected light source down/up");
+}
+
+static void	check_help(t_env *env)
+{
+	if (!env->help)
+		mlx_string_put(env->mlx, env->win, 0, 10, 0xffffff,
+			"Press 'Tab' to show keys");
+	else
+		print_help(env);
+}
+
+int	print_image(t_env *env)
 {
 	mlx_destroy_image(env->mlx, env->img.img);
 	env->img.img = mlx_new_image(env->mlx, WIN_W, WIN_H);
@@ -80,52 +117,8 @@ static int	print_image(t_env *env)
 		return (1);
 	draw_image(env);
 	mlx_put_image_to_window(env->mlx, env->win, env->img.img, 0, 0);
+	check_help(env);
 	if (env->selected_object)
 		print_selected_object(env);
 	return (0);
-}
-
-static void	ft_select(int keysym, t_env *env)
-{
-	int			i;
-	t_element	*current_figure;
-
-	if (keysym == XK_Return)
-	{
-		env->selected_object = 0;
-		return ;
-	}
-	env->selected_object += 1;
-	i = 0;
-	current_figure = env->figure;
-	while (i < env->selected_object)
-	{
-		if (!current_figure)
-		{
-			env->selected_object = 0;
-			return ;
-		}
-		current_figure = current_figure->next;
-		i++;
-	}
-	return ;
-}
-
-int	ft_key(int keysym, t_env *env)
-{
-	if (keysym == XK_Escape)
-		return (clean_env(env, 0));
-	else if (keysym == XK_space || keysym == XK_Return)
-		ft_select(keysym, env);
-	else if (keysym == XK_i || keysym == XK_k
-		|| keysym == XK_j || keysym == XK_l
-		|| keysym == XK_u || keysym == XK_o)
-		ft_translate_light(keysym, env);
-	else if (keysym == XK_p || keysym == XK_semicolon)
-		ft_dim(keysym, env);
-	else if (!env->selected_object)
-		move_camera(keysym, env);
-	else
-		move_object(keysym, env);
-	return (print_image(env));
 }

@@ -4,8 +4,9 @@
 # Object files
 *.o
 *.ko
-*.obj
 *.elf
+.objs/
+.objs_bonus/
 
 # Linker output
 *.ilk
@@ -36,8 +37,11 @@
 *.x86_64
 *.hex
 miniRT
+miniRT_bonus
 fsanitize
+fsanitize_bonus
 g3
+g3_bonus
 
 # Debug files
 *.dSYM/

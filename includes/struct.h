@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 12:33:04 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/24 16:09:02 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/26 09:25:37 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct s_light
 	t_coordinates		*coord;
 	double				bright;
 	t_color				*color;
+	struct s_light		*next;
 }						t_light;
 
 typedef struct s_amb
@@ -91,6 +92,7 @@ typedef struct s_env
 	double				a_ratio;
 	t_img				img;
 	int					selected_object;
+	int					help;
 }						t_env;
 
 #endif

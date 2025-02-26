@@ -6,7 +6,7 @@
 #    By: achantra <achantra@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/31 15:30:48 by achantra          #+#    #+#              #
-#    Updated: 2025/02/25 18:17:00 by mgalvez          ###   ########.fr        #
+#    Updated: 2025/02/26 09:55:01 by mgalvez          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,8 +33,8 @@ LIGHT_SRCS			= light.c light_utils.c
 INTRSC_SRCS			= intersection.c intsec_cylinder.c
 MATH_SRCS			= double_operator.c vector_operator.c vector_operator2.c \
 					  normal_operator.c
-MLX_SRCS			= manage_window.c camera_key_funcs.c figures_key_funcs.c \
-					  light_key_funcs.c mlx_utils.c
+MLX_SRCS			= key_funcs.c camera_key_funcs.c figures_key_funcs.c \
+					  light_key_funcs.c manage_window.c mlx_utils.c
 PARSE_SRCS			= parse_color.c parse_coordinates.c parse_number.c parsing.c
 
 SRCS_LST			= ${addprefix clean/, ${CLEAN_SRCS}} \
@@ -56,8 +56,8 @@ BONUS_LIGHT_SRCS	= light.c light_utils.c
 BONUS_INTRSC_SRCS	= intersection.c intsec_cylinder.c intsec_cone.c
 BONUS_MATH_SRCS		= double_operator.c vector_operator.c vector_operator2.c \
 					  normal_operator.c
-BONUS_MLX_SRCS		= manage_window.c camera_key_funcs.c figures_key_funcs.c \
-					  light_key_funcs.c mlx_utils.c
+BONUS_MLX_SRCS		= key_funcs.c camera_key_funcs.c figures_key_funcs.c \
+					  light_key_funcs.c manage_window.c mlx_utils.c
 BONUS_PARSE_SRCS	= parse_color.c parse_coordinates.c parse_number.c parsing.c
 
 SRCS_BONUS_LST		= ${addprefix clean/, ${BONUS_CLEAN_SRCS}} \

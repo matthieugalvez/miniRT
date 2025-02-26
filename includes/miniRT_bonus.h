@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 15:37:52 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/25 18:05:31 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/26 10:06:42 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ void			ft_dim(int keysym, t_env *env);
 void			move_camera(int keysym, t_env *env);
 void			move_object(int keysym, t_env *env);
 int				check_element(t_env *env);
+int				print_image(t_env *env);
 
 // IMAGE
 int				draw_image(t_env *env);
