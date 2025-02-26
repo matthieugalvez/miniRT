@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 15:37:52 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/26 16:54:37 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/26 17:24:21 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,9 +100,10 @@ void			intersect_cone(t_element *co, t_ray *ray);
 // LIGHT
 int				apply_light(t_env *env, t_element *figure,
 					t_hitpoint *hitpoint);
-void			compute_light_source(t_env *env, t_hitpoint *hitpoint,
-					t_element *figure, t_color *color);
-void			init_ray(t_ray *ray, t_env *env, t_hitpoint *hitpoint);
+t_color			compute_light_source(t_env *env, t_hitpoint *hitpoint,
+					t_element *figure, t_light *light);
+void			init_ray(t_ray *ray, t_env *env,
+					t_hitpoint *hitpoint, t_light *light);
 
 // MATH
 void			double_increment(double *d);

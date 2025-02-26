@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 17:21:35 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/26 16:21:00 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/26 18:29:39 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ int	new_cylinder(t_env *env, char **data)
 		return (1);
 	}
 	cylinder->id = CYLINDER;
-	cylinder->colorbis = NULL;
 	return (init_cylinder(cylinder, env, data));
 }
 
@@ -83,7 +82,6 @@ static int	init_figure(t_element *figure, t_env *env, char **data)
 		return (1);
 	}
 	figure->color = parse_color(data[3]);
-	figure->colorbis = NULL;
 	if (data[4])
 		figure->colorbis = parse_color(data[4]);
 	if (!figure->color || (data[4] && !figure->colorbis))

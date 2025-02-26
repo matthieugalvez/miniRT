@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 12:08:44 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/26 16:54:23 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/26 17:54:27 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,10 @@
 
 static void	init_hitpoint(t_env *env, t_hitpoint *hitpoint, double distance)
 {
-	t_ray	*ray;
+	t_ray			*ray;
 
 	hitpoint->coord = ft_calloc(sizeof(t_coordinates), 1);
 	if (!hitpoint->coord)
-		clean_env(env, 1);
-	hitpoint->color = ft_calloc(sizeof(t_color), 1);
-	if (!hitpoint->color)
 		clean_env(env, 1);
 	ray = env->camera->ray;
 	hitpoint->coord->x = distance * ray->direction->x + ray->origin->x;

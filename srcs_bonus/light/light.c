@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:33:10 by mgalvez           #+#    #+#             */
-/*   Updated: 2025/02/26 16:11:31 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/26 18:14:24 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int	apply_light(t_env *env, t_element *figure,
 		t_hitpoint *hitpoint)
 {
 	t_color			color;
+	t_color			new_color;
 	t_light			*light;
 
 	color = *hitpoint->color;
@@ -36,10 +37,18 @@ int	apply_light(t_env *env, t_element *figure,
 	light = env->light;
 	while (light)
 	{
-		compute_light_source(env, hitpoint, figure, &color);
+		new_color = compute_light_source(env, hitpoint, figure, light);
+		color.r += new_color.r;
+		color.g += new_color.g;
+		color.b += new_color.b;
 		light = light->next;
 	}
+	if (color.r > 255)
+		color.r = 255;
+	if (color.g > 255)
+		color.g = 255;
+	if (color.b > 255)
+		color.b = 255;
 	free(hitpoint->coord);
-	free(hitpoint->color);
 	return (rgb_to_hexa(&color));
 }
