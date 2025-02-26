@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 10:54:11 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/26 11:49:00 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/26 13:48:05 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	intersect_disk_co(t_element *co, t_ray *ray)
 		if (equal_double(co->c_inter[0], __DBL_MAX__))
 		{
 			co->c_inter[0] = inter;
-			if (co->c_inter[0] <= co->c_inter[1])
+			if (co->c_inter[0] < co->c_inter[1])
 				co->intersec_type = 2;
 		}
 		else
@@ -49,6 +49,8 @@ static void	get_z_loc_co(t_element *co, t_ray *ray, double *intersection)
 					*(co->coord))), *(co->vector));
 	if (z_loc < 0 || z_loc > co->height)
 		*intersection = __DBL_MAX__;
+	else
+		co->intersec_type = 1;
 }
 
 void	intersect_cone(t_element *co, t_ray *ray)
@@ -60,7 +62,7 @@ void	intersect_cone(t_element *co, t_ray *ray)
 	double			tan_teta;
 	t_coordinates	dis;
 
-	tan_teta = 1 + pow(tan(co->diameter / (2 * co->height)), 2);
+	tan_teta = 1 + pow(co->diameter / (2 * co->height), 2);
 	dis = sub_vec(*ray->origin, *co->coord);
 	a = scalar_prod_vec(*ray->direction, *ray->direction) - tan_teta
 		* scalar_prod_vec(*ray->direction, *co->vector)
@@ -71,13 +73,12 @@ void	intersect_cone(t_element *co, t_ray *ray)
 	c = scalar_prod_vec(dis, dis) - tan_teta * pow(scalar_prod_vec(dis,
 				*co->vector), 2);
 	delta = b * b - (4 * a * c);
-	if (delta >= 0)
+	if (delta > 0 || equal_double(delta, 0))
 	{
 		co->c_inter[0] = (-b + sqrt(delta)) / (2 * a);
 		get_z_loc_co(co, ray, &co->c_inter[0]);
 		co->c_inter[1] = (-b - sqrt(delta)) / (2 * a);
 		get_z_loc_co(co, ray, &co->c_inter[1]);
-		co->intersec_type = 1;
 	}
 	intersect_disk_co(co, ray);
 }
