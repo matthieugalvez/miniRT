@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 11:16:26 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/25 17:14:45 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/27 14:28:59 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	equal_double(double a, double b)
 {
-	if (fabs(a - b) < 1e-6)
+	if (fabs(a - b) < EPSILON)
 		return (1);
 	return (0);
 }

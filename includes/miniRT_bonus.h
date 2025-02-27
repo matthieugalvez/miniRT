@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 15:37:52 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/26 19:00:47 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/27 13:34:17 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # define CONE 3
 
 # define HEXA "0123456789abcdef"
+# define EPSILON 1e-6
 
 # define WIN_W 960
 # define WIN_H 1025

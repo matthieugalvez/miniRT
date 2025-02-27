@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 10:54:11 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/26 16:53:32 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/27 13:43:45 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static void	intersect_pyramid(t_element *co, double a, double b, double c)
 	double			delta;
 
 	delta = b * b - (4 * a * c);
-	if (delta > 0 || equal_double(delta, 0))
+	if (delta > EPSILON)
 	{
 		co->c_inter[0] = (-b + sqrt(delta)) / (2 * a);
 		co->c_inter[1] = (-b - sqrt(delta)) / (2 * a);

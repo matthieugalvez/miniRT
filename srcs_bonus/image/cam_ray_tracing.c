@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 12:08:44 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/27 12:09:54 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/27 14:19:02 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static int	get_color(t_env *env, t_ray *ray)
 	while (figure)
 	{
 		intersec = find_intsec(ray, figure);
-		if (!equal_double(intersec, distance) && intersec < distance)
+		if (intersec < distance - EPSILON)
 		{
 			distance = intersec;
 			init_hitpoint(env, &hitpoint, distance);
@@ -85,7 +85,6 @@ int	draw_image(t_env *env)
 			find_ray_direction(i, j, env);
 			color = get_color(env, &ray);
 			my_pixel_put(i, j, env, color);
-			ft_bzero(&direction, sizeof(t_coordinates));
 			i++;
 		}
 		j++;

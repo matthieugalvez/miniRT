@@ -6,7 +6,7 @@
 /*   By: mgalvez <mgalvez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 10:59:44 by mgalvez           #+#    #+#             */
-/*   Updated: 2025/02/27 12:23:33 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/27 13:36:23 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	get_specular(t_coordinates reflexion_vec, t_ray *cam_ray,
 	double	specular;
 
 	cos_angle = scalar_prod_vec(reflexion_vec, *cam_ray->direction);
-	if (cos_angle < 0 || equal_double(cos_angle, 0))
+	if (cos_angle < EPSILON)
 		return ;
 	specular = light->bright * 0.5 * pow(cos_angle, 80);
 	color->r += light->color->r * specular;
@@ -85,7 +85,7 @@ static int	find_shadow(t_env *env, t_element *current_figure, t_ray *light_ray)
 		if (figure != current_figure)
 		{
 			new_distance = find_intsec(light_ray, figure);
-			if (equal_double(new_distance, distance) || new_distance < distance)
+			if (new_distance < distance + EPSILON)
 				return (1);
 		}
 		figure = figure->next;
