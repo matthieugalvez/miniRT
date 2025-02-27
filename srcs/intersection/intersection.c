@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 13:46:27 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/27 14:27:55 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/27 17:14:28 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ static void	intersect_sphere(t_element *sp, t_ray *ray)
 {
 	t_coordinates	distance;
 	double			discriminant;
+	double			sqrt_discriminant;
 	double			a;
 	double			b;
 
@@ -38,8 +39,9 @@ static void	intersect_sphere(t_element *sp, t_ray *ray)
 			- (sp->diameter * sp->diameter) / 4);
 	if (discriminant >= 0)
 	{
-		sp->c_inter[0] = (-b - sqrt(discriminant)) / (2 * a);
-		sp->c_inter[1] = (-b + sqrt(discriminant)) / (2 * a);
+		sqrt_discriminant = sqrt(discriminant);
+		sp->c_inter[0] = (-b - sqrt_discriminant) / (2 * a);
+		sp->c_inter[1] = (-b + sqrt_discriminant) / (2 * a);
 	}
 }
 

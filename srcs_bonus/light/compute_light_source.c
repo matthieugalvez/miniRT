@@ -6,7 +6,7 @@
 /*   By: mgalvez <mgalvez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 10:59:44 by mgalvez           #+#    #+#             */
-/*   Updated: 2025/02/27 13:36:23 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/27 16:09:41 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,12 +82,9 @@ static int	find_shadow(t_env *env, t_element *current_figure, t_ray *light_ray)
 	distance = find_intsec(light_ray, current_figure);
 	while (figure)
 	{
-		if (figure != current_figure)
-		{
-			new_distance = find_intsec(light_ray, figure);
-			if (new_distance < distance + EPSILON)
-				return (1);
-		}
+		new_distance = find_intsec(light_ray, figure);
+		if (new_distance < distance)
+			return (1);
 		figure = figure->next;
 	}
 	return (0);

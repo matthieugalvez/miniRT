@@ -6,7 +6,7 @@
 /*   By: mgalvez <mgalvez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 11:42:37 by mgalvez           #+#    #+#             */
-/*   Updated: 2025/02/22 14:56:29 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/27 17:15:51 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	init_ray(t_ray *ray, t_env *env, t_coordinates *hitpoint)
 	t_coordinates	*origin;
 	t_coordinates	*direction;
 
-	direction = ft_calloc(sizeof(t_coordinates), 1);
+	direction = malloc(sizeof(t_coordinates));
 	if (!direction)
 		clean_env(env, 1);
 	origin = env->light->coord;

@@ -6,38 +6,43 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 10:54:11 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/27 13:43:45 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/27 16:56:14 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT_bonus.h"
+
+static void	set_intersec(t_element *co, double inter)
+{
+	if (equal_double(co->c_inter[0], __DBL_MAX__))
+	{
+		co->c_inter[0] = inter;
+		if (co->c_inter[0] < co->c_inter[1])
+			co->intersec_type = 2;
+	}
+	else
+	{
+		co->c_inter[1] = inter;
+		if (co->c_inter[1] < co->c_inter[0])
+			co->intersec_type = 2;
+	}
+}
 
 static void	intersect_disk(t_element *co, t_ray *ray)
 {
 	double			inter;
 	t_coordinates	point;
 	t_coordinates	disk_pos;
+	double			radius;
 
 	disk_pos = add_vec(*(co->coord), mult_vec(*(co->vector), co->height));
 	inter = scalar_prod_vec(sub_vec(disk_pos, *(ray->origin)), *(co->vector))
 		/ scalar_prod_vec(*(ray->direction), *(co->vector));
 	point = add_vec(*(ray->origin), mult_vec(*(ray->direction), inter));
-	if (scalar_prod_vec(sub_vec(point, disk_pos), sub_vec(point,
-				disk_pos)) < pow(co->diameter / 2, 2))
-	{
-		if (equal_double(co->c_inter[0], __DBL_MAX__))
-		{
-			co->c_inter[0] = inter;
-			if (co->c_inter[0] < co->c_inter[1])
-				co->intersec_type = 2;
-		}
-		else
-		{
-			co->c_inter[1] = inter;
-			if (co->c_inter[1] < co->c_inter[0])
-				co->intersec_type = 2;
-		}
-	}
+	radius = co->diameter / 2;
+	if (scalar_prod_vec(sub_vec(point, disk_pos), sub_vec(point, disk_pos))
+		< radius * radius)
+		set_intersec(co, inter);
 }
 
 static void	get_z_loc_co(t_element *co, t_ray *ray, double *intersection)
@@ -75,7 +80,8 @@ void	intersect_cone(t_element *co, t_ray *ray)
 	double			b;
 	double			c;
 
-	tan_teta = 1 + pow(co->diameter / (2 * co->height), 2);
+	tan_teta = 1
+		+ (co->diameter / (2 * co->height)) * (co->diameter / (2 * co->height));
 	dis = sub_vec(*ray->origin, *co->coord);
 	a = scalar_prod_vec(*ray->direction, *ray->direction) - tan_teta
 		* scalar_prod_vec(*ray->direction, *co->vector)
@@ -83,8 +89,9 @@ void	intersect_cone(t_element *co, t_ray *ray)
 	b = 2 * (scalar_prod_vec(*ray->direction, dis) - tan_teta
 			* scalar_prod_vec(*ray->direction, *co->vector)
 			* scalar_prod_vec(dis, *co->vector));
-	c = scalar_prod_vec(dis, dis) - tan_teta * pow(scalar_prod_vec(dis,
-				*co->vector), 2);
+	c = scalar_prod_vec(dis, dis) - tan_teta
+		* (scalar_prod_vec(dis, *co->vector)
+			* scalar_prod_vec(dis, *co->vector));
 	intersect_pyramid(co, a, b, c);
 	get_z_loc_co(co, ray, &co->c_inter[0]);
 	get_z_loc_co(co, ray, &co->c_inter[1]);
