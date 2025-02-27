@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 18:54:12 by mgalvez           #+#    #+#             */
-/*   Updated: 2025/02/24 17:38:03 by achantra         ###   ########.fr       */
+/*   Updated: 2025/02/27 17:37:23 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static t_coordinates	normal_at_pl(t_element *plane, t_coordinates *point,
 	scalar_prod_cam = scalar_prod_vec(*cam_ray->direction, *plane->vector);
 	if (scalar_prod_light * scalar_prod_cam >= 0)
 	{
-		if (scalar_prod_light)
+		if (scalar_prod_light > 0)
 			return (mult_vec(*plane->vector, -1.0));
 		else
 			return (*plane->vector);
