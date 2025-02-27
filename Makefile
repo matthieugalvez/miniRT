@@ -6,7 +6,7 @@
 #    By: achantra <achantra@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/31 15:30:48 by achantra          #+#    #+#              #
-#    Updated: 2025/02/26 18:56:54 by mgalvez          ###   ########.fr        #
+#    Updated: 2025/02/27 18:45:20 by mgalvez          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -88,15 +88,17 @@ YELLOW				= \033[33m
 GREEN				= \033[32m
 END					= \033[0m
 
-all: ${NAME} ${BONUS}
+all: libft ${NAME} ${BONUS}
 
-bonus: ${BONUS}
+mandatory: libft ${NAME}
 
-${NAME}: libft ${OBJS}
+bonus: libft ${BONUS}
+
+${NAME}: ${LIBFT} ${OBJS}
 	@ ${CC} ${CFLAGS} ${LIBS} ${INCS_PARAM} ${OBJS} ${LIBFT} ${MLX} -o $@
 	@ printf "${ERASE}${GREEN}$@ made\n${END}"
 
-${BONUS}: libft ${OBJS_BONUS}
+${BONUS}: ${LIBFT} ${OBJS_BONUS}
 	@ ${CC} ${CFLAGS} ${LIBS} ${INCS_PARAM} ${OBJS_BONUS} ${LIBFT} ${MLX} -o $@
 	@ printf "${ERASE}${GREEN}$@ made\n${END}"
 
@@ -115,6 +117,8 @@ g3: libft ${OBJS}
 g3_bonus: libft ${OBJS_BONUS}
 	@ ${CC} ${CFLAGS} ${LIBS} ${INCS_PARAM} ${OBJS_BONUS} ${LIBFT} ${MLX} -o $@ -g3
 	@ printf "${ERASE}${GREEN}$@ made\n${END}"
+
+${LIBFT}: libft
 
 libft:
 	@ make -C ${LIBFT_DIR}
@@ -163,4 +167,4 @@ fclean:
 
 re: fclean all
 
-.PHONY: all bonus fsanitize fsanitize_bonus g3 g3_bonus libft clean fclean re
+.PHONY: all mandatory bonus fsanitize fsanitize_bonus g3 g3_bonus libft clean fclean re

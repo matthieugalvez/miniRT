@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 12:03:23 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/12 16:33:10 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/27 18:26:08 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,22 +24,42 @@ t_coordinates	change_vec(double x, double y, double z)
 
 t_coordinates	add_vec(t_coordinates v1, t_coordinates v2)
 {
-	return (change_vec(v1.x + v2.x, v1.y + v2.y, v1.z + v2.z));
+	t_coordinates	vec;
+
+	vec.x = v1.x + v2.x;
+	vec.y = v1.y + v2.y;
+	vec.z = v1.z + v2.z;
+	return (vec);
 }
 
 t_coordinates	sub_vec(t_coordinates v1, t_coordinates v2)
 {
-	return (change_vec(v1.x - v2.x, v1.y - v2.y, v1.z - v2.z));
+	t_coordinates	vec;
+
+	vec.x = v1.x - v2.x;
+	vec.y = v1.y - v2.y;
+	vec.z = v1.z - v2.z;
+	return (vec);
 }
 
 t_coordinates	mult_vec(t_coordinates v, double fact)
 {
-	return (change_vec(fact * v.x, fact * v.y, fact * v.z));
+	t_coordinates	vec;
+
+	vec.x = v.x * fact;
+	vec.y = v.y * fact;
+	vec.z = v.z * fact;
+	return (vec);
 }
 
 t_coordinates	div_vec(t_coordinates v, double fact)
 {
+	t_coordinates	vec;
+
 	if (equal_double(fact, 0))
 		return (v);
-	return (change_vec(v.x / fact, v.y / fact, v.z / fact));
+	vec.x = v.x / fact;
+	vec.y = v.y / fact;
+	vec.z = v.z / fact;
+	return (vec);
 }
