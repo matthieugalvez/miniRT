@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 10:54:11 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/27 16:56:14 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/27 21:29:19 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,13 @@ static void	intersect_disk(t_element *co, t_ray *ray)
 	double			inter;
 	t_coordinates	point;
 	t_coordinates	disk_pos;
-	double			radius;
 
 	disk_pos = add_vec(*(co->coord), mult_vec(*(co->vector), co->height));
 	inter = scalar_prod_vec(sub_vec(disk_pos, *(ray->origin)), *(co->vector))
 		/ scalar_prod_vec(*(ray->direction), *(co->vector));
 	point = add_vec(*(ray->origin), mult_vec(*(ray->direction), inter));
-	radius = co->diameter / 2;
 	if (scalar_prod_vec(sub_vec(point, disk_pos), sub_vec(point, disk_pos))
-		< radius * radius)
+		< co->radius * co->radius)
 		set_intersec(co, inter);
 }
 

@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 10:50:45 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/26 16:06:47 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/27 21:17:58 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 
 static int	init_cone(t_element *cone, t_env *env, char **data)
 {
-	cone->coord = parse_coordinates(data[1]);
-	cone->vector = parse_vector(data[2]);
-	cone->color = parse_color(data[5]);
 	if (data[6])
 		cone->colorbis = parse_color(data[6]);
 	if (!cone->coord || !cone->vector || !cone->color
@@ -28,6 +25,7 @@ static int	init_cone(t_element *cone, t_env *env, char **data)
 	}
 	normalize_vec(cone->vector);
 	cone->diameter = parse_length(data[3]);
+	cone->radius = cone->diameter / 2;
 	cone->height = parse_length(data[4]);
 	if (cone->diameter <= 0 || cone->height <= 0)
 	{
@@ -59,5 +57,8 @@ int	new_cone(t_env *env, char **data)
 		return (1);
 	}
 	cone->id = CONE;
+	cone->coord = parse_coordinates(data[1]);
+	cone->vector = parse_vector(data[2]);
+	cone->color = parse_color(data[5]);
 	return (init_cone(cone, env, data));
 }

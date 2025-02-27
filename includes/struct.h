@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 12:33:04 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/27 18:04:27 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/27 21:12:57 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ typedef struct s_element
 	t_color				*color;
 	t_color				*colorbis;
 	double				diameter;
+	double				radius;
 	double				height;
 	double				c_inter[2];
 	int					intersec_type;

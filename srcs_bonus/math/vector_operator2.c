@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 13:30:17 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/27 18:30:30 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/27 21:03:33 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,6 @@ double	get_norm(t_coordinates vector)
 {
 	double	norm;
 
-	if (equal_double(vector.x, 0) && equal_double(vector.y, 0)
-		&& equal_double(vector.z, 0))
-		return (0);
 	norm = sqrt(vector.x * vector.x
 			+ vector.y * vector.y
 			+ vector.z * vector.z);

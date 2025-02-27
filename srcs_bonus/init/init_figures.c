@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 17:21:35 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/26 18:29:39 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/27 21:20:11 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,6 @@
 
 static int	init_cylinder(t_element *cylinder, t_env *env, char **data)
 {
-	cylinder->coord = parse_coordinates(data[1]);
-	cylinder->vector = parse_vector(data[2]);
-	cylinder->color = parse_color(data[5]);
 	if (data[6])
 		cylinder->colorbis = parse_color(data[6]);
 	if (!cylinder->coord || !cylinder->vector || !cylinder->color || (data[6]
@@ -46,6 +43,7 @@ static int	init_cylinder(t_element *cylinder, t_env *env, char **data)
 		ft_putstr("Error: wrong data: cylinder\n", 2);
 		return (1);
 	}
+	cylinder->radius = cylinder->diameter / 2;
 	add_back_elem(&env->figure, cylinder);
 	ft_freetab(data);
 	return (find_vectors(cylinder));
@@ -69,6 +67,9 @@ int	new_cylinder(t_env *env, char **data)
 		return (1);
 	}
 	cylinder->id = CYLINDER;
+	cylinder->coord = parse_coordinates(data[1]);
+	cylinder->vector = parse_vector(data[2]);
+	cylinder->color = parse_color(data[5]);
 	return (init_cylinder(cylinder, env, data));
 }
 

@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 17:24:45 by mgalvez           #+#    #+#             */
-/*   Updated: 2025/02/26 16:13:46 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/27 21:19:13 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ static void	ft_change_diameter(int keysym, t_env *env, t_element *figure)
 	}
 	if (keysym == XK_KP_Add)
 		double_increment(&figure->diameter);
+	figure->radius = figure->diameter / 2;
 }
 
 void	move_object(int keysym, t_env *env)
