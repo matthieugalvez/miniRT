@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 18:54:12 by mgalvez           #+#    #+#             */
-/*   Updated: 2025/02/27 17:37:23 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/27 18:11:16 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,11 @@ static t_coordinates	normal_at_cy(t_element *cylinder, t_coordinates *point)
 {
 	t_coordinates	normal_at_vec;
 
-	if (cylinder->intersec_type == 1)
+	if (cylinder->cam_intersec_type == 1)
 		normal_at_vec = pipe_normal(cylinder, point);
-	if (cylinder->intersec_type == 2)
+	if (cylinder->cam_intersec_type == 2)
 		normal_at_vec = *cylinder->vector;
-	if (cylinder->intersec_type == 3)
+	if (cylinder->cam_intersec_type == 3)
 		normal_at_vec = mult_vec(*cylinder->vector, -1);
 	return (normal_at_vec);
 }

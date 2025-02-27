@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 12:33:04 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/26 18:44:18 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/27 18:04:27 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ typedef struct s_element
 	double				height;
 	double				c_inter[2];
 	int					intersec_type;
+	int					cam_intersec_type;
 	struct s_element	*next;
 }						t_element;
 

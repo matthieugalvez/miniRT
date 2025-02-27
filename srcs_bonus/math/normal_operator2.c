@@ -6,7 +6,7 @@
 /*   By: mgalvez <mgalvez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 11:20:06 by mgalvez           #+#    #+#             */
-/*   Updated: 2025/02/26 11:41:29 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/27 18:05:37 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ t_coordinates	normal_at_co(t_element *cone, t_coordinates *point)
 {
 	t_coordinates	normal_at_vec;
 
-	if (cone->intersec_type == 1)
+	if (cone->cam_intersec_type == 1)
 		normal_at_vec = pyramid_normal(cone, point);
-	if (cone->intersec_type == 2)
+	if (cone->cam_intersec_type == 2)
 		normal_at_vec = *cone->vector;
 	return (normal_at_vec);
 }
@@ -56,11 +56,11 @@ t_coordinates	normal_at_cy(t_element *cylinder, t_coordinates *point)
 {
 	t_coordinates	normal_at_vec;
 
-	if (cylinder->intersec_type == 1)
+	if (cylinder->cam_intersec_type == 1)
 		normal_at_vec = pipe_normal(cylinder, point);
-	if (cylinder->intersec_type == 2)
+	if (cylinder->cam_intersec_type == 2)
 		normal_at_vec = *cylinder->vector;
-	if (cylinder->intersec_type == 3)
+	if (cylinder->cam_intersec_type == 3)
 		normal_at_vec = mult_vec(*cylinder->vector, -1);
 	return (normal_at_vec);
 }

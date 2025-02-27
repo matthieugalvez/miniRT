@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 12:08:44 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/27 14:19:02 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/27 18:07:56 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ static int	get_color(t_env *env, t_ray *ray)
 		if (intersec < distance - EPSILON)
 		{
 			distance = intersec;
+			figure->cam_intersec_type = figure->intersec_type;
 			init_hitpoint(env, &hitpoint, distance);
 			find_hitpoint_color(&hitpoint, figure);
 			color = apply_light(env, figure, &hitpoint);

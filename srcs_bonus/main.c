@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 15:36:53 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/26 12:01:42 by achantra         ###   ########.fr       */
+/*   Updated: 2025/02/27 18:13:30 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int	main(int ac, char **av)
 		return (clean_env(&env, 1));
 	debug_env(&env);
 	init_mlx(&env);
+	print_image(&env);
 	mlx_key_hook(env.win, ft_key, &env);
 	mlx_hook(env.win, 17, 0, clean_env, &env);
 	mlx_loop(env.mlx);
