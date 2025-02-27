@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 12:08:44 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/26 17:54:27 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/27 12:09:54 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ static void	find_ray_direction(int i, int j, t_env *env)
 	vector = add_vec(mult_vec(*(env->camera->dir_up), vector.y),
 			add_vec(*(env->camera->dir), mult_vec(*(env->camera->dir_right),
 					vector.x)));
+	normalize_vec(&vector);
 	*(env->camera->ray->direction) = vector;
 }
 
