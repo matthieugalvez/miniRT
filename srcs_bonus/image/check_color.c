@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 13:59:16 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/28 20:12:28 by achantra         ###   ########.fr       */
+/*   Updated: 2025/02/28 20:26:20 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,13 @@ static int	is_odd_cy(t_hitpoint *hitpoint, t_element *figure)
 	t_coordinates	u;
 	double			teta;
 	double			r;
+	int		odd;
 	
 	temp_coord.x = hitpoint->coord->x - figure->coord->x;
 	temp_coord.y = hitpoint->coord->y - figure->coord->y;
 	temp_coord.z = hitpoint->coord->z - figure->coord->z;
-
+	odd = (int) floor(figure->diameter) % 2;
+	
 	teta = acos(figure->vector->z / get_norm(*figure->vector));
 	u.x = -figure->vector->y;
 	u.y = figure->vector->x;
@@ -56,9 +58,11 @@ static int	is_odd_cy(t_hitpoint *hitpoint, t_element *figure)
 				mult_vec(*vect_prod_vec(u, *figure->vector),
 					sin(teta))), mult_vec(u, (1 - cos(teta))
 			* scalar_prod_vec(u, *figure->vector)));
-	teta = atan2(ref_cy.y, ref_cy.x);
+	teta = atan2(ref_cy.y, ref_cy.x) * figure->diameter / M_PI;
+	teta = (figure->diameter + odd) * (atan2(ref_cy.y, ref_cy.x) + M_PI) / (2 * M_PI);
 	r = sqrt(ref_cy.x * ref_cy.x + ref_cy.y * ref_cy.y);
-	teta_value = (int)floor(4 * teta / (2 * M_PI)) % 2;
+	z_value = ref_cy.z * figure->height;
+	teta_value = (int)floor(teta) % 2;
 	r_value = (int)floor(r) % 2;
 	z_value = (int)floor(ref_cy.z) % 2;	
 	return ((teta_value + r_value + z_value) % 2);
@@ -66,38 +70,38 @@ static int	is_odd_cy(t_hitpoint *hitpoint, t_element *figure)
 
 static int	is_odd_co(t_hitpoint *hitpoint, t_element *figure)
 {
-	double	theta;
-	double	z;
-	double	u;
-	double	v;
-	int		x_value;
-	int		y_value;
-
-	theta = atan2(hitpoint->coord->y - figure->coord->y, hitpoint->coord->x
-			- figure->coord->x);
-	z = hitpoint->coord->z - figure->coord->z;
-	if (hitpoint->coord->z == figure->coord->z + figure->height)
-	{
-		u = hitpoint->coord->x + hitpoint->coord->y;
-		v = hitpoint->coord->z;
-		x_value = (int)hitpoint->coord->x % 2;
-		y_value = (int)hitpoint->coord->y % 2;
-		// z_value = (int) hitpoint->coord->z % 2;
-	}
-	else
-	{
-		u = 100 * (theta + M_PI) / (2 * M_PI);
-		v = 100 * z / figure->height;
-		x_value = (int)u % 2;
-		y_value = (int)v % 2;
-		// z_value = (int) hitpoint->coord->z % 2;
-		/*u = hitpoint->coord->x + hitpoint->coord->y;
-		v = hitpoint->coord->z;
-		x_value = (int) hitpoint->coord->x % 2;
-		y_value = (int) hitpoint->coord->y % 2;
-		z_value = (int) hitpoint->coord->z % 2;*/
-	}
-	return ((x_value + y_value) % 2);
+	int				teta_value;
+	int				r_value;
+	int				z_value;
+	t_coordinates	temp_coord;
+	t_coordinates	ref_cy;
+	t_coordinates	u;
+	double			teta;
+	double			r;
+	int		odd;
+	
+	temp_coord.x = hitpoint->coord->x - figure->coord->x;
+	temp_coord.y = hitpoint->coord->y - figure->coord->y;
+	temp_coord.z = hitpoint->coord->z - figure->coord->z;
+	odd = (int) floor(figure->diameter) % 2;
+	
+	teta = acos(figure->vector->z / get_norm(*figure->vector));
+	u.x = -figure->vector->y;
+	u.y = figure->vector->x;
+	u.z = 0;
+	normalize_vec(&u);
+	ref_cy = add_vec(add_vec(mult_vec(temp_coord, cos(teta)),
+				mult_vec(*vect_prod_vec(u, *figure->vector),
+					sin(teta))), mult_vec(u, (1 - cos(teta))
+			* scalar_prod_vec(u, *figure->vector)));
+	teta = atan2(ref_cy.y, ref_cy.x) * figure->diameter / M_PI;
+	teta = (figure->diameter + odd) * (atan2(ref_cy.y, ref_cy.x) + M_PI) / (2 * M_PI);
+	r = sqrt(ref_cy.x * ref_cy.x + ref_cy.y * ref_cy.y);
+	z_value = ref_cy.z * figure->height;
+	teta_value = (int)floor(teta) % 2;
+	r_value = (int)floor(r) % 2;
+	z_value = (int)floor(ref_cy.z) % 2;	
+	return ((teta_value + r_value + z_value) % 2);
 }
 
 static int	is_odd_pl(t_hitpoint *hitpoint, t_element *figure)
