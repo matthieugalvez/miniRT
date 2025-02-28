@@ -6,12 +6,11 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 10:54:11 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/28 13:51:35 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/28 16:03:38 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT_bonus.h"
-#include "struct.h"
 
 static void	set_intersec(t_element *co, double inter)
 {
@@ -33,14 +32,13 @@ static void	intersect_disk(t_element *co, t_ray *ray)
 {
 	double			inter;
 	t_coordinates	point;
+	t_coordinates	disk_vec;
 
 	inter = scalar_prod_vec(sub_vec(co->b_disk_c, *(ray->origin)),
-			*(co->vector))
-		/ scalar_prod_vec(*(ray->direction), *(co->vector));
+			*(co->vector)) / scalar_prod_vec(*(ray->direction), *(co->vector));
 	point = add_vec(*(ray->origin), mult_vec(*(ray->direction), inter));
-	if (scalar_prod_vec(sub_vec(point, co->b_disk_c),
-			sub_vec(point, co->b_disk_c))
-		< co->radius * co->radius)
+	disk_vec = sub_vec(point, co->b_disk_c);
+	if (scalar_prod_vec(disk_vec, disk_vec) < co->radius * co->radius)
 		set_intersec(co, inter);
 }
 
@@ -57,10 +55,22 @@ static void	get_z_loc_co(t_element *co, t_ray *ray, double *intersection)
 		co->intersec_type = 1;
 }
 
-static int	intersect_pyramid(t_element *co, double a, double b, double c)
+static int	intersect_pyramid(t_element *co, t_ray *ray,
+				double tan_teta, t_coordinates dis)
 {
-	double			delta;
+	double	a;
+	double	b;
+	double	c;
+	double	delta;
+	double	cos_angle;
 
+	cos_angle = scalar_prod_vec(*ray->direction, *co->vector);
+	a = scalar_prod_vec(*ray->direction, *ray->direction) - tan_teta
+		* cos_angle * cos_angle;
+	b = 2 * (scalar_prod_vec(*ray->direction, dis) - tan_teta
+			* cos_angle * scalar_prod_vec(dis, *co->vector));
+	cos_angle = scalar_prod_vec(dis, *co->vector);
+	c = scalar_prod_vec(dis, dis) - tan_teta * cos_angle * cos_angle;
 	delta = b * b - (4 * a * c);
 	if (delta > EPSILON)
 	{
@@ -75,23 +85,11 @@ void	intersect_cone(t_element *co, t_ray *ray)
 {
 	double			tan_teta;
 	t_coordinates	dis;
-	double			a;
-	double			b;
-	double			c;
 
 	tan_teta = 1
 		+ (co->diameter / (2 * co->height)) * (co->diameter / (2 * co->height));
 	dis = sub_vec(*ray->origin, *co->coord);
-	a = scalar_prod_vec(*ray->direction, *ray->direction) - tan_teta
-		* scalar_prod_vec(*ray->direction, *co->vector)
-		* scalar_prod_vec(*ray->direction, *co->vector);
-	b = 2 * (scalar_prod_vec(*ray->direction, dis) - tan_teta
-			* scalar_prod_vec(*ray->direction, *co->vector)
-			* scalar_prod_vec(dis, *co->vector));
-	c = scalar_prod_vec(dis, dis) - tan_teta
-		* (scalar_prod_vec(dis, *co->vector)
-			* scalar_prod_vec(dis, *co->vector));
-	if (intersect_pyramid(co, a, b, c))
+	if (intersect_pyramid(co, ray, tan_teta, dis))
 	{
 		get_z_loc_co(co, ray, &co->c_inter[0]);
 		get_z_loc_co(co, ray, &co->c_inter[1]);
