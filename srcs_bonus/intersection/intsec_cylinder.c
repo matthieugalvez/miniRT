@@ -6,7 +6,7 @@
 /*   By: mgalvez <mgalvez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 19:37:18 by mgalvez           #+#    #+#             */
-/*   Updated: 2025/02/28 15:40:39 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/28 16:36:18 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,11 @@ static void	intersect_pipe(t_element *cy, t_ray *ray,
 	if (discriminant < 0)
 		return ;
 	cy->intersec_type = 1;
-	cy->c_inter[0] = (-b - sqrt(discriminant)) / (2 * a);
+	discriminant = sqrt(discriminant);
+	a *= 2;
+	cy->c_inter[0] = (-b - discriminant) / a;
 	get_z_loc(cy, ray, &cy->c_inter[0]);
-	cy->c_inter[1] = (-b + sqrt(discriminant)) / (2 * a);
+	cy->c_inter[1] = (-b + discriminant) / a;
 	get_z_loc(cy, ray, &cy->c_inter[1]);
 }
 
