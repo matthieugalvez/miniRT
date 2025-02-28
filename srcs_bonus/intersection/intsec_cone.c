@@ -6,11 +6,12 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 10:54:11 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/27 21:29:19 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/28 12:39:24 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT_bonus.h"
+#include "struct.h"
 
 static void	set_intersec(t_element *co, double inter)
 {
@@ -47,8 +48,6 @@ static void	get_z_loc_co(t_element *co, t_ray *ray, double *intersection)
 {
 	double	z_loc;
 
-	if (equal_double(*intersection, __DBL_MAX__))
-		return ;
 	z_loc = scalar_prod_vec(add_vec(*(ray->origin),
 				sub_vec(mult_vec(*(ray->direction), *intersection),
 					*(co->coord))), *(co->vector));
@@ -58,7 +57,7 @@ static void	get_z_loc_co(t_element *co, t_ray *ray, double *intersection)
 		co->intersec_type = 1;
 }
 
-static void	intersect_pyramid(t_element *co, double a, double b, double c)
+static int	intersect_pyramid(t_element *co, double a, double b, double c)
 {
 	double			delta;
 
@@ -67,7 +66,9 @@ static void	intersect_pyramid(t_element *co, double a, double b, double c)
 	{
 		co->c_inter[0] = (-b + sqrt(delta)) / (2 * a);
 		co->c_inter[1] = (-b - sqrt(delta)) / (2 * a);
+		return (1);
 	}
+	return (0);
 }
 
 void	intersect_cone(t_element *co, t_ray *ray)
@@ -90,8 +91,10 @@ void	intersect_cone(t_element *co, t_ray *ray)
 	c = scalar_prod_vec(dis, dis) - tan_teta
 		* (scalar_prod_vec(dis, *co->vector)
 			* scalar_prod_vec(dis, *co->vector));
-	intersect_pyramid(co, a, b, c);
-	get_z_loc_co(co, ray, &co->c_inter[0]);
-	get_z_loc_co(co, ray, &co->c_inter[1]);
+	if (intersect_pyramid(co, a, b, c))
+	{
+		get_z_loc_co(co, ray, &co->c_inter[0]);
+		get_z_loc_co(co, ray, &co->c_inter[1]);
+	}
 	intersect_disk(co, ray);
 }

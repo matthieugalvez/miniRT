@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 13:59:16 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/28 10:01:19 by achantra         ###   ########.fr       */
+/*   Updated: 2025/02/28 10:35:27 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ static int	is_odd_sp(t_hitpoint *hitpoint, t_element *figure)
 	u = 100
 		* (atan2(hitpoint->coord->y, hitpoint->coord->x) + M_PI) / (2 * M_PI);
 	v = 100 * (acos(2 * hitpoint->coord->z / figure->diameter) + M_PI_2) / M_PI;
-	
 	x_value = (int) u % 2;
 	y_value = (int) v % 2;
 	return ((x_value + y_value) % 2);

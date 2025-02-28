@@ -6,7 +6,7 @@
 /*   By: mgalvez <mgalvez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 11:20:06 by mgalvez           #+#    #+#             */
-/*   Updated: 2025/02/27 18:05:37 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/28 10:48:31 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static t_coordinates	pyramid_normal(t_element *cone, t_coordinates *point)
 
 	projected_vec = sub_vec(*point, *cone->coord);
 	normalize_vec(&projected_vec);
-	factor = cone->height / (0.5 * cone->diameter);
+	factor = cone->height / cone->radius;
 	projected_vec = mult_vec(projected_vec, factor);
 	normalize_vec(&projected_vec);
 	return (projected_vec);
