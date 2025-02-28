@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 10:50:45 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/28 13:56:12 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/28 17:14:57 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int	init_cone(t_element *cone, t_env *env, char **data)
 		ft_putstr("Error: wrong data: cone\n", 2);
 		return (1);
 	}
-	find_cone_disk(cone);
+	find_disks(cone);
 	add_back_elem(&env->figure, cone);
 	ft_freetab(data);
 	return (find_vectors(cone));

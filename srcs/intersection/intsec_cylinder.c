@@ -6,7 +6,7 @@
 /*   By: mgalvez <mgalvez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 19:37:18 by mgalvez           #+#    #+#             */
-/*   Updated: 2025/02/28 16:04:55 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/28 17:10:10 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ static double	intersect_disk(t_element *cy, t_ray *ray,
 	t_coordinates	point;
 	double			norm;
 
-	inter = scalar_prod_vec(sub_vec(c_disk, *(ray->origin)), *(cy->vector))
+	inter = scalar_prod_vec(sub_vec(c_disk, *ray->origin), *cy->vector)
 		/ cos_angle;
-	point = add_vec(*(ray->origin), mult_vec(*(ray->direction), inter));
+	point = add_vec(*ray->origin, mult_vec(*ray->direction, inter));
 	norm = get_norm(sub_vec(point, c_disk));
 	if (norm * norm < cy->radius * cy->radius)
 		return (inter);
@@ -49,8 +49,8 @@ static void	get_z_loc(t_element *cy, t_ray *ray, double *intersection)
 	double			z_loc;
 
 	z_loc = scalar_prod_vec(add_vec(*(ray->origin),
-				sub_vec(mult_vec(*(ray->direction), *intersection),
-					*(cy->coord))), *(cy->vector));
+				sub_vec(mult_vec(*ray->direction, *intersection),
+					*cy->coord)), *cy->vector);
 	if (z_loc < -cy->height / 2 || z_loc > cy->height / 2)
 		*intersection = __DBL_MAX__;
 }
@@ -70,9 +70,11 @@ static void	intersect_pipe(t_element *cy, t_ray *ray,
 	if (discriminant < 0)
 		return ;
 	cy->intersec_type = 1;
-	cy->c_inter[0] = (-b - sqrt(discriminant)) / (2 * a);
+	discriminant = sqrt(discriminant);
+	a *= 2;
+	cy->c_inter[0] = (-b - discriminant) / a;
 	get_z_loc(cy, ray, &cy->c_inter[0]);
-	cy->c_inter[1] = (-b + sqrt(discriminant)) / (2 * a);
+	cy->c_inter[1] = (-b + discriminant) / a;
 	get_z_loc(cy, ray, &cy->c_inter[1]);
 }
 
@@ -84,7 +86,7 @@ void	intersect_cylinder(t_element *cy, t_ray *ray)
 	double			cos_angle;
 	double			inter;
 
-	distance = sub_vec(*(ray->origin), *(cy->coord));
+	distance = sub_vec(*ray->origin, *cy->coord);
 	cos_angle = scalar_prod_vec(*(ray->direction), *(cy->vector));
 	av = sub_vec(*(ray->direction), mult_vec(*(cy->vector), cos_angle));
 	bv = sub_vec(distance, mult_vec(*(cy->vector),

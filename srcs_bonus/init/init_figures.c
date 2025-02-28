@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 17:21:35 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/28 13:52:52 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/28 17:14:41 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static int	init_cylinder(t_element *cylinder, t_env *env, char **data)
 		return (1);
 	}
 	cylinder->radius = cylinder->diameter / 2;
-	find_cylinder_disks(cylinder);
+	find_disks(cylinder);
 	add_back_elem(&env->figure, cylinder);
 	ft_freetab(data);
 	return (find_vectors(cylinder));
