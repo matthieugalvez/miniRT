@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 15:37:52 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/28 17:14:15 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/28 18:08:23 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@
 void			init_env(t_env *env);
 int				init_element(t_env *env, char *line);
 int				new_camera(t_env *env, char **data);
+t_coordinates	find_tmp_up(t_coordinates *vector);
 int				new_plane(t_env *env, char **data);
 int				new_sphere(t_env *env, char **data);
 int				new_cylinder(t_env *env, char **data);
