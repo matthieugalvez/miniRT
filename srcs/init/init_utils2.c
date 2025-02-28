@@ -6,11 +6,20 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 11:30:55 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/26 16:23:56 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/28 14:08:11 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT_bonus.h"
+
+void	find_cylinder_disks(t_element *cylinder)
+{
+	t_coordinates	disk_vec;
+
+	disk_vec = mult_vec(*(cylinder->vector), cylinder->height / 2);
+	cylinder->t_disk_c = add_vec(*(cylinder->coord), disk_vec);
+	cylinder->b_disk_c = sub_vec(*(cylinder->coord), disk_vec);
+}
 
 int	find_vectors(t_element *element)
 {

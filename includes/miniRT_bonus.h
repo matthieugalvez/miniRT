@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 15:37:52 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/27 13:34:17 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/28 14:02:53 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,9 @@ int				new_camera(t_env *env, char **data);
 int				new_plane(t_env *env, char **data);
 int				new_sphere(t_env *env, char **data);
 int				new_cylinder(t_env *env, char **data);
+void			find_cylinder_disks(t_element *cylinder);
 int				new_cone(t_env *env, char **data);
+void			find_cone_disk(t_element *cone);
 int				find_vectors(t_element *element);
 int				new_ambient(t_env *env, char **data);
 int				new_light(t_env *env, char **data);
@@ -87,6 +89,7 @@ int				print_image(t_env *env);
 void			check_help(t_env *env);
 int				print_selected_light(t_env *env);
 int				print_selected_object(t_env *env);
+t_element		*find_selected_object(t_env *env);
 
 // IMAGE
 int				draw_image(t_env *env);

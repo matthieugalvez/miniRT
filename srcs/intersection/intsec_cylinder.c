@@ -6,7 +6,7 @@
 /*   By: mgalvez <mgalvez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 19:37:18 by mgalvez           #+#    #+#             */
-/*   Updated: 2025/02/27 21:41:22 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/28 14:09:19 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,6 @@ void	intersect_cylinder(t_element *cy, t_ray *ray)
 	bv = sub_vec(distance, mult_vec(*(cy->vector),
 				scalar_prod_vec(distance, *(cy->vector))));
 	intersect_pipe(cy, ray, av, bv);
-	disk_vec = add_vec(*(cy->coord), mult_vec(*(cy->vector), cy->height / 2));
-	intersect_disk(cy, ray, disk_vec, 2);
-	disk_vec = sub_vec(*(cy->coord), mult_vec(*(cy->vector), cy->height / 2));
-	intersect_disk(cy, ray, disk_vec, 3);
+	intersect_disk(cy, ray, cy->t_disk_c, 2);
+	intersect_disk(cy, ray, cy->b_disk_c, 3);
 }

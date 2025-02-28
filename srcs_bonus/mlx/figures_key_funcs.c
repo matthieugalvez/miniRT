@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 17:24:45 by mgalvez           #+#    #+#             */
-/*   Updated: 2025/02/27 21:19:13 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/28 14:02:29 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,15 +85,8 @@ static void	ft_change_diameter(int keysym, t_env *env, t_element *figure)
 void	move_object(int keysym, t_env *env)
 {
 	t_element	*figure;
-	int			i;
 
-	figure = env->figure;
-	i = 1;
-	while (i < env->selected_object)
-	{
-		figure = figure->next;
-		i++;
-	}
+	figure = find_selected_object(env);
 	if ((keysym == XK_KP_Add || keysym == XK_KP_Subtract)
 		&& figure->id != PLANE)
 		ft_change_diameter(keysym, env, figure);
@@ -106,4 +99,8 @@ void	move_object(int keysym, t_env *env)
 		ft_translate_figure(keysym, env, figure);
 	else if (keysym >= XK_Left && keysym <= XK_Down && figure->id != SPHERE)
 		ft_rotate_figure(keysym, env, figure);
+	if (figure->id == CYLINDER)
+		find_cylinder_disks(figure);
+	if (figure->id == CONE)
+		find_cone_disk(figure);
 }

@@ -6,7 +6,7 @@
 /*   By: mgalvez <mgalvez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 18:50:41 by mgalvez           #+#    #+#             */
-/*   Updated: 2025/02/26 18:53:30 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/28 14:01:05 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,8 @@
 static int	find_object_id(t_env *env, char *str)
 {
 	t_element	*figure;
-	int			i;
 
-	figure = env->figure;
-	i = 1;
-	while (i < env->selected_object)
-	{
-		figure = figure->next;
-		i++;
-	}
+	figure = find_selected_object(env);
 	if (!figure->id)
 		str = ft_strjoin_free(str, ". Sphere", 1);
 	if (figure->id == 1)
