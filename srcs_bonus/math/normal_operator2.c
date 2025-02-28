@@ -6,7 +6,7 @@
 /*   By: mgalvez <mgalvez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 11:20:06 by mgalvez           #+#    #+#             */
-/*   Updated: 2025/02/28 17:32:58 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/28 18:26:39 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,17 @@
 
 static t_coordinates	pyramid_normal(t_element *cone, t_coordinates *point)
 {
-	t_coordinates	projected_vec;
+	double			t;
+	t_coordinates	circle_center;
 	double			factor;
+	t_coordinates	normal_at_vec;
 
-	projected_vec = sub_vec(*point, *cone->coord);
-	normalize_vec(&projected_vec);
+	t = scalar_prod_vec(sub_vec(*point, cone->b_disk_c), *cone->vector);
+	circle_center = add_vec(cone->b_disk_c, mult_vec(*cone->vector, t));
 	factor = cone->height / cone->radius;
-	projected_vec = mult_vec(projected_vec, factor);
-	normalize_vec(&projected_vec);
-	return (projected_vec);
+	normal_at_vec = mult_vec(sub_vec(*point, circle_center), factor);
+	normalize_vec(&normal_at_vec);
+	return (normal_at_vec);
 }
 
 t_coordinates	normal_at_co(t_element *cone, t_coordinates *point)
@@ -38,15 +40,12 @@ t_coordinates	normal_at_co(t_element *cone, t_coordinates *point)
 
 static t_coordinates	pipe_normal(t_element *cylinder, t_coordinates *point)
 {
-	t_coordinates	bottom_disk_center;
 	double			t;
 	t_coordinates	circle_center;
 	t_coordinates	normal_at_vec;
 
-	bottom_disk_center = sub_vec(*cylinder->coord,
-			mult_vec(*cylinder->vector, cylinder->height));
-	t = scalar_prod_vec(sub_vec(*point, bottom_disk_center), *cylinder->vector);
-	circle_center = add_vec(bottom_disk_center, mult_vec(*cylinder->vector, t));
+	t = scalar_prod_vec(sub_vec(*point, cylinder->b_disk_c), *cylinder->vector);
+	circle_center = add_vec(cylinder->b_disk_c, mult_vec(*cylinder->vector, t));
 	normal_at_vec = sub_vec(*point, circle_center);
 	normalize_vec(&normal_at_vec);
 	return (normal_at_vec);
