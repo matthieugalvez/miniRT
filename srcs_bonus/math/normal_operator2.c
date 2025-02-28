@@ -6,7 +6,7 @@
 /*   By: mgalvez <mgalvez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 11:20:06 by mgalvez           #+#    #+#             */
-/*   Updated: 2025/02/28 12:45:08 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/02/28 17:32:58 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_coordinates	normal_at_co(t_element *cone, t_coordinates *point)
 	if (cone->cam_intersec_type == 1)
 		normal_at_vec = pyramid_normal(cone, point);
 	if (cone->cam_intersec_type == 2)
-		normal_at_vec = *cone->vector;
+		normal_at_vec = mult_vec(*cone->vector, -1);
 	return (normal_at_vec);
 }
 
