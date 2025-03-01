@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 12:33:04 by achantra          #+#    #+#             */
-/*   Updated: 2025/03/01 16:23:31 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/03/01 21:11:35 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef struct s_hitpoint
 {
 	t_coordinates	coord;
 	t_color			color;
+	double			normal_factor;
 }					t_hitpoint;
 
 typedef struct s_ray
@@ -64,6 +65,17 @@ typedef struct s_amb
 	t_color				color;
 }						t_amb;
 
+typedef struct s_img
+{
+	void				*img;
+	char				*img_pixels;
+	int					bits_per_pixel;
+	int					endian;
+	int					line_len;
+	int					w;
+	int					h;
+}						t_img;
+
 typedef struct s_element
 {
 	int					id;
@@ -74,6 +86,10 @@ typedef struct s_element
 	t_color				color;
 	t_color				colorbis;
 	int					color_cmpt;
+	t_img				texture;
+	int					texture_cmpt;
+	t_img				bump_map;
+	int					bump_map_cmpt;
 	double				diameter;
 	double				radius;
 	double				height;
@@ -84,15 +100,6 @@ typedef struct s_element
 	int					cam_intersec_type;
 	struct s_element	*next;
 }						t_element;
-
-typedef struct s_img
-{
-	void				*img;
-	char				*img_pixels;
-	int					bits_per_pixel;
-	int					endian;
-	int					line_len;
-}						t_img;
 
 typedef struct s_env
 {

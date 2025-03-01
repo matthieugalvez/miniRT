@@ -6,122 +6,68 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 17:21:35 by achantra          #+#    #+#             */
-/*   Updated: 2025/03/01 17:39:39 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/03/01 21:02:53 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT_bonus.h"
 
-/*
-- cy
-	∗ x,y,z coordinates of the center of the cylinder: 50.0,0.0,20.6
-	∗ 3d normalized vector of axis of cylinder.
-		In range [-1,1] for each x,y,z axis 0.0,0.0,1.0
-	∗ the cylinder diameter: 14.2
-	∗ the cylinder height: 21.42
-	∗ R,G,B colors in range [0,255]: 10, 0, 255
-*/
-
-static int	init_cylinder(t_element *cylinder, t_env *env, char **data)
+static int	parse_sphere_color_data(t_element *sphere, t_env *env, char *data)
 {
-	if (data[6])
+	t_color	*next_color;
+
+	if (!sphere->color_cmpt)
+		next_color = &sphere->color;
+	else if (sphere->color_cmpt == 1)
+		next_color = &sphere->colorbis;
+	if (!ft_strrncmp(data, ".xpm", 4))
 	{
-		if (parse_color(data[6], &cylinder->colorbis))
+		if (!sphere->color_cmpt && !sphere->texture_cmpt)
 		{
-			clean_figure(cylinder);
-			ft_freetab(data);
-			ft_putstr("Error: wrong data: cylinder\n", 2);
-			return (1);
+			sphere->texture_cmpt += 1;
+			return (parse_xpm_file(env, &sphere->texture, data));
 		}
-		cylinder->color_cmpt += 1;
-	}
-	cylinder->diameter = parse_length(data[3]);
-	cylinder->radius = cylinder->diameter / 2;
-	cylinder->height = parse_length(data[4]);
-	if (cylinder->diameter <= 0 || cylinder->height <= 0)
-	{
-		clean_figure(cylinder);
-		ft_freetab(data);
-		ft_putstr("Error: wrong data: cylinder\n", 2);
-		return (1);
-	}
-	find_disks(cylinder);
-	add_back_elem(&env->figure, cylinder);
-	ft_freetab(data);
-	return (find_vectors(cylinder));
-}
-
-int	new_cylinder(t_env *env, char **data)
-{
-	t_element	*cylinder;
-
-	cylinder = ft_calloc(sizeof(t_element), 1);
-	if (!cylinder)
-	{
-		ft_freetab(data);
-		perror("Error");
-		return (1);
-	}
-	cylinder->id = CYLINDER;
-	if (ft_tablen(data) < 6 || ft_tablen(data) > 7
-		||parse_coordinates(data[1], &cylinder->coord)
-		|| parse_vector(data[2], &cylinder->vector)
-		|| parse_color(data[5], &cylinder->color))
-	{
-		clean_figure(cylinder);
-		ft_freetab(data);
-		ft_putstr("Error: wrong data: cylinder\n", 2);
-		return (1);
-	}
-	cylinder->color_cmpt += 1;
-	normalize_vec(&cylinder->vector);
-	return (init_cylinder(cylinder, env, data));
-}
-
-static int	init_figure(t_element *figure, t_env *env, char **data)
-{
-	if (parse_coordinates(data[1], &figure->coord)
-		|| parse_color(data[3], &figure->color))
-	{
-		clean_figure(figure);
-		ft_freetab(data);
-		return (1);
-	}
-	figure->color_cmpt += 1;
-	if (data[4])
-	{
-		if (parse_color(data[4], &figure->colorbis))
+		else
 		{
-			clean_figure(figure);
-			ft_freetab(data);
-			return (1);
+			sphere->bump_map_cmpt += 1;
+			return (parse_xpm_file(env, &sphere->bump_map, data));
 		}
-		figure->color_cmpt += 1;
 	}
-	add_back_elem(&env->figure, figure);
-	ft_freetab(data);
-	if (figure->id == PLANE)
-		return (find_vectors(figure));
+	else if (parse_color(data, next_color))
+		return (1);
+	sphere->color_cmpt += 1;
 	return (0);
 }
 
-/*
-	- sp
-		∗ x,y,z coordinates of the sphere center: 0.0,0.0,20.6
-		∗ the sphere diameter: 12.6
-		* R,G,B colors in range [0-255]: 10, 0, 255
-*/
+static int	init_sphere(t_element *sphere, t_env *env, char **data)
+{
+	if (parse_sphere_color_data(sphere, env, data[3]))
+	{
+		clean_figure(env, sphere);
+		ft_freetab(data);
+		return (1);
+	}
+	if (data[4] && parse_sphere_color_data(sphere, env, data[4]))
+	{
+		clean_figure(env, sphere);
+		ft_freetab(data);
+		return (1);
+	}
+	ft_freetab(data);
+	if (sphere->color_cmpt && sphere->texture_cmpt)
+	{
+		clean_figure(env, sphere);
+		ft_putstr("Error: wrong data: sphere\n", 2);
+		return (1);
+	}
+	add_back_elem(&env->figure, sphere);
+	return (0);
+}
 
 int	new_sphere(t_env *env, char **data)
 {
 	t_element	*sphere;
 
-	if (ft_tablen(data) < 4 || ft_tablen(data) > 5)
-	{
-		ft_freetab(data);
-		ft_putstr("Error: wrong data: sphere\n", 2);
-		return (1);
-	}
 	sphere = ft_calloc(sizeof(t_element), 1);
 	if (!sphere)
 	{
@@ -131,23 +77,42 @@ int	new_sphere(t_env *env, char **data)
 	}
 	sphere->id = SPHERE;
 	sphere->diameter = parse_length(data[2]);
-	if (sphere->diameter <= 0)
+	if (ft_tablen(data) < 4 || ft_tablen(data) > 5
+		|| parse_coordinates(data[1], &sphere->coord)
+		|| sphere->diameter <= 0)
 	{
-		clean_figure(sphere);
+		clean_figure(env, sphere);
 		ft_freetab(data);
 		ft_putstr("Error: wrong data: sphere\n", 2);
 		return (1);
 	}
-	return (init_figure(sphere, env, data));
+	return (init_sphere(sphere, env, data));
 }
 
-/*
-- pl
-	∗ identifier: pl
-	∗ x,y,z coordinates of a point in the plane: 0.0,0.0,-10.0
-	∗ 3d normalized normal vector. In range [-1,1] for each x,y,z axis: 0.0,1.0,0.0
-	∗ R,G,B colors in range [0-255]: 0,0,225
-*/
+static int	init_plan(t_element *plan, t_env *env, char **data)
+{
+	if (parse_coordinates(data[1], &plan->coord)
+		|| parse_color(data[3], &plan->color))
+	{
+		clean_figure(env, plan);
+		ft_freetab(data);
+		return (1);
+	}
+	plan->color_cmpt += 1;
+	if (data[4])
+	{
+		if (parse_color(data[4], &plan->colorbis))
+		{
+			clean_figure(env, plan);
+			ft_freetab(data);
+			return (1);
+		}
+		plan->color_cmpt += 1;
+	}
+	add_back_elem(&env->figure, plan);
+	ft_freetab(data);
+	return (find_vectors(plan));
+}
 
 int	new_plane(t_env *env, char **data)
 {
@@ -169,10 +134,10 @@ int	new_plane(t_env *env, char **data)
 	plane->id = PLANE;
 	if (parse_vector(data[2], &plane->vector))
 	{
-		clean_figure(plane);
+		clean_figure(env, plane);
 		ft_freetab(data);
 		return (1);
 	}
 	normalize_vec(&plane->vector);
-	return (init_figure(plane, env, data));
+	return (init_plan(plane, env, data));
 }

@@ -6,11 +6,12 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/02 13:24:42 by achantra          #+#    #+#             */
-/*   Updated: 2025/03/01 16:20:54 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/03/01 20:57:54 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT_bonus.h"
+#include "mlx.h"
 
 static void	clean_mlx(t_env *env)
 {
@@ -40,7 +41,7 @@ void	clean_light(t_light *light)
 	}
 }
 
-void	clean_figure(t_element *figure)
+void	clean_figure(t_env *env, t_element *figure)
 {
 	t_element	*buf;
 
@@ -49,6 +50,10 @@ void	clean_figure(t_element *figure)
 		while (figure)
 		{
 			buf = figure;
+			if (buf->texture.img)
+				mlx_destroy_image(env->mlx, figure->texture.img);
+			if (buf->bump_map.img)
+				mlx_destroy_image(env->mlx, figure->bump_map.img);
 			figure = figure->next;
 			free(buf);
 		}
@@ -58,7 +63,7 @@ void	clean_figure(t_element *figure)
 int	clean_env(t_env *env, int exit_code)
 {
 	clean_light(env->light);
-	clean_figure(env->figure);
+	clean_figure(env, env->figure);
 	clean_mlx(env);
 	exit (exit_code);
 	return (exit_code);

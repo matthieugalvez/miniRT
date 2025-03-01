@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 15:37:52 by achantra          #+#    #+#             */
-/*   Updated: 2025/03/01 17:17:23 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/03/01 21:08:22 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,12 @@ int				parse_vector(char *data, t_coordinates *coordinates);
 double			parse_ratio(char *data);
 double			parse_fov(char *data);
 double			parse_length(char *data);
+int				parse_xpm_file(t_env *env, t_img *img, char *data);
 int				check_element(t_env *env);
 
 // CLEAN
 void			clean_light(t_light *light);
-void			clean_figure(t_element *figure);
+void			clean_figure(t_env *env, t_element *figure);
 int				clean_env(t_env *env, int exit_code);
 
 // MLX
@@ -91,6 +92,7 @@ t_element		*find_selected_object(t_env *env);
 
 // IMAGE
 int				draw_image(t_env *env);
+int				is_odd_coord(t_hitpoint *hitpoint, t_element *figure);
 t_coordinates	get_ref(t_coordinates *temp_coord, double teta,
 					t_coordinates *u, t_element *figure);
 int				rgb_to_hexa(t_color *color);
