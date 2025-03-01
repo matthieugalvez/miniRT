@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 10:54:11 by achantra          #+#    #+#             */
-/*   Updated: 2025/03/01 14:14:43 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/03/01 16:25:23 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void	intersect_disk(t_element *co, t_ray *ray, double cos_angle)
 	double			norm;
 
 	buf_vec = sub_vec(&co->b_disk_c, &ray->origin);
-	inter = scalar_prod_vec(&buf_vec, co->vector) / cos_angle;
+	inter = scalar_prod_vec(&buf_vec, &co->vector) / cos_angle;
 	buf_vec = mult_vec(&ray->direction, inter);
 	point = add_vec(&ray->origin, &buf_vec);
 	buf_vec = sub_vec(&point, &co->b_disk_c);
@@ -51,9 +51,9 @@ static void	get_z_loc_co(t_element *co, t_ray *ray, double *intersection)
 	double			z_loc;
 
 	buf_vec = mult_vec(&ray->direction, *intersection);
-	buf_vec = sub_vec(&buf_vec, co->coord);
+	buf_vec = sub_vec(&buf_vec, &co->coord);
 	buf_vec = add_vec(&ray->origin, &buf_vec);
-	z_loc = scalar_prod_vec(&buf_vec, co->vector);
+	z_loc = scalar_prod_vec(&buf_vec, &co->vector);
 	if (z_loc < -co->height / 2 || z_loc > co->height / 2)
 		*intersection = __DBL_MAX__;
 	else
@@ -73,8 +73,8 @@ static int	intersect_pyramid(t_element *co, t_ray *ray,
 	a = scalar_prod_vec(&ray->direction, &ray->direction) - tan_teta
 		* cos_angle * cos_angle;
 	b = 2 * (scalar_prod_vec(&ray->direction, &dis) - tan_teta
-			* cos_angle * scalar_prod_vec(&dis, co->vector));
-	cos_angle = scalar_prod_vec(&dis, co->vector);
+			* cos_angle * scalar_prod_vec(&dis, &co->vector));
+	cos_angle = scalar_prod_vec(&dis, &co->vector);
 	c = scalar_prod_vec(&dis, &dis) - tan_teta * cos_angle * cos_angle;
 	delta = b * b - (4 * a * c);
 	if (delta > EPSILON)
@@ -96,7 +96,7 @@ void	intersect_cone(t_element *co, t_ray *ray)
 
 	t = (co->diameter / (2 * co->height));
 	tan_teta = 1 + t * t;
-	cos_angle = scalar_prod_vec(&ray->direction, co->vector);
+	cos_angle = scalar_prod_vec(&ray->direction, &co->vector);
 	if (intersect_pyramid(co, ray, tan_teta, cos_angle))
 	{
 		get_z_loc_co(co, ray, &co->c_inter[0]);

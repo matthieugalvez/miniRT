@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 12:33:04 by achantra          #+#    #+#             */
-/*   Updated: 2025/03/01 13:27:43 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/03/01 16:23:31 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ typedef struct s_ray
 
 typedef struct s_camera
 {
-	t_coordinates		*coord;
-	t_coordinates		*dir;
+	t_coordinates		coord;
+	t_coordinates		dir;
 	t_coordinates		dir_right;
 	t_coordinates		dir_up;
 	double				fov;
@@ -52,27 +52,28 @@ typedef struct s_camera
 
 typedef struct s_light
 {
-	t_coordinates		*coord;
+	t_coordinates		coord;
 	double				bright;
-	t_color				*color;
+	t_color				color;
 	struct s_light		*next;
 }						t_light;
 
 typedef struct s_amb
 {
 	double				bright;
-	t_color				*color;
+	t_color				color;
 }						t_amb;
 
 typedef struct s_element
 {
 	int					id;
-	t_coordinates		*coord;
-	t_coordinates		*vector;
+	t_coordinates		coord;
+	t_coordinates		vector;
 	t_coordinates		vector_right;
 	t_coordinates		vector_up;
-	t_color				*color;
-	t_color				*colorbis;
+	t_color				color;
+	t_color				colorbis;
+	int					color_cmpt;
 	double				diameter;
 	double				radius;
 	double				height;
@@ -96,9 +97,11 @@ typedef struct s_img
 typedef struct s_env
 {
 	t_element			*figure;
-	t_camera			*camera;
+	t_camera			camera;
+	int					cam_cmpt;
 	t_light				*light;
-	t_amb				*amb;
+	t_amb				amb;
+	int					amb_cmpt;
 	void				*mlx;
 	void				*win;
 	double				vp_w;

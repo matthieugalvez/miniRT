@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 17:24:45 by mgalvez           #+#    #+#             */
-/*   Updated: 2025/03/01 14:02:12 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/03/01 17:33:23 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ static void	ft_rotate_figure(int keysym, t_env *env, t_element *figure)
 	t_coordinates	lerp;
 
 	if (keysym == XK_Up)
-		lerp = sub_vec(figure->vector, &figure->vector_up);
+		lerp = sub_vec(&figure->vector, &figure->vector_up);
 	if (keysym == XK_Down)
-		lerp = sub_vec(&figure->vector_up, figure->vector);
+		lerp = sub_vec(&figure->vector_up, &figure->vector);
 	if (keysym == XK_Up || keysym == XK_Down)
 	{
 		lerp = mult_vec(&lerp, 0.1);
@@ -27,42 +27,42 @@ static void	ft_rotate_figure(int keysym, t_env *env, t_element *figure)
 		normalize_vec(&figure->vector_up);
 	}
 	if (keysym == XK_Left)
-		lerp = sub_vec(figure->vector, &figure->vector_right);
+		lerp = sub_vec(&figure->vector, &figure->vector_right);
 	if (keysym == XK_Right)
-		lerp = sub_vec(&figure->vector_right, figure->vector);
+		lerp = sub_vec(&figure->vector_right, &figure->vector);
 	if (keysym == XK_Left || keysym == XK_Right)
 	{
 		lerp = mult_vec(&lerp, 0.1);
 		figure->vector_right = add_vec(&figure->vector_right, &lerp);
 		normalize_vec(&figure->vector_right);
 	}
-	*figure->vector = vect_prod_vec(&figure->vector_right, &figure->vector_up);
-	normalize_vec(figure->vector);
+	figure->vector = vect_prod_vec(&figure->vector_right, &figure->vector_up);
+	normalize_vec(&figure->vector);
 }
 
 static void	ft_translate_figure(int keysym, t_env *env, t_element *figure)
 {
 	if (keysym == XK_a)
-		double_decrement(&figure->coord->x);
+		double_decrement(&figure->coord.x);
 	if (keysym == XK_d)
-		double_increment(&figure->coord->x);
+		double_increment(&figure->coord.x);
 	if (keysym == XK_q)
-		double_decrement(&figure->coord->y);
+		double_decrement(&figure->coord.y);
 	if (keysym == XK_e)
-		double_increment(&figure->coord->y);
+		double_increment(&figure->coord.y);
 	if (keysym == XK_s)
-		double_decrement(&figure->coord->z);
+		double_decrement(&figure->coord.z);
 	if (keysym == XK_w)
-		double_increment(&figure->coord->z);
+		double_increment(&figure->coord.z);
 }
 
 static void	ft_change_height(int keysym, t_env *env, t_element *figure)
 {
-	if (keysym == XK_KP_Divide && !equal_double(figure->height, 0))
+	if (keysym == XK_KP_Divide && !equal_double(figure->height, 1))
 	{
 		double_decrement(&figure->height);
-		if (figure->height < 0)
-			figure->height = 0;
+		if (figure->height < 1)
+			figure->height = 1;
 	}
 	if (keysym == XK_KP_Multiply)
 		double_increment(&figure->height);
@@ -70,11 +70,11 @@ static void	ft_change_height(int keysym, t_env *env, t_element *figure)
 
 static void	ft_change_diameter(int keysym, t_env *env, t_element *figure)
 {
-	if (keysym == XK_KP_Subtract && !equal_double(figure->diameter, 0))
+	if (keysym == XK_KP_Subtract && !equal_double(figure->diameter, 1))
 	{
 		double_decrement(&figure->diameter);
-		if (figure->diameter < 0)
-			figure->diameter = 0;
+		if (figure->diameter < 1)
+			figure->diameter = 1;
 	}
 	if (keysym == XK_KP_Add)
 		double_increment(&figure->diameter);

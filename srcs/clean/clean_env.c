@@ -6,19 +6,11 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/02 13:24:42 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/11 20:17:58 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/03/01 17:48:19 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
-
-static void	clean_element(t_env *env)
-{
-	clean_ambient(env->amb);
-	clean_light(env->light);
-	clean_camera(env->camera);
-	clean_figure(env->figure);
-}
 
 static void	clean_mlx(t_env *env)
 {
@@ -33,9 +25,40 @@ static void	clean_mlx(t_env *env)
 	}
 }
 
+void	clean_light(t_light *light)
+{
+	t_light	*buf;
+
+	if (light)
+	{
+		while (light)
+		{
+			buf = light;
+			light = light->next;
+			free(buf);
+		}
+	}
+}
+
+void	clean_figure(t_element *figure)
+{
+	t_element	*buf;
+
+	if (figure)
+	{
+		while (figure)
+		{
+			buf = figure;
+			figure = figure->next;
+			free(buf);
+		}
+	}
+}
+
 int	clean_env(t_env *env, int exit_code)
 {
-	clean_element(env);
+	clean_light(env->light);
+	clean_figure(env->figure);
 	clean_mlx(env);
 	exit (exit_code);
 	return (exit_code);

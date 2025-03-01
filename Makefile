@@ -6,7 +6,7 @@
 #    By: achantra <achantra@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/31 15:30:48 by achantra          #+#    #+#              #
-#    Updated: 2025/03/01 15:45:01 by mgalvez          ###   ########.fr        #
+#    Updated: 2025/03/01 17:48:34 by mgalvez          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ INCS_DIR			= includes
 LIBFT_DIR			= libft
 MLX_DIR				= mlx_linux
 
-CLEAN_SRCS			= clean_element.c clean_env.c
+CLEAN_SRCS			= clean_env.c
 IMAGE_SRCS			= cam_ray_tracing.c image_utils.c
 INIT_SRCS			= init_ambient.c init_camera.c init_elements.c init_env.c \
 					  init_figures.c init_light.c init_mlx.c init_utils.c init_utils2.c
@@ -48,7 +48,7 @@ SRCS_LST			= ${addprefix clean/, ${CLEAN_SRCS}} \
 					  main.c
 OBJS_LST			= ${SRCS_LST:.c=.o}
 
-BONUS_CLEAN_SRCS	= clean_element.c clean_env.c
+BONUS_CLEAN_SRCS	= clean_env.c
 BONUS_IMAGE_SRCS	= cam_ray_tracing.c check_color.c image_utils.c
 BONUS_INIT_SRCS		= init_ambient.c init_camera.c init_elements.c init_env.c \
 					  init_figures.c init_cone.c init_light.c init_mlx.c init_utils.c \

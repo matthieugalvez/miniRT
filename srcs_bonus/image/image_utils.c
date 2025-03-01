@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 12:39:22 by achantra          #+#    #+#             */
-/*   Updated: 2025/03/01 15:44:53 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/03/01 16:24:26 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@ t_coordinates	get_ref(t_coordinates *temp_coord, double teta,
 	t_coordinates	ref_cy;
 
 	cos_teta = cos(teta);
-	buf_vec = vect_prod_vec(u, figure->vector);
+	buf_vec = vect_prod_vec(u, &figure->vector);
 	buf_vec = mult_vec(&buf_vec, sin(teta));
 	ref_cy = mult_vec(temp_coord, cos_teta);
 	ref_cy = add_vec(&ref_cy, &buf_vec);
-	buf_vec = mult_vec(u, (1 - cos_teta) * scalar_prod_vec(u, figure->vector));
+	buf_vec = mult_vec(u, (1 - cos_teta) * scalar_prod_vec(u, &figure->vector));
 	return (add_vec(&ref_cy, &buf_vec));
 }
 

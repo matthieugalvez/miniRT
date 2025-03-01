@@ -6,7 +6,7 @@
 /*   By: mgalvez <mgalvez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 15:49:04 by mgalvez           #+#    #+#             */
-/*   Updated: 2025/02/28 14:10:32 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/03/01 18:12:40 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,19 +25,4 @@ t_element	*find_selected_object(t_env *env)
 		i++;
 	}
 	return (figure);
-}
-
-int	check_element(t_env *env)
-{
-	if (env->camera && env->amb && env->light && env->figure)
-		return (0);
-	if (!env->camera)
-		ft_putstr("Warning: missing camera\n", 2);
-	if (!env->amb)
-		ft_putstr("Warning: missing ambiant light\n", 2);
-	if (!env->light)
-		ft_putstr("Warning: missing light\n", 2);
-	if (!env->figure)
-		ft_putstr("Warning: missing figure\n", 2);
-	return (1);
 }

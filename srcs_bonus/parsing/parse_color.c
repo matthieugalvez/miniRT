@@ -6,11 +6,30 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 19:21:11 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/25 18:03:14 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/03/01 17:19:48 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT_bonus.h"
+
+static int	ft_color(char *num1, char *num2, char *num3, t_color *color)
+{
+	if (ft_strlen(num1) > 3 || ft_strlen(num2) > 3 || ft_strlen(num3) > 3)
+	{
+		ft_putstr("Error: wrong data: color\n", 2);
+		return (1);
+	}
+	color->r = ft_atoi(num1);
+	color->g = ft_atoi(num2);
+	color->b = ft_atoi(num3);
+	if (color->r > 255 || color->g > 255 || color->b > 255
+		|| color->r < 0 || color->g < 0 || color->b < 0)
+	{
+		ft_putstr("Error: wrong data: color\n", 2);
+		return (1);
+	}
+	return (0);
+}
 
 static int	ft_is_color(char *data)
 {
@@ -39,48 +58,23 @@ static int	ft_is_color(char *data)
 	return (1);
 }
 
-t_color	*ft_color(char *num1, char *num2, char *num3)
+int	parse_color(char *data, t_color *color)
 {
-	t_color	*color;
-
-	if (ft_strlen(num1) > 3 || ft_strlen(num2) > 3 || ft_strlen(num3) > 3)
-	{
-		ft_putstr("Error: wrong data: color\n", 2);
-		return (NULL);
-	}
-	color = ft_calloc(sizeof(t_color), 1);
-	if (!color)
-	{
-		perror("Error");
-		return (NULL);
-	}
-	color->r = ft_atoi(num1);
-	color->g = ft_atoi(num2);
-	color->b = ft_atoi(num3);
-	if (color->r > 255 || color->g > 255 || color->b > 255 || color->r < 0
-		|| color->g < 0 || color->b < 0)
-	{
-		free(color);
-		ft_putstr("Error: wrong data: color\n", 2);
-		return (NULL);
-	}
-	return (color);
-}
-
-t_color	*parse_color(char *data)
-{
-	t_color	*color;
 	char	**num;
 
 	if (!ft_is_color(data))
-		return (NULL);
+		return (1);
 	num = ft_split(data, ',');
 	if (!num)
 	{
 		perror("Error");
-		return (NULL);
+		return (1);
 	}
-	color = ft_color(num[0], num[1], num[2]);
+	if (ft_color(num[0], num[1], num[2], color))
+	{
+		ft_freetab(num);
+		return (1);
+	}
 	ft_freetab(num);
-	return (color);
+	return (0);
 }

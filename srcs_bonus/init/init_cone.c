@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 10:50:45 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/28 17:14:57 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/03/01 17:39:54 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,16 @@
 static int	init_cone(t_element *cone, t_env *env, char **data)
 {
 	if (data[6])
-		cone->colorbis = parse_color(data[6]);
-	if (!cone->coord || !cone->vector || !cone->color
-		|| (data[6] && !cone->colorbis))
 	{
-		clean_figure(cone);
-		ft_freetab(data);
-		return (1);
+		if (parse_color(data[6], &cone->colorbis))
+		{
+			clean_figure(cone);
+			ft_freetab(data);
+			ft_putstr("Error: wrong data: cylinder\n", 2);
+			return (1);
+		}
+		cone->color_cmpt += 1;
 	}
-	normalize_vec(cone->vector);
 	cone->diameter = parse_length(data[3]);
 	cone->radius = cone->diameter / 2;
 	cone->height = parse_length(data[4]);
@@ -44,12 +45,6 @@ int	new_cone(t_env *env, char **data)
 {
 	t_element	*cone;
 
-	if (ft_tablen(data) < 6 || ft_tablen(data) > 7)
-	{
-		ft_freetab(data);
-		ft_putstr("Error: wrong data: cone\n", 2);
-		return (1);
-	}
 	cone = ft_calloc(sizeof(t_element), 1);
 	if (!cone)
 	{
@@ -58,8 +53,17 @@ int	new_cone(t_env *env, char **data)
 		return (1);
 	}
 	cone->id = CONE;
-	cone->coord = parse_coordinates(data[1]);
-	cone->vector = parse_vector(data[2]);
-	cone->color = parse_color(data[5]);
+	if (ft_tablen(data) < 6 || ft_tablen(data) > 7
+		||parse_coordinates(data[1], &cone->coord)
+		|| parse_vector(data[2], &cone->vector)
+		|| parse_color(data[5], &cone->color))
+	{
+		clean_figure(cone);
+		ft_freetab(data);
+		ft_putstr("Error: wrong data: cone\n", 2);
+		return (1);
+	}
+	cone->color_cmpt += 1;
+	normalize_vec(&cone->vector);
 	return (init_cone(cone, env, data));
 }

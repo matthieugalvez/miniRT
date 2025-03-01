@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 15:37:52 by achantra          #+#    #+#             */
-/*   Updated: 2025/03/01 14:40:38 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/03/01 17:47:04 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,18 +63,16 @@ void			add_back_elem(t_element **elem, t_element *new_elem);
 // PARSING
 int				check_entry(int ac, char **av);
 int				parse_file(char *path, t_env *env);
-t_color			*ft_color(char *num1, char *num2, char *num3);
-t_color			*parse_color(char *data);
-t_coordinates	*parse_coordinates(char *data);
-t_coordinates	*parse_vector(char *data);
+int				parse_color(char *data, t_color *color);
+int				parse_coordinates(char *data, t_coordinates *coordinates);
+int				parse_vector(char *data, t_coordinates *coordinates);
 double			parse_ratio(char *data);
 double			parse_fov(char *data);
 double			parse_length(char *data);
+int				check_element(t_env *env);
 
 // CLEAN
-void			clean_ambient(t_amb *amb);
 void			clean_light(t_light *light);
-void			clean_camera(t_camera *cam);
 void			clean_figure(t_element *figure);
 int				clean_env(t_env *env, int exit_code);
 

@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 13:46:27 by achantra          #+#    #+#             */
-/*   Updated: 2025/03/01 14:29:08 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/03/01 18:02:32 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@ static void	intersect_plane(t_element *pl, t_ray *ray)
 	t_coordinates	dist_vec;
 	double			t;
 
-	if (equal_double(scalar_prod_vec(pl->vector, &ray->direction), 0))
+	if (equal_double(scalar_prod_vec(&pl->vector, &ray->direction), 0))
 		return ;
-	dist_vec = sub_vec(&ray->origin, pl->coord);
-	t = -scalar_prod_vec(pl->vector, &dist_vec)
-		/ scalar_prod_vec(pl->vector, &ray->direction);
+	dist_vec = sub_vec(&ray->origin, &pl->coord);
+	t = -scalar_prod_vec(&pl->vector, &dist_vec)
+		/ scalar_prod_vec(&pl->vector, &ray->direction);
 	pl->c_inter[0] = t;
 }
 
@@ -33,7 +33,7 @@ static void	intersect_sphere(t_element *sp, t_ray *ray)
 	double			a;
 	double			b;
 
-	distance = sub_vec(&ray->origin, sp->coord);
+	distance = sub_vec(&ray->origin, &sp->coord);
 	a = scalar_prod_vec(&ray->direction, &ray->direction);
 	b = 2.0 * scalar_prod_vec(&ray->direction, &distance);
 	discriminant = b * b - 4 * a * (scalar_prod_vec(&distance, &distance)

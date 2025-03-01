@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 20:00:53 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/25 18:03:22 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/03/01 17:30:01 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,37 +33,27 @@ static int	get_coordinate(t_coordinates *coord, char *num, char axis)
 	if (!splited_num)
 	{
 		perror("Error");
-		free(coord);
 		return (1);
 	}
 	if (check_coordinates(coord, splited_num, axis))
 	{
 		ft_freetab(splited_num);
-		free(coord);
-		ft_putstr("Error: wrong data: coord\n", 2);
 		return (1);
 	}
 	ft_freetab(splited_num);
 	return (0);
 }
 
-static t_coordinates	*ft_coordinates(char *num1, char *num2, char *num3)
+static int	ft_coordinates(char *num1, char *num2, char *num3,
+				t_coordinates *coord)
 {
-	t_coordinates	*coord;
-
-	coord = ft_calloc(sizeof(t_coordinates), 1);
-	if (!coord)
-	{
-		perror("Error");
-		return (NULL);
-	}
 	if (get_coordinate(coord, num1, 'x'))
-		return (NULL);
+		return (1);
 	if (get_coordinate(coord, num2, 'y'))
-		return (NULL);
+		return (1);
 	if (get_coordinate(coord, num3, 'z'))
-		return (NULL);
-	return (coord);
+		return (1);
+	return (0);
 }
 
 static int	count_coma(char *data)
@@ -89,29 +79,28 @@ static int	count_coma(char *data)
 	return (n_coma);
 }
 
-t_coordinates	*parse_coordinates(char *data)
+int	parse_coordinates(char *data, t_coordinates *coord)
 {
-	t_coordinates	*coord;
 	char			**num;
 
 	if (count_coma(data) != 2)
 	{
 		ft_putstr("Error: wrong data: coord\n", 2);
-		return (NULL);
+		return (1);
 	}
 	num = ft_split(data, ',');
 	if (!num)
 	{
 		perror("Error");
-		return (NULL);
+		return (1);
 	}
-	if (!ft_is_float(num[0]) || !ft_is_float(num[1]) || !ft_is_float(num[2]))
+	if (!ft_is_float(num[0]) || !ft_is_float(num[1]) || !ft_is_float(num[2])
+		|| ft_coordinates(num[0], num[1], num[2], coord))
 	{
 		ft_freetab(num);
 		ft_putstr("Error: wrong data: coord\n", 2);
-		return (NULL);
+		return (1);
 	}
-	coord = ft_coordinates(num[0], num[1], num[2]);
 	ft_freetab(num);
-	return (coord);
+	return (0);
 }

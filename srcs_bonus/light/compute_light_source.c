@@ -6,7 +6,7 @@
 /*   By: mgalvez <mgalvez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 10:59:44 by mgalvez           #+#    #+#             */
-/*   Updated: 2025/03/01 14:40:49 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/03/01 16:26:14 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ static void	get_specular(t_coordinates *reflexion_vec, t_ray *cam_ray,
 	if (cos_angle < EPSILON)
 		return ;
 	specular = light->bright * 0.5 * pow(cos_angle, 80);
-	color->r += light->color->r * specular;
-	color->g += light->color->g * specular;
-	color->b += light->color->b * specular;
+	color->r += light->color.r * specular;
+	color->g += light->color.g * specular;
+	color->b += light->color.b * specular;
 	if (color->r > 255)
 		color->r = 255;
 	if (color->g > 255)
@@ -50,9 +50,9 @@ static t_color	get_diffuse(t_light *light, t_color *hitpoint_color,
 	double	specular_factor;
 	t_color	applied_diffuse;
 
-	applied_diffuse.r = light->color->r * light->bright * 0.9;
-	applied_diffuse.g = light->color->g * light->bright * 0.9;
-	applied_diffuse.b = light->color->b * light->bright * 0.9;
+	applied_diffuse.r = light->color.r * light->bright * 0.9;
+	applied_diffuse.g = light->color.g * light->bright * 0.9;
+	applied_diffuse.b = light->color.b * light->bright * 0.9;
 	applied_diffuse.r *= hitpoint_color->r;
 	applied_diffuse.g *= hitpoint_color->g;
 	applied_diffuse.b *= hitpoint_color->b;
@@ -100,11 +100,11 @@ t_color	compute_light_source(t_env *env, t_hitpoint *hitpoint,
 	t_color			color;
 
 	ft_bzero(&color, sizeof(t_color));
-	light_ray.origin = *light->coord;
-	light_ray.direction = sub_vec(&hitpoint->coord, light->coord);
+	light_ray.origin = light->coord;
+	light_ray.direction = sub_vec(&hitpoint->coord, &light->coord);
 	normalize_vec(&light_ray.direction);
 	normal_at_hp = get_normal_at(figure, &hitpoint->coord,
-			&light_ray, &env->camera->ray);
+			&light_ray, &env->camera.ray);
 	light_ray.direction = mult_vec(&light_ray.direction, -1);
 	cos_angle = scalar_prod_vec(&normal_at_hp, &light_ray.direction);
 	light_ray.direction = mult_vec(&light_ray.direction, -1);
@@ -113,7 +113,7 @@ t_color	compute_light_source(t_env *env, t_hitpoint *hitpoint,
 		color = get_diffuse(light, &hitpoint->color, cos_angle);
 		reflexion_vec = get_reflexion_vec(&light_ray.direction, &normal_at_hp);
 		normalize_vec(&reflexion_vec);
-		get_specular(&reflexion_vec, &env->camera->ray, light, &color);
+		get_specular(&reflexion_vec, &env->camera.ray, light, &color);
 	}
 	return (color);
 }

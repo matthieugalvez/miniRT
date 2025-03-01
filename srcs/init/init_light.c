@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 17:23:59 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/13 13:39:17 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/03/01 17:59:23 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,7 @@
 
 static int	init_light(t_light *light, char **data)
 {
-	light->coord = parse_coordinates(data[1]);
-	if (!light->coord)
+	if (parse_coordinates(data[1], &light->coord))
 	{
 		clean_light(light);
 		ft_freetab(data);
@@ -35,8 +34,7 @@ static int	init_light(t_light *light, char **data)
 		ft_freetab(data);
 		return (1);
 	}
-	light->color = parse_color(data[3]);
-	if (!light->color)
+	if (parse_color(data[3], &light->color))
 	{
 		clean_light(light);
 		ft_freetab(data);

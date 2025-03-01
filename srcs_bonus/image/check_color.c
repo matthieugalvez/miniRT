@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 13:59:16 by achantra          #+#    #+#             */
-/*   Updated: 2025/03/01 15:49:30 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/03/01 16:23:56 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,15 @@ static int	is_odd_co(t_hitpoint *hitpoint, t_element *figure)
 	t_coordinates	u;
 	double			teta;
 	double			r;
-	int		odd;
+	int				odd;
 
-	temp_coord.x = hitpoint->coord.x - figure->coord->x;
-	temp_coord.y = hitpoint->coord.y - figure->coord->y;
-	temp_coord.z = hitpoint->coord.z - figure->coord->z;
+	temp_coord.x = hitpoint->coord.x - figure->coord.x;
+	temp_coord.y = hitpoint->coord.y - figure->coord.y;
+	temp_coord.z = hitpoint->coord.z - figure->coord.z;
 	odd = (int)floor(figure->diameter) % 2;
-	teta = acos(figure->vector->z / get_norm(figure->vector));
-	u.x = -figure->vector->y;
-	u.y = figure->vector->x;
+	teta = acos(figure->vector.z / get_norm(&figure->vector));
+	u.x = -figure->vector.y;
+	u.y = figure->vector.x;
 	u.z = 0;
 	normalize_vec(&u);
 	ref_co = get_ref(&temp_coord, teta, &u, figure);
@@ -57,13 +57,13 @@ static int	is_odd_cy(t_hitpoint *hitpoint, t_element *figure)
 	double			r;
 	int				odd;
 
-	temp_coord.x = hitpoint->coord.x - figure->coord->x;
-	temp_coord.y = hitpoint->coord.y - figure->coord->y;
-	temp_coord.z = hitpoint->coord.z - figure->coord->z;
+	temp_coord.x = hitpoint->coord.x - figure->coord.x;
+	temp_coord.y = hitpoint->coord.y - figure->coord.y;
+	temp_coord.z = hitpoint->coord.z - figure->coord.z;
 	odd = (int)floor(figure->diameter) % 2;
-	teta = acos(figure->vector->z / get_norm(figure->vector));
-	u.x = -figure->vector->y;
-	u.y = figure->vector->x;
+	teta = acos(figure->vector.z / get_norm(&figure->vector));
+	u.x = -figure->vector.y;
+	u.y = figure->vector.x;
 	u.z = 0;
 	normalize_vec(&u);
 	ref_cy = get_ref(&temp_coord, teta, &u, figure);
@@ -87,11 +87,11 @@ static int	is_odd_pl(t_hitpoint *hitpoint, t_element *figure)
 	t_coordinates	u;
 	double			teta;
 
-	if (!equal_double(figure->vector->z, 0))
+	if (!equal_double(figure->vector.z, 0))
 	{
-		teta = acos(figure->vector->z / get_norm(figure->vector));
-		u.x = -figure->vector->y;
-		u.y = figure->vector->x;
+		teta = acos(figure->vector.z / get_norm(&figure->vector));
+		u.x = -figure->vector.y;
+		u.y = figure->vector.x;
 		u.z = 0;
 		normalize_vec(&u);
 		ref_pl = get_ref(&hitpoint->coord, teta, &u, figure);
@@ -99,11 +99,11 @@ static int	is_odd_pl(t_hitpoint *hitpoint, t_element *figure)
 		y_value = (int)floor(ref_pl.y / 10) % 2;
 		z_value = 0;
 	}
-	else if (!equal_double(figure->vector->y, 0))
+	else if (!equal_double(figure->vector.y, 0))
 	{
-		teta = acos(figure->vector->y / get_norm(figure->vector));
-		u.x = -figure->vector->x;
-		u.y = figure->vector->z;
+		teta = acos(figure->vector.y / get_norm(&figure->vector));
+		u.x = -figure->vector.x;
+		u.y = figure->vector.z;
 		u.z = 0;
 		normalize_vec(&u);
 		ref_pl = get_ref(&hitpoint->coord, teta, &u, figure);
@@ -113,9 +113,9 @@ static int	is_odd_pl(t_hitpoint *hitpoint, t_element *figure)
 	}
 	else
 	{
-		teta = acos(figure->vector->x / get_norm(figure->vector));
-		u.x = -figure->vector->z;
-		u.y = figure->vector->y;
+		teta = acos(figure->vector.x / get_norm(&figure->vector));
+		u.x = -figure->vector.z;
+		u.y = figure->vector.y;
 		u.z = 0;
 		normalize_vec(&u);
 		ref_pl = get_ref(&hitpoint->coord, teta, &u, figure);
@@ -135,7 +135,7 @@ static int	is_odd_sp(t_hitpoint *hitpoint, t_element *figure)
 	int				v_value;
 	int				odd;
 
-	temp_coord = sub_vec(&hitpoint->coord, figure->coord);
+	temp_coord = sub_vec(&hitpoint->coord, &figure->coord);
 	normalize_vec(&temp_coord);
 	odd = (int)floor(figure->diameter) % 2;
 	u = (figure->diameter + odd) * (atan2(temp_coord.y,
@@ -162,13 +162,13 @@ static int	is_odd_coord(t_hitpoint *hitpoint, t_element *figure)
 
 void	find_hitpoint_color(t_hitpoint *hitpoint, t_element *figure)
 {
-	if (!figure->colorbis)
-		hitpoint->color = *figure->color;
+	if (figure->color_cmpt == 1)
+		hitpoint->color = figure->color;
 	else
 	{
 		if (is_odd_coord(hitpoint, figure))
-			hitpoint->color = *figure->color;
+			hitpoint->color = figure->color;
 		else
-			hitpoint->color = *figure->colorbis;
+			hitpoint->color = figure->colorbis;
 	}
 }

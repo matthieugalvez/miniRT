@@ -6,7 +6,7 @@
 /*   By: mgalvez <mgalvez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 19:37:18 by mgalvez           #+#    #+#             */
-/*   Updated: 2025/03/01 14:30:24 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/03/01 18:03:04 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static double	intersect_disk(t_element *cy, t_ray *ray,
 	double			norm;
 
 	buf_vec = sub_vec(c_disk, &ray->origin);
-	inter = scalar_prod_vec(&buf_vec, cy->vector) / cos_angle;
+	inter = scalar_prod_vec(&buf_vec, &cy->vector) / cos_angle;
 	buf_vec = mult_vec(&ray->direction, inter);
 	point = add_vec(&ray->origin, &buf_vec);
 	buf_vec = sub_vec(&point, c_disk);
@@ -53,9 +53,9 @@ static void	get_z_loc(t_element *cy, t_ray *ray, double *intersection)
 	double			z_loc;
 
 	buf_vec = mult_vec(&ray->direction, *intersection);
-	buf_vec = sub_vec(&buf_vec, cy->coord);
+	buf_vec = sub_vec(&buf_vec, &cy->coord);
 	buf_vec = add_vec(&ray->origin, &buf_vec);
-	z_loc = scalar_prod_vec(&buf_vec, cy->vector);
+	z_loc = scalar_prod_vec(&buf_vec, &cy->vector);
 	if (z_loc < -cy->height / 2 || z_loc > cy->height / 2)
 		*intersection = __DBL_MAX__;
 }
@@ -91,11 +91,11 @@ void	intersect_cylinder(t_element *cy, t_ray *ray)
 	double			cos_angle;
 	double			inter;
 
-	distance = sub_vec(&ray->origin, cy->coord);
-	cos_angle = scalar_prod_vec(&ray->direction, cy->vector);
-	av = mult_vec(cy->vector, cos_angle);
+	distance = sub_vec(&ray->origin, &cy->coord);
+	cos_angle = scalar_prod_vec(&ray->direction, &cy->vector);
+	av = mult_vec(&cy->vector, cos_angle);
 	av = sub_vec(&ray->direction, &av);
-	bv = mult_vec(cy->vector, scalar_prod_vec(&distance, cy->vector));
+	bv = mult_vec(&cy->vector, scalar_prod_vec(&distance, &cy->vector));
 	bv = sub_vec(&distance, &bv);
 	intersect_pipe(cy, ray, av, bv);
 	inter = intersect_disk(cy, ray, &cy->t_disk_c, cos_angle);

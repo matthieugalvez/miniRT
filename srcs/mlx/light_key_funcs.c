@@ -6,7 +6,7 @@
 /*   By: mgalvez <mgalvez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 14:05:03 by mgalvez           #+#    #+#             */
-/*   Updated: 2025/02/25 16:47:03 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/03/01 18:09:21 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,17 @@
 void	ft_translate_light(int keysym, t_env *env)
 {
 	if (keysym == XK_j)
-		double_decrement(&env->light->coord->x);
+		double_decrement(&env->light->coord.x);
 	if (keysym == XK_l)
-		double_increment(&env->light->coord->x);
+		double_increment(&env->light->coord.x);
 	if (keysym == XK_u)
-		double_decrement(&env->light->coord->y);
+		double_decrement(&env->light->coord.y);
 	if (keysym == XK_o)
-		double_increment(&env->light->coord->y);
+		double_increment(&env->light->coord.y);
 	if (keysym == XK_k)
-		double_decrement(&env->light->coord->z);
+		double_decrement(&env->light->coord.z);
 	if (keysym == XK_i)
-		double_increment(&env->light->coord->z);
+		double_increment(&env->light->coord.z);
 }
 
 void	ft_dim(int keysym, t_env *env)

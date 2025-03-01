@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 17:21:35 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/28 14:07:50 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/03/01 17:58:40 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,17 +24,8 @@
 
 static int	init_cylinder(t_element *cylinder, t_env *env, char **data)
 {
-	cylinder->coord = parse_coordinates(data[1]);
-	cylinder->vector = parse_vector(data[2]);
-	cylinder->color = parse_color(data[5]);
-	if (!cylinder->coord || !cylinder->vector || !cylinder->color)
-	{
-		clean_figure(cylinder);
-		ft_freetab(data);
-		return (1);
-	}
-	normalize_vec(cylinder->vector);
 	cylinder->diameter = parse_length(data[3]);
+	cylinder->radius = cylinder->diameter / 2;
 	cylinder->height = parse_length(data[4]);
 	if (cylinder->diameter <= 0 || cylinder->height <= 0)
 	{
@@ -43,7 +34,6 @@ static int	init_cylinder(t_element *cylinder, t_env *env, char **data)
 		ft_putstr("Error: wrong data: cylinder\n", 2);
 		return (1);
 	}
-	cylinder->radius = cylinder->diameter / 2;
 	find_cylinder_disks(cylinder);
 	add_back_elem(&env->figure, cylinder);
 	ft_freetab(data);
@@ -54,12 +44,6 @@ int	new_cylinder(t_env *env, char **data)
 {
 	t_element	*cylinder;
 
-	if (ft_tablen(data) != 6)
-	{
-		ft_freetab(data);
-		ft_putstr("Error: wrong data: cylinder\n", 2);
-		return (1);
-	}
 	cylinder = ft_calloc(sizeof(t_element), 1);
 	if (!cylinder)
 	{
@@ -68,20 +52,24 @@ int	new_cylinder(t_env *env, char **data)
 		return (1);
 	}
 	cylinder->id = CYLINDER;
+	if (ft_tablen(data) != 6
+		||parse_coordinates(data[1], &cylinder->coord)
+		|| parse_vector(data[2], &cylinder->vector)
+		|| parse_color(data[5], &cylinder->color))
+	{
+		clean_figure(cylinder);
+		ft_freetab(data);
+		ft_putstr("Error: wrong data: cylinder\n", 2);
+		return (1);
+	}
+	normalize_vec(&cylinder->vector);
 	return (init_cylinder(cylinder, env, data));
 }
 
 static int	init_figure(t_element *figure, t_env *env, char **data)
 {
-	figure->coord = parse_coordinates(data[1]);
-	if (!figure->coord)
-	{
-		clean_figure(figure);
-		ft_freetab(data);
-		return (1);
-	}
-	figure->color = parse_color(data[3]);
-	if (!figure->color)
+	if (parse_coordinates(data[1], &figure->coord)
+		|| parse_color(data[3], &figure->color))
 	{
 		clean_figure(figure);
 		ft_freetab(data);
@@ -156,13 +144,12 @@ int	new_plane(t_env *env, char **data)
 		return (1);
 	}
 	plane->id = PLANE;
-	plane->vector = parse_vector(data[2]);
-	if (!plane->vector)
+	if (parse_vector(data[2], &plane->vector))
 	{
 		clean_figure(plane);
 		ft_freetab(data);
 		return (1);
 	}
-	normalize_vec(plane->vector);
+	normalize_vec(&plane->vector);
 	return (init_figure(plane, env, data));
 }

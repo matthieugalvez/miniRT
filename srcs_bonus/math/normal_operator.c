@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 18:54:12 by mgalvez           #+#    #+#             */
-/*   Updated: 2025/03/01 14:39:32 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/03/01 16:26:39 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,14 @@ static t_coordinates	normal_at_pl(t_element *plane,
 	double	scalar_prod_light;
 	double	scalar_prod_cam;
 
-	scalar_prod_light = scalar_prod_vec(&light_ray->direction, plane->vector);
-	scalar_prod_cam = scalar_prod_vec(&cam_ray->direction, plane->vector);
+	scalar_prod_light = scalar_prod_vec(&light_ray->direction, &plane->vector);
+	scalar_prod_cam = scalar_prod_vec(&cam_ray->direction, &plane->vector);
 	if (scalar_prod_light * scalar_prod_cam >= 0)
 	{
 		if (scalar_prod_light > 0)
-			return (mult_vec(plane->vector, -1.0));
+			return (mult_vec(&plane->vector, -1.0));
 		else
-			return (*plane->vector);
+			return (plane->vector);
 	}
 	return (light_ray->direction);
 }
@@ -34,7 +34,7 @@ static t_coordinates	normal_at_sp(t_element *sphere, t_coordinates *point)
 {
 	t_coordinates	normal_at_vec;
 
-	normal_at_vec = sub_vec(point, sphere->coord);
+	normal_at_vec = sub_vec(point, &sphere->coord);
 	normalize_vec(&normal_at_vec);
 	return (normal_at_vec);
 }

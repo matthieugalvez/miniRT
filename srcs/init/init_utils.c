@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 16:36:06 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/13 16:32:44 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/03/01 18:01:07 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,33 +14,29 @@
 
 void	find_viewport(t_env *env)
 {
-	env->vp_w = 2 * tan(env->camera->fov * M_PI / 360);
+	env->vp_w = 2 * tan(env->camera.fov * M_PI / 360);
 	env->vp_h = env->vp_w / env->a_ratio;
 }
 
-t_coordinates	*parse_vector(char *data)
+int	parse_vector(char *data, t_coordinates *vector)
 {
-	t_coordinates	*vector;
 	char			**num;
 
-	vector = parse_coordinates(data);
-	if (!vector)
-		return (NULL);
+	if (parse_coordinates(data, vector))
+		return (1);
 	if (vector->x < -1 || vector->y < -1 || vector->z < -1
 		|| vector->x > 1 || vector->y > 1 || vector->z > 1)
 	{
-		free(vector);
 		ft_putstr("Error: wrong data: vector\n", 2);
-		return (NULL);
+		return (1);
 	}
 	if (equal_double(vector->x, 0) && equal_double(vector->y, 0)
 		&& equal_double(vector->z, 0))
 	{
-		free(vector);
 		ft_putstr("Error: wrong data: vector\n", 2);
-		return (NULL);
+		return (1);
 	}
-	return (vector);
+	return (0);
 }
 
 int	ft_is_float(char *data)

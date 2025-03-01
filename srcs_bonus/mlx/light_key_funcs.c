@@ -6,7 +6,7 @@
 /*   By: mgalvez <mgalvez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 14:05:03 by mgalvez           #+#    #+#             */
-/*   Updated: 2025/02/26 19:03:34 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/03/01 16:28:52 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,17 @@
 static void	ft_translate_light(int keysym, t_light *light)
 {
 	if (keysym == XK_j)
-		double_decrement(&light->coord->x);
+		double_decrement(&light->coord.x);
 	if (keysym == XK_l)
-		double_increment(&light->coord->x);
+		double_increment(&light->coord.x);
 	if (keysym == XK_u)
-		double_decrement(&light->coord->y);
+		double_decrement(&light->coord.y);
 	if (keysym == XK_o)
-		double_increment(&light->coord->y);
+		double_increment(&light->coord.y);
 	if (keysym == XK_k)
-		double_decrement(&light->coord->z);
+		double_decrement(&light->coord.z);
 	if (keysym == XK_i)
-		double_increment(&light->coord->z);
+		double_increment(&light->coord.z);
 }
 
 static void	ft_dim(int keysym, t_light *light)
