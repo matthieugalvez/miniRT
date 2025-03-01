@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 15:37:52 by achantra          #+#    #+#             */
-/*   Updated: 2025/03/01 14:40:29 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/03/01 15:43:56 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,8 @@ t_element		*find_selected_object(t_env *env);
 
 // IMAGE
 int				draw_image(t_env *env);
+t_coordinates	get_ref(t_coordinates *temp_coord, double teta,
+					t_coordinates *u, t_element *figure);
 int				rgb_to_hexa(t_color *color);
 void			my_pixel_put(int i, int j, t_env *env, int color);
 void			find_hitpoint_color(t_hitpoint *hitpoint, t_element *figure);
