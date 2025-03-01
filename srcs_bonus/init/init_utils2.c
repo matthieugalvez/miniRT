@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 11:30:55 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/28 18:06:26 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/03/01 13:30:50 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ void	find_disks(t_element *figure)
 {
 	t_coordinates	disk_vec;
 
-	disk_vec = mult_vec(*(figure->vector), figure->height / 2);
-	figure->t_disk_c = add_vec(*(figure->coord), disk_vec);
-	figure->b_disk_c = sub_vec(*(figure->coord), disk_vec);
+	disk_vec = mult_vec(figure->vector, figure->height / 2);
+	figure->t_disk_c = add_vec(figure->coord, &disk_vec);
+	figure->b_disk_c = sub_vec(figure->coord, &disk_vec);
 }
 
 t_coordinates	find_tmp_up(t_coordinates *vector)
@@ -47,22 +47,11 @@ int	find_vectors(t_element *element)
 	t_coordinates	tmp_up;
 
 	tmp_up = find_tmp_up(element->vector);
-	element->vector_up = vect_prod_vec(tmp_up, *(element->vector));
-	if (!element->vector_up)
-	{
-		clean_figure(element);
-		return (1);
-	}
-	normalize_vec(element->vector_up);
-	element->vector_right = vect_prod_vec(*(element->vector),
-			*(element->vector_up));
-	if (!element->vector_right)
-	{
-		clean_figure(element);
-		return (1);
-	}
-	normalize_vec(element->vector_right);
-	*element->vector_up = mult_vec(*element->vector_up, -1);
+	element->vector_up = vect_prod_vec(&tmp_up, element->vector);
+	normalize_vec(&element->vector_up);
+	element->vector_right = vect_prod_vec(element->vector, &element->vector_up);
+	normalize_vec(&element->vector_right);
+	element->vector_up = mult_vec(&element->vector_up, -1);
 	return (0);
 }
 

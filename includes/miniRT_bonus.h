@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 15:37:52 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/28 18:08:23 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/03/01 14:40:29 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,8 +107,6 @@ int				apply_light(t_env *env, t_element *figure,
 					t_hitpoint *hitpoint);
 t_color			compute_light_source(t_env *env, t_hitpoint *hitpoint,
 					t_element *figure, t_light *light);
-void			init_ray(t_ray *ray, t_env *env,
-					t_hitpoint *hitpoint, t_light *light);
 
 // MATH
 void			double_increment(double *d);
@@ -116,14 +114,14 @@ void			double_decrement(double *d);
 int				equal_double(double a, double b);
 t_coordinates	*new_vec(double x, double y, double z);
 t_coordinates	change_vec(double x, double y, double z);
-t_coordinates	add_vec(t_coordinates v1, t_coordinates v2);
-t_coordinates	sub_vec(t_coordinates v1, t_coordinates v2);
-t_coordinates	mult_vec(t_coordinates v, double fact);
-t_coordinates	div_vec(t_coordinates v, double fact);
-double			scalar_prod_vec(t_coordinates v1, t_coordinates v2);
-double			get_norm(t_coordinates vector);
+t_coordinates	add_vec(t_coordinates *v1, t_coordinates *v2);
+t_coordinates	sub_vec(t_coordinates *v1, t_coordinates *v2);
+t_coordinates	mult_vec(t_coordinates *v, double fact);
+t_coordinates	div_vec(t_coordinates *v, double fact);
+double			scalar_prod_vec(t_coordinates *v1, t_coordinates *v2);
+double			get_norm(t_coordinates *vector);
 void			normalize_vec(t_coordinates *vector);
-t_coordinates	*vect_prod_vec(t_coordinates v1, t_coordinates v2);
+t_coordinates	vect_prod_vec(t_coordinates *v1, t_coordinates *v2);
 t_coordinates	get_normal_at(t_element *figure, t_coordinates *point,
 					t_ray *light_ray, t_ray *cam_ray);
 t_coordinates	normal_at_cy(t_element *cylinder, t_coordinates *point);

@@ -6,7 +6,7 @@
 /*   By: mgalvez <mgalvez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 19:37:18 by mgalvez           #+#    #+#             */
-/*   Updated: 2025/02/28 17:10:10 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/03/01 14:30:24 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,19 @@ static void	set_intersec(t_element *cy, double inter, int disk_case)
 }
 
 static double	intersect_disk(t_element *cy, t_ray *ray,
-				t_coordinates c_disk, double cos_angle)
+				t_coordinates *c_disk, double cos_angle)
 {
+	t_coordinates	buf_vec;
 	double			inter;
 	t_coordinates	point;
 	double			norm;
 
-	inter = scalar_prod_vec(sub_vec(c_disk, *ray->origin), *cy->vector)
-		/ cos_angle;
-	point = add_vec(*ray->origin, mult_vec(*ray->direction, inter));
-	norm = get_norm(sub_vec(point, c_disk));
+	buf_vec = sub_vec(c_disk, &ray->origin);
+	inter = scalar_prod_vec(&buf_vec, cy->vector) / cos_angle;
+	buf_vec = mult_vec(&ray->direction, inter);
+	point = add_vec(&ray->origin, &buf_vec);
+	buf_vec = sub_vec(&point, c_disk);
+	norm = get_norm(&buf_vec);
 	if (norm * norm < cy->radius * cy->radius)
 		return (inter);
 	return (0);
@@ -46,11 +49,13 @@ static double	intersect_disk(t_element *cy, t_ray *ray,
 
 static void	get_z_loc(t_element *cy, t_ray *ray, double *intersection)
 {
+	t_coordinates	buf_vec;
 	double			z_loc;
 
-	z_loc = scalar_prod_vec(add_vec(*(ray->origin),
-				sub_vec(mult_vec(*ray->direction, *intersection),
-					*cy->coord)), *cy->vector);
+	buf_vec = mult_vec(&ray->direction, *intersection);
+	buf_vec = sub_vec(&buf_vec, cy->coord);
+	buf_vec = add_vec(&ray->origin, &buf_vec);
+	z_loc = scalar_prod_vec(&buf_vec, cy->vector);
 	if (z_loc < -cy->height / 2 || z_loc > cy->height / 2)
 		*intersection = __DBL_MAX__;
 }
@@ -63,9 +68,9 @@ static void	intersect_pipe(t_element *cy, t_ray *ray,
 	double			c;
 	double			discriminant;
 
-	a = scalar_prod_vec(av, av);
-	b = 2 * scalar_prod_vec(av, bv);
-	c = scalar_prod_vec(bv, bv) - ((cy->diameter * cy->diameter) / 4);
+	a = scalar_prod_vec(&av, &av);
+	b = 2 * scalar_prod_vec(&av, &bv);
+	c = scalar_prod_vec(&bv, &bv) - ((cy->diameter * cy->diameter) / 4);
 	discriminant = b * b - 4 * a * c;
 	if (discriminant < 0)
 		return ;
@@ -86,16 +91,17 @@ void	intersect_cylinder(t_element *cy, t_ray *ray)
 	double			cos_angle;
 	double			inter;
 
-	distance = sub_vec(*ray->origin, *cy->coord);
-	cos_angle = scalar_prod_vec(*(ray->direction), *(cy->vector));
-	av = sub_vec(*(ray->direction), mult_vec(*(cy->vector), cos_angle));
-	bv = sub_vec(distance, mult_vec(*(cy->vector),
-				scalar_prod_vec(distance, *(cy->vector))));
+	distance = sub_vec(&ray->origin, cy->coord);
+	cos_angle = scalar_prod_vec(&ray->direction, cy->vector);
+	av = mult_vec(cy->vector, cos_angle);
+	av = sub_vec(&ray->direction, &av);
+	bv = mult_vec(cy->vector, scalar_prod_vec(&distance, cy->vector));
+	bv = sub_vec(&distance, &bv);
 	intersect_pipe(cy, ray, av, bv);
-	inter = intersect_disk(cy, ray, cy->t_disk_c, cos_angle);
+	inter = intersect_disk(cy, ray, &cy->t_disk_c, cos_angle);
 	if (inter)
 		set_intersec(cy, inter, 2);
-	inter = intersect_disk(cy, ray, cy->b_disk_c, cos_angle);
+	inter = intersect_disk(cy, ray, &cy->b_disk_c, cos_angle);
 	if (inter)
 		set_intersec(cy, inter, 3);
 }

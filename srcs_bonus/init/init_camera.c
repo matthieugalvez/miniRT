@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 17:23:23 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/28 18:06:52 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/03/01 13:28:54 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,21 +25,11 @@ static int	find_dir(t_camera *cam)
 	t_coordinates	tmp_up;
 
 	tmp_up = find_tmp_up(cam->dir);
-	cam->dir_up = vect_prod_vec(tmp_up, *(cam->dir));
-	if (!cam->dir_up)
-	{
-		clean_camera(cam);
-		return (1);
-	}
-	normalize_vec(cam->dir_up);
-	cam->dir_right = vect_prod_vec(*(cam->dir), *(cam->dir_up));
-	if (!cam->dir_right)
-	{
-		clean_camera(cam);
-		return (1);
-	}
-	normalize_vec(cam->dir_right);
-	*cam->dir_up = mult_vec(*cam->dir_up, -1);
+	cam->dir_up = vect_prod_vec(&tmp_up, cam->dir);
+	normalize_vec(&cam->dir_up);
+	cam->dir_right = vect_prod_vec(cam->dir, &cam->dir_up);
+	normalize_vec(&cam->dir_right);
+	cam->dir_up = mult_vec(&cam->dir_up, -1);
 	return (0);
 }
 

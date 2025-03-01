@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 12:33:04 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/28 13:45:20 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/03/01 13:27:43 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,24 +30,24 @@ typedef struct s_coordinates
 
 typedef struct s_hitpoint
 {
-	t_coordinates	*coord;
-	t_color			*color;
+	t_coordinates	coord;
+	t_color			color;
 }					t_hitpoint;
 
 typedef struct s_ray
 {
-	t_coordinates		*direction;
-	t_coordinates		*origin;
+	t_coordinates		direction;
+	t_coordinates		origin;
 }						t_ray;
 
 typedef struct s_camera
 {
 	t_coordinates		*coord;
 	t_coordinates		*dir;
-	t_coordinates		*dir_right;
-	t_coordinates		*dir_up;
+	t_coordinates		dir_right;
+	t_coordinates		dir_up;
 	double				fov;
-	t_ray				*ray;
+	t_ray				ray;
 }						t_camera;
 
 typedef struct s_light
@@ -69,8 +69,8 @@ typedef struct s_element
 	int					id;
 	t_coordinates		*coord;
 	t_coordinates		*vector;
-	t_coordinates		*vector_right;
-	t_coordinates		*vector_up;
+	t_coordinates		vector_right;
+	t_coordinates		vector_up;
 	t_color				*color;
 	t_color				*colorbis;
 	double				diameter;

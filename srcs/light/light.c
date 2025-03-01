@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:33:10 by mgalvez           #+#    #+#             */
-/*   Updated: 2025/02/27 17:15:25 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/03/01 14:38:28 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,14 @@ int	apply_light(t_env *env, t_ray *cam_ray, t_element *figure,
 	double			cos_angle;
 
 	color = *figure->color;
-	init_ray(&light_ray, env, hitpoint);
+	light_ray.origin = *env->light->coord;
+	light_ray.direction = sub_vec(hitpoint, env->light->coord);
+	normalize_vec(&light_ray.direction);
 	normal_at_hp = get_normal_at(figure, hitpoint, &light_ray, cam_ray);
 	get_ambiant(&color, env->amb);
-	cos_angle = scalar_prod_vec(normal_at_hp, mult_vec(*light_ray.direction,
-				-1));
+	light_ray.direction = mult_vec(&light_ray.direction, -1);
+	cos_angle = scalar_prod_vec(&normal_at_hp, &light_ray.direction);
+	light_ray.direction = mult_vec(&light_ray.direction, -1);
 	if (!find_shadow(env, figure, &light_ray) && cos_angle >= 0)
 		get_diffuse(env->light, &color, figure->color, cos_angle);
 	if (color.r > 255)
@@ -80,6 +83,5 @@ int	apply_light(t_env *env, t_ray *cam_ray, t_element *figure,
 		color.g = 255;
 	if (color.b > 255)
 		color.b = 255;
-	free(light_ray.direction);
 	return (rgb_to_hexa(&color));
 }
