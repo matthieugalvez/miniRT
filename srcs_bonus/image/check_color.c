@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 13:59:16 by achantra          #+#    #+#             */
-/*   Updated: 2025/03/02 15:21:29 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/03/02 15:47:56 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static void	get_img_pixel(t_hitpoint *hitpoint, t_img *texture,
 	char			*pixel_color;
 	unsigned int	transformed_color;
 
-	x = ((int)((uv_coords[0]) * texture->w) + texture->w / 2) % texture->w;
+	x = ((int)((1 - uv_coords[0]) * texture->w) + texture->w / 2) % texture->w;
 	y = (int)((1 - uv_coords[1]) * texture->h);
 	pixel_color = texture->img_pixels
 		+ (y * texture->line_len + x * (texture->bits_per_pixel / 8));
@@ -48,9 +48,36 @@ static void	get_img_pixel(t_hitpoint *hitpoint, t_img *texture,
 	hitpoint->color.b = transformed_color & 0xff;
 }
 
+static void	find_checkerboard_color(t_hitpoint *hitpoint, t_element *figure,
+		double *uv_coords)
+{
+	int	u;
+	int	v;
+
+	if (figure->id == SPHERE)
+	{
+		u = (int)((figure->diameter + uv_coords[2]) * uv_coords[0]) % 2;
+		v = (int)((figure->diameter) * uv_coords[1]) % 2;
+	}
+	else if (figure->id == PLANE)
+	{
+		u = (int)floor(uv_coords[0] / 10) % 2;
+		v = (int)floor(uv_coords[1] / 10) % 2;
+	}
+	else if (figure->id == CYLINDER || figure->id == CONE)
+	{
+		u = (int) floor((figure->diameter + uv_coords[2]) * uv_coords[0]) % 2;
+		v = (int)floor(uv_coords[1] / 2) % 2;
+	}
+	if ((u + v) % 2 != 0)
+		hitpoint->color = figure->color;
+	else
+		hitpoint->color = figure->colorbis;
+}
+
 void	find_hitpoint_color(t_hitpoint *hitpoint, t_element *figure)
 {
-	double	uv_coords[2];
+	double	uv_coords[3];
 
 	if (figure->color_cmpt == 1)
 		hitpoint->color = figure->color;
@@ -58,15 +85,10 @@ void	find_hitpoint_color(t_hitpoint *hitpoint, t_element *figure)
 	{
 		get_uv_coords(hitpoint, figure, &uv_coords[0]);
 		if (figure->color_cmpt == 2)
-		{
-			if (((int)uv_coords[0] + (int)uv_coords[1]) % 2)
-				hitpoint->color = figure->color;
-			else
-				hitpoint->color = figure->colorbis;
-		}
+			find_checkerboard_color(hitpoint, figure, uv_coords);
 		else
 			get_img_pixel(hitpoint, &figure->texture, &uv_coords[0]);
-		if (figure->bump_map_cmpt)
-			get_bump_map_elev(hitpoint, &figure->bump_map, &uv_coords[0]);
+	//	if (figure->bump_map_cmpt)
+	//		get_bump_map_elev(hitpoint, &figure->bump_map, &uv_coords[0]);
 	}
 }
