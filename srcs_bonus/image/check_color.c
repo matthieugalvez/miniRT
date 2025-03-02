@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 13:59:16 by achantra          #+#    #+#             */
-/*   Updated: 2025/03/02 14:43:23 by achantra         ###   ########.fr       */
+/*   Updated: 2025/03/02 15:20:52 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static void	find_checkerboard_color(t_hitpoint *hitpoint, t_element *figure,
 	else if (figure->id == CYLINDER || figure->id == CONE)
 	{
 		u = (int) floor((figure->diameter + uv_coords[2]) * uv_coords[0]) % 2;
-		v = (int)floor(uv_coords[1]) % 2;
+		v = (int)floor(uv_coords[1] / 2) % 2;
 	}
 	if ((u + v) % 2 != 0)
 		hitpoint->color = figure->color;

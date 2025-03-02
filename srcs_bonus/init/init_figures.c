@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 17:21:35 by achantra          #+#    #+#             */
-/*   Updated: 2025/03/01 21:02:53 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/03/02 15:16:03 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,9 @@ static int	init_sphere(t_element *sphere, t_env *env, char **data)
 		ft_putstr("Error: wrong data: sphere\n", 2);
 		return (1);
 	}
+	sphere->vector = change_vec(0, 1, 0);
 	add_back_elem(&env->figure, sphere);
-	return (0);
+	return (find_vectors(sphere));
 }
 
 int	new_sphere(t_env *env, char **data)
@@ -77,9 +78,8 @@ int	new_sphere(t_env *env, char **data)
 	}
 	sphere->id = SPHERE;
 	sphere->diameter = parse_length(data[2]);
-	if (ft_tablen(data) < 4 || ft_tablen(data) > 5
-		|| parse_coordinates(data[1], &sphere->coord)
-		|| sphere->diameter <= 0)
+	if (ft_tablen(data) < 4 || ft_tablen(data) > 5 || parse_coordinates(data[1],
+			&sphere->coord) || sphere->diameter <= 0)
 	{
 		clean_figure(env, sphere);
 		ft_freetab(data);
@@ -91,8 +91,8 @@ int	new_sphere(t_env *env, char **data)
 
 static int	init_plan(t_element *plan, t_env *env, char **data)
 {
-	if (parse_coordinates(data[1], &plan->coord)
-		|| parse_color(data[3], &plan->color))
+	if (parse_coordinates(data[1], &plan->coord) || parse_color(data[3],
+			&plan->color))
 	{
 		clean_figure(env, plan);
 		ft_freetab(data);

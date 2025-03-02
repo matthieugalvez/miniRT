@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 21:07:24 by mgalvez           #+#    #+#             */
-/*   Updated: 2025/03/02 14:44:57 by achantra         ###   ########.fr       */
+/*   Updated: 2025/03/02 15:15:33 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ static void	change_ref(t_hitpoint *hitpoint, t_element *figure,
 		temp_coord = sub_vec(&hitpoint->coord, &figure->coord);
 	else
 		temp_coord = hitpoint->coord;
-	new_ref->x = scalar_prod_vec(&figure->vector_right, &temp_coord);
-	new_ref->y = scalar_prod_vec(&figure->vector_up, &temp_coord);
+	new_ref->x = scalar_prod_vec(&figure->vector_up, &temp_coord);
+	new_ref->y = scalar_prod_vec(&figure->vector_right, &temp_coord);
 	new_ref->z = scalar_prod_vec(&figure->vector, &temp_coord);
 }
 
@@ -66,16 +66,19 @@ static void	uv_pl(t_hitpoint *hitpoint, t_element *figure,
 static void	uv_sp(t_hitpoint *hitpoint, t_element *figure,
 		double *uv_coords)
 {
-	t_coordinates	temp_coord;
-	double			u;
-	double			v;
+	t_coordinates	ref_sp;
+	t_coordinates	proj;
 
-	temp_coord = sub_vec(&hitpoint->coord, &figure->coord);
+	if (!equal_double(figure->vector.z, 0))
+		proj = change_vec(figure->vector.x, figure->vector.y, figure->vector.z);
+	else if (!equal_double(figure->vector.y, 0))
+		proj = change_vec(figure->vector.z, figure->vector.x, figure->vector.y);
+	else
+		proj = change_vec(figure->vector.y, figure->vector.z, figure->vector.x);
+	change_ref(hitpoint, figure, &proj, &ref_sp);
 	uv_coords[2] = (int)floor(figure->diameter) % 2;
-	u = (atan2(temp_coord.y, temp_coord.x) + M_PI) / (2 * M_PI);
-	v = (acos(2 * (temp_coord.z) / figure->diameter) + M_PI_2) / M_PI;
-	uv_coords[0] = u;
-	uv_coords[1] = v;
+	uv_coords[0] = (atan2(ref_sp.y, ref_sp.x) + M_PI) / (2 * M_PI);
+	uv_coords[1] = (acos(2 * (ref_sp.z) / figure->diameter) + M_PI_2) / M_PI;
 }
 
 void	get_uv_coords(t_hitpoint *hitpoint, t_element *figure,
