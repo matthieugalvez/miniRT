@@ -6,12 +6,11 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/02 13:24:42 by achantra          #+#    #+#             */
-/*   Updated: 2025/03/01 20:57:54 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/03/02 15:28:37 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT_bonus.h"
-#include "mlx.h"
 
 static void	clean_mlx(t_env *env)
 {

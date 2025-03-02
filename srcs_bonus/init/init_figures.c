@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 17:21:35 by achantra          #+#    #+#             */
-/*   Updated: 2025/03/01 21:02:53 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/03/02 14:47:51 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,9 @@ static int	init_sphere(t_element *sphere, t_env *env, char **data)
 		ft_putstr("Error: wrong data: sphere\n", 2);
 		return (1);
 	}
+	sphere->vector = change_vec(0, 1, 0);
 	add_back_elem(&env->figure, sphere);
-	return (0);
+	return (find_vectors(sphere));
 }
 
 int	new_sphere(t_env *env, char **data)
