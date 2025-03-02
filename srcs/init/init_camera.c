@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 17:23:23 by achantra          #+#    #+#             */
-/*   Updated: 2025/03/01 17:51:30 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/03/02 19:42:18 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,32 @@
 	∗ FOV : Horizontal field of view in degrees in range [0,180]: 70
 */
 
+static t_coordinates	find_cam_tmp_up(t_coordinates *vector)
+{
+	t_coordinates	tmp_up;
+
+	if (equal_double(vector->x, 0))
+	{
+		if (vector->z < 0)
+			tmp_up = change_vec(-1, 0, 0);
+		else
+			tmp_up = change_vec(1, 0, 0);
+	}
+	else
+	{
+		if (vector->x < 0)
+			tmp_up = change_vec(0, 0, 1);
+		else
+			tmp_up = change_vec(0, 0, -1);
+	}
+	return (tmp_up);
+}
+
 static int	find_dir(t_camera *cam)
 {
 	t_coordinates	tmp_up;
 
-	tmp_up = find_tmp_up(&cam->dir);
+	tmp_up = find_cam_tmp_up(&cam->dir);
 	cam->dir_up = vect_prod_vec(&tmp_up, &cam->dir);
 	normalize_vec(&cam->dir_up);
 	cam->dir_right = vect_prod_vec(&cam->dir, &cam->dir_up);

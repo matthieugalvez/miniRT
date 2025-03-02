@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 11:30:55 by achantra          #+#    #+#             */
-/*   Updated: 2025/03/02 18:57:19 by achantra         ###   ########.fr       */
+/*   Updated: 2025/03/02 19:38:58 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ t_coordinates	find_tmp_up(t_coordinates *vector)
 {
 	t_coordinates	tmp_up;
 
-	if (equal_double(vector->x, 0))
+	if (!equal_double(vector->y, 0) || !equal_double(vector->z, 0))
 	{
-		if (vector->z < 0)
+		if (vector-> y < 0 || vector->z < 0)
 			tmp_up = change_vec(-1, 0, 0);
 		else
 			tmp_up = change_vec(1, 0, 0);
@@ -35,9 +35,9 @@ t_coordinates	find_tmp_up(t_coordinates *vector)
 	else
 	{
 		if (vector->x < 0)
-			tmp_up = change_vec(0, 0, 1);
+			tmp_up = change_vec(0, -1, 0);
 		else
-			tmp_up = change_vec(0,0,-1);
+			tmp_up = change_vec(0, 1, 0);
 	}
 	return (tmp_up);
 }
