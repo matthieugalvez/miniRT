@@ -6,11 +6,19 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 13:59:16 by achantra          #+#    #+#             */
-/*   Updated: 2025/03/02 17:00:47 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/03/02 19:02:50 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT_bonus.h"
+
+static void	get_plane_case(t_img *texture, int *x, int *y)
+{
+	if (*x < 0)
+		*x = texture->w + *x;
+	if (*y < 0)
+		*y = texture->h + *y;
+}
 
 static void	get_bump_map_elev(t_element *figure, t_hitpoint *hitpoint,
 					double *uv_coords)
@@ -40,16 +48,28 @@ static void	get_bump_map_elev(t_element *figure, t_hitpoint *hitpoint,
 	hitpoint->bubv[1] = -((double)(c[0] - c[1])) / 10;
 }
 
-static void	get_img_pixel(t_hitpoint *hitpoint, t_img *texture,
-					double *uv_coords)
+static void	get_img_pixel(t_element *figure, t_hitpoint *hitpoint,
+						double *uv_coords)
 {
+	t_img			*texture;
 	int				x;
 	int				y;
 	char			*pixel_color;
 	unsigned int	transformed_color;
 
-	x = ((int)((1 - uv_coords[0]) * texture->w) + texture->w / 2) % texture->w;
-	y = (int)((1 - uv_coords[1]) * texture->h);
+	texture = &figure->texture;
+	if (figure->id == PLANE)
+	{
+		x = (int)uv_coords[1] % texture->w;
+		y = (int)uv_coords[0] % texture->h;
+		get_plane_case(texture, &x, &y);
+	}
+	else
+	{
+		x = ((int)((1 - uv_coords[0]) * texture->w) + texture->w / 2)
+			% texture->w;
+		y = (int)((1 - uv_coords[1]) * texture->h);
+	}
 	pixel_color = texture->img_pixels
 		+ (y * texture->line_len + x * (texture->bits_per_pixel / 8));
 	transformed_color = *(unsigned int *)pixel_color;
@@ -97,7 +117,7 @@ void	find_hitpoint_color(t_hitpoint *hitpoint, t_element *figure)
 		if (figure->color_cmpt == 2)
 			find_checkerboard_color(hitpoint, figure, uv_coords);
 		else
-			get_img_pixel(hitpoint, &figure->texture, &uv_coords[0]);
+			get_img_pixel(figure, hitpoint, &uv_coords[0]);
 		if (figure->bump_map_cmpt)
 			get_bump_map_elev(figure, hitpoint, &uv_coords[0]);
 	}

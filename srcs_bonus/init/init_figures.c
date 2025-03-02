@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 17:21:35 by achantra          #+#    #+#             */
-/*   Updated: 2025/03/02 17:40:44 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/03/02 19:06:35 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int	parse_figure_color_data(t_element *figure, t_env *env, char *data)
 			figure->texture_cmpt += 1;
 			return (parse_xpm_file(env, &figure->texture, data));
 		}
-		else
+		else if (figure-> id == SPHERE)
 		{
 			figure->bump_map_cmpt += 1;
 			return (parse_xpm_file(env, &figure->bump_map, data));
