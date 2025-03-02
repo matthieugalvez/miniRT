@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 15:37:52 by achantra          #+#    #+#             */
-/*   Updated: 2025/03/02 15:30:00 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/03/02 17:05:10 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,8 @@ t_coordinates	get_normal_at(t_element *figure, t_coordinates *point,
 					t_ray *light_ray, t_ray *cam_ray);
 t_coordinates	normal_at_cy(t_element *cylinder, t_coordinates *point);
 t_coordinates	normal_at_co(t_element *cone, t_coordinates *point);
+void			make_bump_map_normal(t_element *figure,
+					t_coordinates *normal_at_hp, double *bubv);
 
 // DEBUG
 void			debug_env(t_env *env);

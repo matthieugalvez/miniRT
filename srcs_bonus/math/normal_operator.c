@@ -6,11 +6,26 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 18:54:12 by mgalvez           #+#    #+#             */
-/*   Updated: 2025/03/01 16:26:39 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/03/02 17:04:34 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT_bonus.h"
+
+void	make_bump_map_normal(t_element *figure, t_coordinates *normal_at_hp,
+					double *bubv)
+{
+	t_coordinates	pu;
+	t_coordinates	pv;
+
+	pu = vect_prod_vec(normal_at_hp, &figure->vector);
+	pv = vect_prod_vec(normal_at_hp, &pu);
+	pu = mult_vec(&pu, bubv[1]);
+	pv = mult_vec(&pv, bubv[0]);
+	*normal_at_hp = add_vec(normal_at_hp, &pu);
+	*normal_at_hp = add_vec(normal_at_hp, &pv);
+	normalize_vec(normal_at_hp);
+}
 
 static t_coordinates	normal_at_pl(t_element *plane,
 					t_ray *light_ray, t_ray *cam_ray)

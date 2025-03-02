@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 12:33:04 by achantra          #+#    #+#             */
-/*   Updated: 2025/03/02 14:42:26 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/03/02 16:57:24 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ typedef struct s_hitpoint
 {
 	t_coordinates	coord;
 	t_color			color;
-	t_coordinates	bump_normal;
+	double			bubv[2];
 }					t_hitpoint;
 
 typedef struct s_ray
