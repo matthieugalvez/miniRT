@@ -6,7 +6,7 @@
 /*   By: mgalvez <mgalvez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 10:59:44 by mgalvez           #+#    #+#             */
-/*   Updated: 2025/03/02 15:37:16 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/03/02 17:02:05 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,8 +105,8 @@ t_color	compute_light_source(t_env *env, t_hitpoint *hitpoint,
 	normalize_vec(&light_ray.direction);
 	normal_at_hp = get_normal_at(figure, &hitpoint->coord,
 			&light_ray, &env->camera.ray);
-	//normal_at_hp = add_vec(&normal_at_hp, &hitpoint->bump_normal);
-	//normalize_vec(&normal_at_hp);
+	if (figure->bump_map_cmpt)
+		make_bump_map_normal(figure, &normal_at_hp, hitpoint->bubv);
 	light_ray.direction = mult_vec(&light_ray.direction, -1);
 	cos_angle = scalar_prod_vec(&normal_at_hp, &light_ray.direction);
 	light_ray.direction = mult_vec(&light_ray.direction, -1);
