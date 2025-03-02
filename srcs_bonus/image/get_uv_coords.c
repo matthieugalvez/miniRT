@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 21:07:24 by mgalvez           #+#    #+#             */
-/*   Updated: 2025/03/02 15:45:53 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/03/02 16:25:35 by achantra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,7 @@ static void	change_ref(t_hitpoint *hitpoint, t_element *figure,
 	t_coordinates	temp_coord;
 	double			teta;
 
-	if (figure->id != PLANE)
-		temp_coord = sub_vec(&hitpoint->coord, &figure->coord);
-	else
-		temp_coord = hitpoint->coord;
+	temp_coord = sub_vec(&hitpoint->coord, &figure->coord);
 	new_ref->x = scalar_prod_vec(&figure->vector_up, &temp_coord);
 	new_ref->y = scalar_prod_vec(&figure->vector_right, &temp_coord);
 	new_ref->z = scalar_prod_vec(&figure->vector, &temp_coord);
