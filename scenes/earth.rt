@@ -1,13 +1,13 @@
 C  0,0,0 0,0,1 50
-sp 0,0,20 10 assets/textures/earth.xpm assets/bump_map/earth.xpm
-sp 10,10,20 5 255,255,255
-pl 0,0,1000 0,0,1 1,1,1
-pl 0,0,-1000 0,0,1 1,1,1
-pl 1000,0,0 1,0,0 1,1,1
-pl -1000,0,0 1,0,0 1,1,1
-pl 0,1000,0 0,1,0 1,1,1
-pl 0,-1000,0 0,1,0 1,1,1
-A 1 255,255,255
+sp -3,-3,30 12 assets/textures/earth.xpm assets/bump_map/earth.xpm
+sp 5,5,30 6 assets/textures/moon.xpm assets/bump_map/moon.xpm
+pl 0,0,2500 0,0,1 assets/textures/skybox.xpm
+pl 0,0,-2500 0,0,1 assets/textures/skybox.xpm
+pl 2500,0,0 1,0,0 assets/textures/skybox.xpm
+pl -2500,0,0 1,0,0 assets/textures/skybox.xpm
+pl 0,2500,0 0,1,0 assets/textures/skybox.xpm
+pl 0,-2500,0 0,1,0 assets/textures/skybox.xpm
+A 0.1 255,255,255
 
-L 10,-10,10 1 255,255,252
+L -20,6,25 1 255,255,252
 
