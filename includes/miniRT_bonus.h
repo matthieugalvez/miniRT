@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 15:37:52 by achantra          #+#    #+#             */
-/*   Updated: 2025/03/01 21:08:22 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/03/02 11:16:54 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,8 @@ t_element		*find_selected_object(t_env *env);
 
 // IMAGE
 int				draw_image(t_env *env);
-int				is_odd_coord(t_hitpoint *hitpoint, t_element *figure);
+void			get_uv_coords(t_hitpoint *hitpoint, t_element *figure,
+					int *uv_coords);
 t_coordinates	get_ref(t_coordinates *temp_coord, double teta,
 					t_coordinates *u, t_element *figure);
 int				rgb_to_hexa(t_color *color);

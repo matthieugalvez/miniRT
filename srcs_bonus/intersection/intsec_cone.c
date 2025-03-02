@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 10:54:11 by achantra          #+#    #+#             */
-/*   Updated: 2025/03/01 16:25:23 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/03/02 10:50:04 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static void	intersect_disk(t_element *co, t_ray *ray, double cos_angle)
 		set_intersec(co, inter);
 }
 
-static void	get_z_loc_co(t_element *co, t_ray *ray, double *intersection)
+static void	get_z_loc(t_element *co, t_ray *ray, double *intersection)
 {
 	t_coordinates	buf_vec;
 	double			z_loc;
@@ -56,11 +56,9 @@ static void	get_z_loc_co(t_element *co, t_ray *ray, double *intersection)
 	z_loc = scalar_prod_vec(&buf_vec, &co->vector);
 	if (z_loc < -co->height / 2 || z_loc > co->height / 2)
 		*intersection = __DBL_MAX__;
-	else
-		co->intersec_type = 1;
 }
 
-static int	intersect_pyramid(t_element *co, t_ray *ray,
+static void	intersect_pyramid(t_element *co, t_ray *ray,
 				double tan_teta, double cos_angle)
 {
 	t_coordinates	dis;
@@ -79,13 +77,14 @@ static int	intersect_pyramid(t_element *co, t_ray *ray,
 	delta = b * b - (4 * a * c);
 	if (delta > EPSILON)
 	{
+		co->intersec_type = 1;
 		delta = sqrt(delta);
 		a *= 2;
 		co->c_inter[0] = (-b + delta) / a;
+		get_z_loc(co, ray, &co->c_inter[0]);
 		co->c_inter[1] = (-b - delta) / a;
-		return (1);
+		get_z_loc(co, ray, &co->c_inter[1]);
 	}
-	return (0);
 }
 
 void	intersect_cone(t_element *co, t_ray *ray)
@@ -97,10 +96,6 @@ void	intersect_cone(t_element *co, t_ray *ray)
 	t = (co->diameter / (2 * co->height));
 	tan_teta = 1 + t * t;
 	cos_angle = scalar_prod_vec(&ray->direction, &co->vector);
-	if (intersect_pyramid(co, ray, tan_teta, cos_angle))
-	{
-		get_z_loc_co(co, ray, &co->c_inter[0]);
-		get_z_loc_co(co, ray, &co->c_inter[1]);
-	}
+	intersect_pyramid(co, ray, tan_teta, cos_angle);
 	intersect_disk(co, ray, cos_angle);
 }

@@ -6,7 +6,7 @@
 #    By: achantra <achantra@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/31 15:30:48 by achantra          #+#    #+#              #
-#    Updated: 2025/03/01 21:08:48 by mgalvez          ###   ########.fr        #
+#    Updated: 2025/03/02 11:16:14 by mgalvez          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,7 @@ SRCS_LST			= ${addprefix clean/, ${CLEAN_SRCS}} \
 OBJS_LST			= ${SRCS_LST:.c=.o}
 
 BONUS_CLEAN_SRCS	= clean_env.c
-BONUS_IMAGE_SRCS	= cam_ray_tracing.c check_color.c checkerboard.c image_utils.c
+BONUS_IMAGE_SRCS	= cam_ray_tracing.c check_color.c get_uv_coords.c image_utils.c
 BONUS_INIT_SRCS		= init_ambient.c init_camera.c init_elements.c init_env.c \
 					  init_figures.c init_cone.c init_light.c init_mlx.c init_utils.c \
 					  init_utils2.c

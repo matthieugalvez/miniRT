@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   checkerboard.c                                     :+:      :+:    :+:   */
+/*   get_uv_coords.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mgalvez <mgalvez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 21:07:24 by mgalvez           #+#    #+#             */
-/*   Updated: 2025/03/01 21:08:08 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/03/02 11:29:25 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT_bonus.h"
 
-static int	is_odd_co(t_hitpoint *hitpoint, t_element *figure)
+/*static void	is_odd_co(t_hitpoint *hitpoint, t_element *figure, int *uv_coords)
 {
 	int				teta_value;
 	int				r_value;
@@ -45,7 +45,7 @@ static int	is_odd_co(t_hitpoint *hitpoint, t_element *figure)
 	return ((teta_value + r_value + z_value) % 2);
 }
 
-static int	is_odd_cy(t_hitpoint *hitpoint, t_element *figure)
+static void	is_odd_cy(t_hitpoint *hitpoint, t_element *figure, int *uv_coords)
 {
 	int				teta_value;
 	int				r_value;
@@ -78,7 +78,7 @@ static int	is_odd_cy(t_hitpoint *hitpoint, t_element *figure)
 	return ((teta_value + r_value + z_value) % 2);
 }
 
-static int	is_odd_pl(t_hitpoint *hitpoint, t_element *figure)
+static void	is_odd_pl(t_hitpoint *hitpoint, t_element *figure, int *uv_coords)
 {
 	int				x_value;
 	int				y_value;
@@ -124,15 +124,13 @@ static int	is_odd_pl(t_hitpoint *hitpoint, t_element *figure)
 		z_value = (int)floor(ref_pl.z / 10) % 2;
 	}
 	return ((x_value + y_value + z_value) % 2);
-}
+}*/
 
-static int	is_odd_sp(t_hitpoint *hitpoint, t_element *figure)
+static void	is_odd_sp(t_hitpoint *hitpoint, t_element *figure, int *uv_coords)
 {
 	t_coordinates	temp_coord;
 	double			u;
 	double			v;
-	int				u_value;
-	int				v_value;
 	int				odd;
 
 	temp_coord = sub_vec(&hitpoint->coord, &figure->coord);
@@ -142,21 +140,18 @@ static int	is_odd_sp(t_hitpoint *hitpoint, t_element *figure)
 				temp_coord.x) + M_PI) / (2 * M_PI);
 	v = ((figure->diameter * figure->diameter))
 		* (acos(2 * (temp_coord.z) / figure->diameter) + M_PI_2) / M_PI;
-	u_value = (int)u % 2;
-	v_value = (int)v % 2;
-	return ((u_value + v_value) % 2);
+	uv_coords[0] = (int)u % 2;
+	uv_coords[1] = (int)v % 2;
 }
 
-int	is_odd_coord(t_hitpoint *hitpoint, t_element *figure)
+void	get_uv_coords(t_hitpoint *hitpoint, t_element *figure, int *uv_coords)
 {
 	if (figure->id == SPHERE)
-		return (is_odd_sp(hitpoint, figure));
-	else if (figure->id == PLANE)
-		return (is_odd_pl(hitpoint, figure));
-	else if (figure->id == CYLINDER)
-		return (is_odd_cy(hitpoint, figure));
-	else if (figure->id == CONE)
-		return (is_odd_co(hitpoint, figure));
-	return (1);
+		return (is_odd_sp(hitpoint, figure, uv_coords));
+//	else if (figure->id == PLANE)
+//		return (is_odd_pl(hitpoint, figure, uv_coords));
+//	else if (figure->id == CYLINDER)
+//		return (is_odd_cy(hitpoint, figure, uv_coords));
+//	else if (figure->id == CONE)
+//		return (is_odd_co(hitpoint, figure, uv_coords));
 }
-
