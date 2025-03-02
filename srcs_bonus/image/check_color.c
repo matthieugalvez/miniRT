@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 13:59:16 by achantra          #+#    #+#             */
-/*   Updated: 2025/03/02 19:02:50 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/03/02 20:24:53 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,8 @@
 
 static void	get_plane_case(t_img *texture, int *x, int *y)
 {
-	if (*x < 0)
-		*x = texture->w + *x;
-	if (*y < 0)
-		*y = texture->h + *y;
+	*x = texture->w / 2 + *x;
+	*y = texture->h / 2 + *y;
 }
 
 static void	get_bump_map_elev(t_element *figure, t_hitpoint *hitpoint,
@@ -60,8 +58,8 @@ static void	get_img_pixel(t_element *figure, t_hitpoint *hitpoint,
 	texture = &figure->texture;
 	if (figure->id == PLANE)
 	{
-		x = (int)uv_coords[1] % texture->w;
-		y = (int)uv_coords[0] % texture->h;
+		x = (int)uv_coords[1] % (texture->w / 2);
+		y = (int)uv_coords[0] % (texture->h / 2);
 		get_plane_case(texture, &x, &y);
 	}
 	else

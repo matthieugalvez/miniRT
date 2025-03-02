@@ -1,0 +1,13 @@
+C  0,0,0 0,0,1 50
+sp -3,-3,30 12 assets/textures/earth.xpm assets/bump_map/earth.xpm
+sp 5,5,30 6 assets/textures/moon.xpm assets/bump_map/moon.xpm
+pl 0,0,2500 0,0,1 assets/textures/skybox.xpm
+pl 0,0,-2500 0,0,1 assets/textures/skybox.xpm
+pl 2500,0,0 1,0,0 assets/textures/skybox.xpm
+pl -2500,0,0 1,0,0 assets/textures/skybox.xpm
+pl 0,2500,0 0,1,0 assets/textures/skybox.xpm
+pl 0,-2500,0 0,1,0 assets/textures/skybox.xpm
+A 0.1 255,255,255
+
+L -20,6,25 1 255,255,252
+

@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 17:21:35 by achantra          #+#    #+#             */
-/*   Updated: 2025/03/02 19:06:35 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/03/02 19:32:16 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ int	new_sphere(t_env *env, char **data)
 		return (1);
 	}
 	sphere->vector = change_vec(1, 0, 0);
+	normalize_vec(&sphere->vector);
 	return (init_figure(sphere, env, data));
 }
 
