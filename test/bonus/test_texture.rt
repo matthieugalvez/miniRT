@@ -1,5 +1,7 @@
 C  0,0,0 0,0,1 50
-sp 0,0,20 10 assets/textures/earth.xpm assets/bump_map/earth.xpm
+sp -5,-5,20 10 assets/textures/earth.xpm
+cy -5,5,20 0.5,0,1 10 7 assets/textures/earth.xpm
+co 5,5,20 1,0.5,1 10 5 assets/textures/earth.xpm
 A 1 255,255,255
 
 L 10,-10,10 1 255,255,252

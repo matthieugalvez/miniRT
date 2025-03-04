@@ -6,17 +6,11 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 13:59:16 by achantra          #+#    #+#             */
-/*   Updated: 2025/03/02 20:24:53 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/03/04 17:10:53 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT_bonus.h"
-
-static void	get_plane_case(t_img *texture, int *x, int *y)
-{
-	*x = texture->w / 2 + *x;
-	*y = texture->h / 2 + *y;
-}
 
 static void	get_bump_map_elev(t_element *figure, t_hitpoint *hitpoint,
 					double *uv_coords)
@@ -46,7 +40,7 @@ static void	get_bump_map_elev(t_element *figure, t_hitpoint *hitpoint,
 	hitpoint->bubv[1] = -((double)(c[0] - c[1])) / 10;
 }
 
-static void	get_img_pixel(t_element *figure, t_hitpoint *hitpoint,
+static void	get_texture_pixel(t_element *figure, t_hitpoint *hitpoint,
 						double *uv_coords)
 {
 	t_img			*texture;
@@ -57,16 +51,14 @@ static void	get_img_pixel(t_element *figure, t_hitpoint *hitpoint,
 
 	texture = &figure->texture;
 	if (figure->id == PLANE)
-	{
-		x = (int)uv_coords[1] % (texture->w / 2);
-		y = (int)uv_coords[0] % (texture->h / 2);
-		get_plane_case(texture, &x, &y);
-	}
+		get_pixel_pl(texture, uv_coords, &x, &y);
+	else if (figure->id == SPHERE)
+		get_pixel_sp(texture, uv_coords, &x, &y);
 	else
 	{
-		x = ((int)((1 - uv_coords[0]) * texture->w) + texture->w / 2)
-			% texture->w;
-		y = (int)((1 - uv_coords[1]) * texture->h);
+		x = ((int)((1 - uv_coords[1] / figure->diameter) * texture->w)
+				+ texture->w / 2) % texture->w;
+		y = (int)((1 - uv_coords[0]) * texture->h);
 	}
 	pixel_color = texture->img_pixels
 		+ (y * texture->line_len + x * (texture->bits_per_pixel / 8));
@@ -94,7 +86,7 @@ static void	find_checkerboard_color(t_hitpoint *hitpoint, t_element *figure,
 	}
 	else if (figure->id == CYLINDER || figure->id == CONE)
 	{
-		u = (int) floor((figure->diameter + uv_coords[2]) * uv_coords[0]) % 2;
+		u = (int)floor((figure->diameter + uv_coords[2]) * uv_coords[0]) % 2;
 		v = (int)floor(uv_coords[1] / 2) % 2;
 	}
 	if ((u + v) % 2 != 0)
@@ -115,7 +107,7 @@ void	find_hitpoint_color(t_hitpoint *hitpoint, t_element *figure)
 		if (figure->color_cmpt == 2)
 			find_checkerboard_color(hitpoint, figure, uv_coords);
 		else
-			get_img_pixel(figure, hitpoint, &uv_coords[0]);
+			get_texture_pixel(figure, hitpoint, &uv_coords[0]);
 		if (figure->bump_map_cmpt)
 			get_bump_map_elev(figure, hitpoint, &uv_coords[0]);
 	}

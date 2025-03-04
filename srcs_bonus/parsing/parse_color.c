@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 19:21:11 by achantra          #+#    #+#             */
-/*   Updated: 2025/03/01 17:19:48 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/03/04 16:32:11 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,4 +77,31 @@ int	parse_color(char *data, t_color *color)
 	}
 	ft_freetab(num);
 	return (0);
+}
+
+int	parse_figure_color_data(t_element *figure, t_env *env, char *data)
+{
+	t_color	*next_color;
+
+	if (!figure->color_cmpt)
+		next_color = &figure->color;
+	else if (figure->color_cmpt == 1)
+		next_color = &figure->colorbis;
+	if (!ft_strrncmp(data, ".xpm", 4))
+	{
+		if (!figure->color_cmpt && !figure->texture_cmpt)
+		{
+			figure->texture_cmpt += 1;
+			return (parse_xpm_file(env, &figure->texture, data));
+		}
+		else if (figure-> id == SPHERE)
+		{
+			figure->bump_map_cmpt += 1;
+			return (parse_xpm_file(env, &figure->bump_map, data));
+		}
+		ft_putstr("Error: wrong data: color\n", 2);
+		return (1);
+	}
+	figure->color_cmpt += 1;
+	return (parse_color(data, next_color));
 }

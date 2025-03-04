@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 21:07:24 by mgalvez           #+#    #+#             */
-/*   Updated: 2025/03/02 17:49:19 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/03/04 14:25:59 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static void	uv_pl(t_hitpoint *hitpoint, t_element *figure,
 	uv_coords[1] = ref_pl.y;
 }
 
-static void	get_uv_sphere(t_hitpoint *hitpoint, t_element *figure,
+static void	uv_sp(t_hitpoint *hitpoint, t_element *figure,
 					double *uv_coords)
 {
 	double			u;
@@ -84,7 +84,7 @@ void	get_uv_coords(t_hitpoint *hitpoint, t_element *figure,
 		double *uv_coords)
 {
 	if (figure->id == SPHERE)
-		return (get_uv_sphere(hitpoint, figure, uv_coords));
+		return (uv_sp(hitpoint, figure, uv_coords));
 	else if (figure->id == PLANE)
 		return (uv_pl(hitpoint, figure, uv_coords));
 	else if (figure->id == CYLINDER || figure->id == CONE)

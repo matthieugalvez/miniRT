@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 15:37:52 by achantra          #+#    #+#             */
-/*   Updated: 2025/03/02 17:05:10 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/03/04 17:11:39 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ void			add_back_light(t_light **light, t_light *new_light);
 // PARSING
 int				check_entry(int ac, char **av);
 int				parse_file(char *path, t_env *env);
+int				parse_figure_color_data(t_element *figure,
+					t_env *env, char *data);
 int				parse_color(char *data, t_color *color);
 int				parse_coordinates(char *data, t_coordinates *coordinates);
 int				parse_vector(char *data, t_coordinates *coordinates);
@@ -96,6 +98,8 @@ void			get_uv_coords(t_hitpoint *hitpoint, t_element *figure,
 					double *uv_coords);
 t_coordinates	get_ref(t_coordinates *temp_coord, double teta,
 					t_coordinates *u, t_element *figure);
+void			get_pixel_pl(t_img *texture, double *uv_coords, int *x, int *y);
+void			get_pixel_sp(t_img *texture, double *uv_coords, int *x, int *y);
 int				rgb_to_hexa(t_color *color);
 void			my_pixel_put(int i, int j, t_env *env, int color);
 void			find_hitpoint_color(t_hitpoint *hitpoint, t_element *figure);

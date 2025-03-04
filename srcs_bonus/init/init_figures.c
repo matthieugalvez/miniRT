@@ -6,38 +6,11 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 17:21:35 by achantra          #+#    #+#             */
-/*   Updated: 2025/03/02 19:32:16 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/03/04 16:19:15 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT_bonus.h"
-
-static int	parse_figure_color_data(t_element *figure, t_env *env, char *data)
-{
-	t_color	*next_color;
-
-	if (!figure->color_cmpt)
-		next_color = &figure->color;
-	else if (figure->color_cmpt == 1)
-		next_color = &figure->colorbis;
-	if (!ft_strrncmp(data, ".xpm", 4))
-	{
-		if (!figure->color_cmpt && !figure->texture_cmpt)
-		{
-			figure->texture_cmpt += 1;
-			return (parse_xpm_file(env, &figure->texture, data));
-		}
-		else if (figure-> id == SPHERE)
-		{
-			figure->bump_map_cmpt += 1;
-			return (parse_xpm_file(env, &figure->bump_map, data));
-		}
-	}
-	else if (parse_color(data, next_color))
-		return (1);
-	figure->color_cmpt += 1;
-	return (0);
-}
 
 static int	init_figure(t_element *figure, t_env *env, char **data)
 {
