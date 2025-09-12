@@ -6,11 +6,11 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 13:59:16 by achantra          #+#    #+#             */
-/*   Updated: 2025/08/21 16:28:21 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/09/11 19:23:11 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT_bonus.h"
+#include "miniRT.h"
 
 static void	get_bump_map_elev(t_element *figure, t_hitpoint *hitpoint,
 					double *uv_coords)

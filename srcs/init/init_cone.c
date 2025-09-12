@@ -6,11 +6,11 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 10:50:45 by achantra          #+#    #+#             */
-/*   Updated: 2025/03/04 16:24:05 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/09/11 19:25:04 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT_bonus.h"
+#include "miniRT.h"
 
 static int	init_figure(t_element *figure, t_env *env, char **data)
 {

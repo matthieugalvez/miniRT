@@ -6,11 +6,11 @@
 /*   By: mgalvez <mgalvez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 18:50:41 by mgalvez           #+#    #+#             */
-/*   Updated: 2025/02/28 14:01:05 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/09/11 19:27:59 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT_bonus.h"
+#include "miniRT.h"
 
 static int	find_object_id(t_env *env, char *str)
 {

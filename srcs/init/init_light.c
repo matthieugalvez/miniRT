@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 17:23:59 by achantra          #+#    #+#             */
-/*   Updated: 2025/03/01 17:59:23 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/09/11 19:25:25 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	new_light(t_env *env, char **data)
 {
 	t_light	*light;
 
-	if (env->light || ft_tablen(data) != 4)
+	if (ft_tablen(data) != 4)
 	{
 		ft_freetab(data);
 		ft_putstr("Error: wrong data: light source\n", 2);
@@ -62,7 +62,7 @@ int	new_light(t_env *env, char **data)
 	}
 	if (init_light(light, data))
 		return (1);
-	env->light = light;
+	add_back_light(&env->light, light);
 	ft_freetab(data);
 	return (0);
 }

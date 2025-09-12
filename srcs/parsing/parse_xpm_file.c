@@ -1,28 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mlx_utils.c                                        :+:      :+:    :+:   */
+/*   parse_xpm_file.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mgalvez <mgalvez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/28 13:58:57 by mgalvez           #+#    #+#             */
-/*   Updated: 2025/02/28 14:02:37 by mgalvez          ###   ########.fr       */
+/*   Created: 2025/03/01 20:33:15 by mgalvez           #+#    #+#             */
+/*   Updated: 2025/09/11 19:28:23 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT_bonus.h"
+#include "miniRT.h"
 
-t_element	*find_selected_object(t_env *env)
+int	parse_xpm_file(t_env *env, t_img *img, char *data)
 {
-	t_element	*figure;
-	int			i;
-
-	figure = env->figure;
-	i = 1;
-	while (i < env->selected_object)
+	img->img = mlx_xpm_file_to_image(env->mlx, data, &img->w, &img->h);
+	if (!img->img)
 	{
-		figure = figure->next;
-		i++;
+		ft_putstr("Error: failed to load xpm file\n", 2);
+		return (1);
 	}
-	return (figure);
+	img->img_pixels = mlx_get_data_addr(img->img, &img->bits_per_pixel,
+			&img->line_len, &img->endian);
+	return (0);
 }

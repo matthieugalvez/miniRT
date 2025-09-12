@@ -6,11 +6,11 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 21:07:24 by mgalvez           #+#    #+#             */
-/*   Updated: 2025/03/04 14:25:59 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/09/11 19:24:28 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT_bonus.h"
+#include "miniRT.h"
 
 static void	change_ref(t_hitpoint *hitpoint, t_element *figure,
 		t_coordinates *proj, t_coordinates *new_ref)

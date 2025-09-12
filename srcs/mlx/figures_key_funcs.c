@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 17:24:45 by mgalvez           #+#    #+#             */
-/*   Updated: 2025/03/01 18:08:39 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/09/11 19:27:22 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,14 +90,14 @@ void	move_object(int keysym, t_env *env)
 		&& figure->id != PLANE)
 		ft_change_diameter(keysym, env, figure);
 	else if ((keysym == XK_KP_Divide || keysym == XK_KP_Multiply)
-		&& figure->id == CYLINDER)
+		&& (figure->id == CYLINDER || figure->id == CONE))
 		ft_change_height(keysym, env, figure);
 	else if (keysym == XK_w || keysym == XK_a
 		|| keysym == XK_s || keysym == XK_d
 		|| keysym == XK_q || keysym == XK_e)
 		ft_translate_figure(keysym, env, figure);
-	else if (keysym >= XK_Left && keysym <= XK_Down && figure->id != SPHERE)
+	else if (keysym >= XK_Left && keysym <= XK_Down)
 		ft_rotate_figure(keysym, env, figure);
-	if (figure->id == CYLINDER)
-		find_cylinder_disks(figure);
+	if (figure->id == CYLINDER || figure->id == CONE)
+		find_disks(figure);
 }

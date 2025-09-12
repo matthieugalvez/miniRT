@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 16:36:06 by achantra          #+#    #+#             */
-/*   Updated: 2025/03/01 18:01:07 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/09/11 19:25:41 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ void	find_viewport(t_env *env)
 
 int	parse_vector(char *data, t_coordinates *vector)
 {
-	char			**num;
-
 	if (parse_coordinates(data, vector))
 		return (1);
 	if (vector->x < -1 || vector->y < -1 || vector->z < -1

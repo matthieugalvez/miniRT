@@ -1,19 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_env.c                                         :+:      :+:    :+:   */
+/*   ft_freentab.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgalvez <mgalvez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/01 12:44:19 by achantra          #+#    #+#             */
-/*   Updated: 2025/02/25 18:00:47 by mgalvez          ###   ########.fr       */
+/*   Created: 2025/09/10 13:31:47 by mgalvez           #+#    #+#             */
+/*   Updated: 2025/09/10 13:32:33 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT_bonus.h"
+#include <stdlib.h>
 
-void	init_env(t_env	*env)
+void	ft_freentab(char **tab, size_t size)
 {
-	ft_bzero(env, sizeof(t_env));
-	env->a_ratio = (float)WIN_W / (float)WIN_H;
+	size_t	i;
+
+	i = 0;
+	while (i < size)
+	{
+		free(tab[i]);
+		i++;
+	}
+	free(tab);
 }

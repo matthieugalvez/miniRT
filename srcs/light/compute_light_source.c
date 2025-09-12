@@ -6,11 +6,11 @@
 /*   By: mgalvez <mgalvez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 10:59:44 by mgalvez           #+#    #+#             */
-/*   Updated: 2025/03/02 17:02:05 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/09/11 19:26:34 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT_bonus.h"
+#include "miniRT.h"
 
 static void	get_specular(t_coordinates *reflexion_vec, t_ray *cam_ray,
 						t_light *light, t_color *color)

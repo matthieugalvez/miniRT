@@ -6,11 +6,11 @@
 /*   By: mgalvez <mgalvez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 11:20:06 by mgalvez           #+#    #+#             */
-/*   Updated: 2025/03/01 16:27:13 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/09/11 19:27:01 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT_bonus.h"
+#include "miniRT.h"
 
 static t_coordinates	pyramid_normal(t_element *cone, t_coordinates *point)
 {

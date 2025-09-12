@@ -6,11 +6,12 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 13:46:27 by achantra          #+#    #+#             */
-/*   Updated: 2025/03/01 18:02:32 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/09/11 19:26:17 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
+#include "struct.h"
 
 static void	intersect_plane(t_element *pl, t_ray *ray)
 {
@@ -59,6 +60,8 @@ double	find_intsec(t_ray *ray, t_element *figure)
 		intersect_cylinder(figure, ray);
 	else if (figure->id == PLANE)
 		intersect_plane(figure, ray);
+	else if (figure->id == CONE)
+		intersect_cone(figure, ray);
 	if (figure->c_inter[0] < intersec - EPSILON && figure->c_inter[0] > 0)
 		intersec = figure->c_inter[0];
 	if (figure->c_inter[1] < intersec - EPSILON && figure->c_inter[1] > 0)

@@ -6,99 +6,41 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 17:21:35 by achantra          #+#    #+#             */
-/*   Updated: 2025/03/01 20:55:34 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/09/11 19:25:20 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-/*
-- cy
-	∗ x,y,z coordinates of the center of the cylinder: 50.0,0.0,20.6
-	∗ 3d normalized vector of axis of cylinder.
-		In range [-1,1] for each x,y,z axis 0.0,0.0,1.0
-	∗ the cylinder diameter: 14.2
-	∗ the cylinder height: 21.42
-	∗ R,G,B colors in range [0,255]: 10, 0, 255
-*/
-
-static int	init_cylinder(t_element *cylinder, t_env *env, char **data)
-{
-	cylinder->diameter = parse_length(data[3]);
-	cylinder->radius = cylinder->diameter / 2;
-	cylinder->height = parse_length(data[4]);
-	if (cylinder->diameter <= 0 || cylinder->height <= 0)
-	{
-		clean_figure(cylinder);
-		ft_freetab(data);
-		ft_putstr("Error: wrong data: cylinder\n", 2);
-		return (1);
-	}
-	find_cylinder_disks(cylinder);
-	add_back_elem(&env->figure, cylinder);
-	ft_freetab(data);
-	return (find_vectors(cylinder));
-}
-
-int	new_cylinder(t_env *env, char **data)
-{
-	t_element	*cylinder;
-
-	cylinder = ft_calloc(sizeof(t_element), 1);
-	if (!cylinder)
-	{
-		ft_freetab(data);
-		perror("Error");
-		return (1);
-	}
-	cylinder->id = CYLINDER;
-	if (ft_tablen(data) != 6
-		||parse_coordinates(data[1], &cylinder->coord)
-		|| parse_vector(data[2], &cylinder->vector)
-		|| parse_color(data[5], &cylinder->color))
-	{
-		clean_figure(cylinder);
-		ft_freetab(data);
-		ft_putstr("Error: wrong data: cylinder\n", 2);
-		return (1);
-	}
-	normalize_vec(&cylinder->vector);
-	return (init_cylinder(cylinder, env, data));
-}
-
 static int	init_figure(t_element *figure, t_env *env, char **data)
 {
-	if (parse_coordinates(data[1], &figure->coord)
-		|| parse_color(data[3], &figure->color))
+	if (parse_figure_color_data(figure, env, data[3]))
 	{
-		clean_figure(figure);
+		clean_figure(env, figure);
 		ft_freetab(data);
+		return (1);
+	}
+	if (data[4] && parse_figure_color_data(figure, env, data[4]))
+	{
+		clean_figure(env, figure);
+		ft_freetab(data);
+		return (1);
+	}
+	ft_freetab(data);
+	if (figure->color_cmpt && figure->texture_cmpt)
+	{
+		clean_figure(env, figure);
+		ft_putstr("Error: wrong data: color\n", 2);
 		return (1);
 	}
 	add_back_elem(&env->figure, figure);
-	ft_freetab(data);
-	if (figure->id == PLANE)
-		return (find_vectors(figure));
-	return (0);
+	return (find_vectors(figure));
 }
-
-/*
-	- sp
-		∗ x,y,z coordinates of the sphere center: 0.0,0.0,20.6
-		∗ the sphere diameter: 12.6
-		* R,G,B colors in range [0-255]: 10, 0, 255
-*/
 
 int	new_sphere(t_env *env, char **data)
 {
 	t_element	*sphere;
 
-	if (ft_tablen(data) != 4)
-	{
-		ft_freetab(data);
-		ft_putstr("Error: wrong data: sphere\n", 2);
-		return (1);
-	}
 	sphere = ft_calloc(sizeof(t_element), 1);
 	if (!sphere)
 	{
@@ -108,29 +50,24 @@ int	new_sphere(t_env *env, char **data)
 	}
 	sphere->id = SPHERE;
 	sphere->diameter = parse_length(data[2]);
-	if (sphere->diameter <= 0)
+	if (ft_tablen(data) < 4 || ft_tablen(data) > 5 || parse_coordinates(data[1],
+			&sphere->coord) || sphere->diameter <= 0)
 	{
-		clean_figure(sphere);
+		clean_figure(env, sphere);
 		ft_freetab(data);
 		ft_putstr("Error: wrong data: sphere\n", 2);
 		return (1);
 	}
+	sphere->vector = change_vec(1, 0, 0);
+	normalize_vec(&sphere->vector);
 	return (init_figure(sphere, env, data));
 }
-
-/*
-- pl
-	∗ identifier: pl
-	∗ x,y,z coordinates of a point in the plane: 0.0,0.0,-10.0
-	∗ 3d normalized normal vector. In range [-1,1] for each x,y,z axis: 0.0,1.0,0.0
-	∗ R,G,B colors in range [0-255]: 0,0,225
-*/
 
 int	new_plane(t_env *env, char **data)
 {
 	t_element	*plane;
 
-	if (ft_tablen(data) != 4)
+	if (ft_tablen(data) < 4 || ft_tablen(data) > 5)
 	{
 		ft_freetab(data);
 		ft_putstr("Error: wrong data: plane\n", 2);
@@ -144,9 +81,10 @@ int	new_plane(t_env *env, char **data)
 		return (1);
 	}
 	plane->id = PLANE;
-	if (parse_vector(data[2], &plane->vector))
+	if (parse_coordinates(data[1], &plane->coord)
+		|| parse_vector(data[2], &plane->vector))
 	{
-		clean_figure(plane);
+		clean_figure(env, plane);
 		ft_freetab(data);
 		return (1);
 	}

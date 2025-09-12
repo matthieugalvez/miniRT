@@ -6,17 +6,20 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 12:08:44 by achantra          #+#    #+#             */
-/*   Updated: 2025/03/01 17:49:58 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/09/11 19:22:51 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-static void	find_hitpoint(t_coordinates *hitpoint, t_ray *ray, double distance)
+static void	init_hitpoint(t_env *env, t_hitpoint *hitpoint, double distance)
 {
-	hitpoint->x = distance * ray->direction.x + ray->origin.x;
-	hitpoint->y = distance * ray->direction.y + ray->origin.y;
-	hitpoint->z = distance * ray->direction.z + ray->origin.z;
+	t_ray			*ray;
+
+	ray = &env->camera.ray;
+	hitpoint->coord.x = distance * ray->direction.x + ray->origin.x;
+	hitpoint->coord.y = distance * ray->direction.y + ray->origin.y;
+	hitpoint->coord.z = distance * ray->direction.z + ray->origin.z;
 }
 
 static int	get_color(t_env *env, t_ray *ray)
@@ -25,7 +28,7 @@ static int	get_color(t_env *env, t_ray *ray)
 	int				color;
 	double			distance;
 	double			intersec;
-	t_coordinates	hitpoint;
+	t_hitpoint		hitpoint;
 
 	figure = env->figure;
 	color = 0;
@@ -37,8 +40,9 @@ static int	get_color(t_env *env, t_ray *ray)
 		{
 			distance = intersec;
 			figure->cam_intersec_type = figure->intersec_type;
-			find_hitpoint(&hitpoint, ray, distance);
-			color = apply_light(env, ray, figure, &hitpoint);
+			init_hitpoint(env, &hitpoint, distance);
+			find_hitpoint_color(&hitpoint, figure);
+			color = apply_light(env, figure, &hitpoint);
 		}
 		figure = figure->next;
 	}

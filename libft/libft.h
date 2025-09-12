@@ -6,7 +6,7 @@
 /*   By: mmanuell <mmanuell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 12:06:28 by mgalvez           #+#    #+#             */
-/*   Updated: 2025/02/15 17:41:38 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/09/10 13:33:18 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int		ft_checkrepeatingnbrs(int *tab, int depht);
 int		ft_checksortednmbrs(int *tab, int depht);
 void	ft_cut_tabline(char **tab, int i);
 void	ft_freetab(char **tab);
+void	ft_freentab(char **tab, size_t size);
 int		ft_getbiggest(int *tab, int len);
 int		ft_getmult(int nb);
 char	*ft_getnextline(int fd);
