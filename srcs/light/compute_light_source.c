@@ -6,7 +6,7 @@
 /*   By: mgalvez <mgalvez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 10:59:44 by mgalvez           #+#    #+#             */
-/*   Updated: 2025/09/11 19:26:34 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/09/12 10:51:52 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ static t_coordinates	get_reflexion_vec(t_coordinates *light_ray,
 static t_color	get_diffuse(t_light *light, t_color *hitpoint_color,
 			double cos_angle)
 {
-	double	specular_factor;
 	t_color	applied_diffuse;
 
 	applied_diffuse.r = light->color.r * light->bright * 0.9;
@@ -74,7 +73,6 @@ static t_color	get_diffuse(t_light *light, t_color *hitpoint_color,
 static int	find_shadow(t_env *env, t_element *current_figure, t_ray *light_ray)
 {
 	t_element	*figure;
-	double		intsec;
 	double		distance;
 	double		new_distance;
 

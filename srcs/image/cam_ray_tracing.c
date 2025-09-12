@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 12:08:44 by achantra          #+#    #+#             */
-/*   Updated: 2025/09/11 19:22:51 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/09/12 10:45:44 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ int	draw_image(t_env *env)
 	int				color;
 	t_coordinates	direction;
 
+	ft_bzero(&direction, sizeof(direction));
 	env->camera.ray.origin = env->camera.coord;
 	env->camera.ray.direction = direction;
 	j = 0;

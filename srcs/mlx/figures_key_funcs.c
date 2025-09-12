@@ -6,13 +6,13 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 17:24:45 by mgalvez           #+#    #+#             */
-/*   Updated: 2025/09/11 19:27:22 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/09/12 10:54:55 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-static void	ft_rotate_figure(int keysym, t_env *env, t_element *figure)
+static void	ft_rotate_figure(int keysym, t_element *figure)
 {
 	t_coordinates	lerp;
 
@@ -40,7 +40,7 @@ static void	ft_rotate_figure(int keysym, t_env *env, t_element *figure)
 	normalize_vec(&figure->vector);
 }
 
-static void	ft_translate_figure(int keysym, t_env *env, t_element *figure)
+static void	ft_translate_figure(int keysym, t_element *figure)
 {
 	if (keysym == XK_a)
 		double_decrement(&figure->coord.x);
@@ -56,7 +56,7 @@ static void	ft_translate_figure(int keysym, t_env *env, t_element *figure)
 		double_increment(&figure->coord.z);
 }
 
-static void	ft_change_height(int keysym, t_env *env, t_element *figure)
+static void	ft_change_height(int keysym, t_element *figure)
 {
 	if (keysym == XK_KP_Divide && !equal_double(figure->height, 1))
 	{
@@ -68,7 +68,7 @@ static void	ft_change_height(int keysym, t_env *env, t_element *figure)
 		double_increment(&figure->height);
 }
 
-static void	ft_change_diameter(int keysym, t_env *env, t_element *figure)
+static void	ft_change_diameter(int keysym, t_element *figure)
 {
 	if (keysym == XK_KP_Subtract && !equal_double(figure->diameter, 1))
 	{
@@ -88,16 +88,16 @@ void	move_object(int keysym, t_env *env)
 	figure = find_selected_object(env);
 	if ((keysym == XK_KP_Add || keysym == XK_KP_Subtract)
 		&& figure->id != PLANE)
-		ft_change_diameter(keysym, env, figure);
+		ft_change_diameter(keysym, figure);
 	else if ((keysym == XK_KP_Divide || keysym == XK_KP_Multiply)
 		&& (figure->id == CYLINDER || figure->id == CONE))
-		ft_change_height(keysym, env, figure);
+		ft_change_height(keysym, figure);
 	else if (keysym == XK_w || keysym == XK_a
 		|| keysym == XK_s || keysym == XK_d
 		|| keysym == XK_q || keysym == XK_e)
-		ft_translate_figure(keysym, env, figure);
+		ft_translate_figure(keysym, figure);
 	else if (keysym >= XK_Left && keysym <= XK_Down)
-		ft_rotate_figure(keysym, env, figure);
+		ft_rotate_figure(keysym, figure);
 	if (figure->id == CYLINDER || figure->id == CONE)
 		find_disks(figure);
 }
