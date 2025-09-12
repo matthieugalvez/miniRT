@@ -37,67 +37,28 @@ miniRT <confFile>
 
 ## Controls
 
-`
-tab
-`
-Display controls
+`tab` Display controls
 
-`
-escape
-`
-Close window
+`escape` Close window
 
-`
-space
-`
-Select next object
+`space` Select next object
 
-`
-return
-`
-Select camera
+`return` Select camera
 
-`
-w a s d
-`
-Translate selected object
+`w a s d` Translate selected object
 
-`
-q e
-`
-Change selected object elevation
+`q e` Change selected object elevation
 
-`
-arrows
-`
-Rotate selected object
+`arrows` Rotate selected object
 
-`
-- +
-`
-Resize selected object or change the Field of View is camera is selected
+`- +`Resize selected object or change the Field of View is camera is selected
 
-`
-/ *
-`
-Change object height (cylinder or cone only)
+`/ *`Change object height (cylinder or cone only)
 
-`
-m
-`
-Select next light source
+`m` Select next light source
 
-`
-i j k l
-`
-Translate selected light source
+`i j k l` Translate selected light source
 
-`
-u o
-`
-Change selected light source elevation
+`u o` Change selected light source elevation
 
-`
-; p
-`
-Dim selected light source down or up
+`; p` Dim selected light source down or up
