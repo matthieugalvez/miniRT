@@ -6,7 +6,7 @@
 #    By: achantra <achantra@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/31 15:30:48 by achantra          #+#    #+#              #
-#    Updated: 2025/09/12 10:08:35 by mgalvez          ###   ########.fr        #
+#    Updated: 2025/09/12 10:24:26 by mgalvez          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,9 +63,10 @@ YELLOW		= \033[33m
 GREEN		= \033[32m
 END			= \033[0m
 
-all: libft ${NAME}
+all:
+	${MAKE} ${NAME}
 
-${NAME}: ${LIBFT} ${OBJS}
+${NAME}: libft ${OBJS}
 	@ ${CC} ${CFLAGS} ${LIBS} ${INCS_PARAM} ${OBJS} ${LIBFT} ${MLX} -o $@
 	@ printf "${ERASE}${GREEN}$@ made\n${END}"
 
@@ -76,8 +77,6 @@ fsanitize: libft ${OBJS}
 g3: libft ${OBJS}
 	@ ${CC} ${CFLAGS} ${LIBS} ${INCS_PARAM} ${OBJS} ${LIBFT} ${MLX} -o $@ -g3
 	@ printf "${ERASE}${GREEN}$@ made\n${END}"
-
-${LIBFT}: libft
 
 libft:
 	@ make -C ${LIBFT_DIR}

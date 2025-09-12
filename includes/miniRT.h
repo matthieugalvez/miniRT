@@ -6,7 +6,7 @@
 /*   By: achantra <achantra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 15:37:52 by achantra          #+#    #+#             */
-/*   Updated: 2025/09/12 10:15:26 by mgalvez          ###   ########.fr       */
+/*   Updated: 2025/09/12 10:17:53 by mgalvez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,6 @@
 # define INCR_ROT 0.1
 # define INCR_EL 0.1
 # define INCR_ZOOM 1
-
-// # define DBLUE 0x00008b
-// # define LBLUE 0x1e90ff
-// # define TBLUE 0x40e0d0
 
 // INIT
 void			init_env(t_env *env);
