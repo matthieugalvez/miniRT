@@ -58,12 +58,12 @@ return
 Select camera
 
 ```
-W A S D
+w a s d
 ```
 Translate selected object
 
 ```
-Q E
+q e
 ```
 Change selected object elevation
 
@@ -83,19 +83,21 @@ Resize selected object or change the Field of View is camera is selected
 Change object height (cylinder or cone only)
 
 ```
-M
+m
 ```
 Select next light source
 
 ```
-I J K L
+i j k l
 ```
 Translate selected light source
 
 ```
-U O
+u o
 ```
 Change selected light source elevation
 
-```; P```
+```
+; p
+```
 Dim selected light source down or up
