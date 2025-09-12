@@ -19,3 +19,20 @@ Execute the miniRT binary with a scene configuration file (.rt) entered as argum
 ```bash
 miniRT <conf file>
 ```
+
+## Configuration File
+
+### Mandatory entries
+
+#### Camera
+
+#### Ambiant Light
+
+### Additional entries
+
+#### Light source
+
+#### Object
+
+
+## Controls
