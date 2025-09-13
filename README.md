@@ -22,7 +22,7 @@ miniRT <confFile>
 
 ## Configuration File
 
-Configuration files are identified by the '.rt' filename extension. Sample files are included in the 'scenes' and 'test' directories of the repository.
+Configuration files are identified by the `.rt` filename extension. Sample files are included in the 'scenes' and 'test' directories of the repository.
 
 Each line in the configuration file define an element in the generated scene. A line must start with the element identifier followed by its parameters.
 
