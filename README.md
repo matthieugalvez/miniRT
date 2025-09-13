@@ -22,9 +22,22 @@ miniRT <confFile>
 
 ## Configuration File
 
+Configuration files are identified by the '.rt' filename extension. Sample files are included in the 'scenes' and 'test' directories of the repository.
+
+Each line in the configuration file define an element in the generated scene. A line must start with the element identifier followed by its parameters.
+
 ### Mandatory entries
 
+A valid configuration file must contain strictly one of the following elements.
+
 #### Camera
+
+```
+C <coordinates> <orientation> <FOV>
+```
+The camera is defined by identifier `C` then the following parameters:
+
+`<coordinates>` A trio of floating point numbers formated as `x,y,z` defining the original position of the camera.
 
 #### Ambiant Light
 
@@ -51,9 +64,9 @@ miniRT <confFile>
 
 `arrows` Rotate selected object
 
-`- +`Resize selected object or change the Field of View is camera is selected
+`- +` Resize selected object or change the Field of View is camera is selected
 
-`/ *`Change object height (cylinder or cone only)
+`/ *` Change object height (cylinder or cone only)
 
 `m` Select next light source
 
