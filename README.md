@@ -73,6 +73,29 @@ A light source is defined by identifier `L` then the following parameters:
 
 #### Object
 
+##### Sphere
+
+```
+sp <coordinates> <diameter> <color> { [secondaryColor] || [textureFile] [bumpMapFile] }
+```
+
+##### Plane
+
+```
+pl <coordinates> <axis> <color> { [secondaryColor] || [textureFile] }
+```
+
+##### Cylinder
+
+```
+cy <coordinates> <axis> <diameter> <height> <color> { [secondaryColor] || [textureFile] }
+```
+
+##### Cone
+
+```
+co <coordinates> <axis> <diameter> <height> <color> { [secondaryColor] || [textureFile] }
+```
 
 ## Controls
 
