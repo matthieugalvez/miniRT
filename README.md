@@ -7,7 +7,7 @@ MiniRT is a basic Raytracer with implementation of geometric primitives (sphere,
 
 Use make to build miniRT executable binary.
 
-```bash
+```
 make
 ```
 
@@ -16,7 +16,7 @@ make
 
 Execute the miniRT binary with a scene configuration file (.rt) entered as argument.
 
-```bash
+```
 miniRT <confFile>
 ```
 
@@ -39,11 +39,37 @@ The camera is defined by identifier `C` then the following parameters:
 
 `<coordinates>` A trio of floating point numbers formated as `x,y,z` defining the original position of the camera.
 
+`<orientation>` A normalized orientation vector formated as `x,y,z` defining the original orientation of the camera. Numbers must be in range `[-1,1]`.
+
+`<FOV>` A integer in range `[0,180]` defining the original horizontal field of view of the camera.
+
 #### Ambiant Light
+
+```
+A <ratio> <color>
+```
+The ambiant light is defined by identifier `A` then the following parameters:
+
+`<ratio>` A floating point number in range `[0.0,1.0]` defining the brightness ratio of the ambiant light.
+
+`<color>` A trio of integer in range `[0,255]` formated as `r,g,b` defining the color of the ambiant light.
 
 ### Additional entries
 
+A valid configuration file can contain any number of the following elements.
+
 #### Light source
+
+```
+L <coordinates> <ratio> <color>
+```
+A light source is defined by identifier `L` then the following parameters:
+
+`<coordinates>` A trio of floating point numbers formated as `x,y,z` defining the original position of the light source.
+
+`<ratio>` A floating point number in range `[0.0,1.0]` defining the intensity ratio of the light source.
+
+`<color>` A trio of integer in range `[0,255]` formated as `r,g,b` defining the color of the light source.
 
 #### Object
 
