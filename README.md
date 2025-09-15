@@ -77,11 +77,15 @@ A light source is defined by identifier `L` then the following parameters:
 
 ##### Sphere
 
+![sphere](/assets/readme_pictures/sphere.png)
+
 ```
 sp <coordinates> <diameter> <color> { [secondaryColor] || [textureFile] [bumpMapFile] }
 ```
 
 ##### Plane
+
+![plan](/assets/readme_pictures/plan.png)
 
 ```
 pl <coordinates> <axis> <color> { [secondaryColor] || [textureFile] }
@@ -89,11 +93,15 @@ pl <coordinates> <axis> <color> { [secondaryColor] || [textureFile] }
 
 ##### Cylinder
 
+![cylinder](/assets/readme_pictures/cylinder.png)
+
 ```
 cy <coordinates> <axis> <diameter> <height> <color> { [secondaryColor] || [textureFile] }
 ```
 
 ##### Cone
+
+![cone](/assets/readme_pictures/cone.png)
 
 ```
 co <coordinates> <axis> <diameter> <height> <color> { [secondaryColor] || [textureFile] }
