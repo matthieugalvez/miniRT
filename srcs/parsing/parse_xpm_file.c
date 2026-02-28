@@ -12,15 +12,13 @@
 
 #include "miniRT.h"
 
-int	parse_xpm_file(t_env *env, t_img *img, char *data)
-{
-	img->img = mlx_xpm_file_to_image(env->mlx, data, &img->w, &img->h);
-	if (!img->img)
-	{
-		ft_putstr("Error: failed to load xpm file\n", 2);
-		return (1);
-	}
-	img->img_pixels = mlx_get_data_addr(img->img, &img->bits_per_pixel,
-			&img->line_len, &img->endian);
-	return (0);
+int parse_xpm_file(t_env *env, t_img *img, char *data) {
+    img->img = mlx_xpm_file_to_image(env->mlx, data, &img->w, &img->h);
+    if (!img->img) {
+        ft_putstr("Error: failed to load xpm file\n", 2);
+        return (1);
+    }
+    img->img_pixels = mlx_get_data_addr(img->img, &img->bits_per_pixel,
+                                        &img->line_len, &img->endian);
+    return (0);
 }

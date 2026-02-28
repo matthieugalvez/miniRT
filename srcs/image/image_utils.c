@@ -12,17 +12,15 @@
 
 #include "miniRT.h"
 
-void	my_pixel_put(int i, int j, t_env *env, int color)
-{
-	int	offset;
+void my_pixel_put(int i, int j, t_env *env, int color) {
+    int offset;
 
-	if (i >= WIN_W || j >= WIN_H || i < 0 || j < 0)
-		return ;
-	offset = (env->img.line_len * j) + (i * (env->img.bits_per_pixel / 8));
-	*((unsigned int *)((env->img).img_pixels + offset)) = color;
+    if (i >= WIN_W || j >= WIN_H || i < 0 || j < 0)
+        return;
+    offset = (env->img.line_len * j) + (i * (env->img.bits_per_pixel / 8));
+    *((unsigned int *)((env->img).img_pixels + offset)) = color;
 }
 
-int	rgb_to_hexa(t_color *color)
-{
-	return (color->r << 16 | color->g << 8 | color->b);
+int rgb_to_hexa(t_color *color) {
+    return (color->r << 16 | color->g << 8 | color->b);
 }

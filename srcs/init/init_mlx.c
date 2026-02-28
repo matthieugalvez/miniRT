@@ -12,19 +12,16 @@
 
 #include "miniRT.h"
 
-int	init_mlx(t_env *env)
-{
-	env->win = mlx_new_window(env->mlx, WIN_W, WIN_H, "miniRT");
-	if (!env->win)
-	{
-		ft_putstr("Error: mlx\n", 2);
-		return (clean_env(env, 1));
-	}
-	env->img.img = mlx_new_image(env->mlx, WIN_W, WIN_H);
-	if (!env->img.img)
-	{
-		ft_putstr("Error: mlx\n", 2);
-		return (clean_env(env, 1));
-	}
-	return (0);
+int init_mlx(t_env *env) {
+    env->win = mlx_new_window(env->mlx, WIN_W, WIN_H, "miniRT");
+    if (!env->win) {
+        ft_putstr("Error: mlx\n", 2);
+        return (clean_env(env, 1));
+    }
+    env->img.img = mlx_new_image(env->mlx, WIN_W, WIN_H);
+    if (!env->img.img) {
+        ft_putstr("Error: mlx\n", 2);
+        return (clean_env(env, 1));
+    }
+    return (0);
 }

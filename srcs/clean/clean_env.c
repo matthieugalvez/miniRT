@@ -12,58 +12,49 @@
 
 #include "miniRT.h"
 
-static void	clean_mlx(t_env *env)
-{
-	if (env->mlx)
-	{
-		if (env->img.img)
-			mlx_destroy_image(env->mlx, env->img.img);
-		if (env->win)
-			mlx_destroy_window(env->mlx, env->win);
-		mlx_destroy_display(env->mlx);
-		free(env->mlx);
-	}
+static void clean_mlx(t_env *env) {
+    if (env->mlx) {
+        if (env->img.img)
+            mlx_destroy_image(env->mlx, env->img.img);
+        if (env->win)
+            mlx_destroy_window(env->mlx, env->win);
+        mlx_destroy_display(env->mlx);
+        free(env->mlx);
+    }
 }
 
-void	clean_light(t_light *light)
-{
-	t_light	*buf;
+void clean_light(t_light *light) {
+    t_light *buf;
 
-	if (light)
-	{
-		while (light)
-		{
-			buf = light;
-			light = light->next;
-			free(buf);
-		}
-	}
+    if (light) {
+        while (light) {
+            buf = light;
+            light = light->next;
+            free(buf);
+        }
+    }
 }
 
-void	clean_figure(t_env *env, t_element *figure)
-{
-	t_element	*buf;
+void clean_figure(t_env *env, t_element *figure) {
+    t_element *buf;
 
-	if (figure)
-	{
-		while (figure)
-		{
-			buf = figure;
-			if (buf->texture.img)
-				mlx_destroy_image(env->mlx, figure->texture.img);
-			if (buf->bump_map.img)
-				mlx_destroy_image(env->mlx, figure->bump_map.img);
-			figure = figure->next;
-			free(buf);
-		}
-	}
+    if (figure) {
+        while (figure) {
+            buf = figure;
+            if (buf->texture.img)
+                mlx_destroy_image(env->mlx, figure->texture.img);
+            if (buf->bump_map.img)
+                mlx_destroy_image(env->mlx, figure->bump_map.img);
+            figure = figure->next;
+            free(buf);
+        }
+    }
 }
 
-int	clean_env(t_env *env, int exit_code)
-{
-	clean_light(env->light);
-	clean_figure(env, env->figure);
-	clean_mlx(env);
-	exit (exit_code);
-	return (exit_code);
+int clean_env(t_env *env, int exit_code) {
+    clean_light(env->light);
+    clean_figure(env, env->figure);
+    clean_mlx(env);
+    exit(exit_code);
+    return (exit_code);
 }

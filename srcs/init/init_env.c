@@ -12,8 +12,7 @@
 
 #include "miniRT.h"
 
-void	init_env(t_env	*env)
-{
-	ft_bzero(env, sizeof(t_env));
-	env->a_ratio = (float)WIN_W / (float)WIN_H;
+void init_env(t_env *env) {
+    ft_bzero(env, sizeof(t_env));
+    env->a_ratio = (float)WIN_W / (float)WIN_H;
 }

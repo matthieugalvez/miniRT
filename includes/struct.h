@@ -11,113 +11,103 @@
 /* ************************************************************************** */
 
 #ifndef STRUCT_H
-# define STRUCT_H
+#define STRUCT_H
 
-typedef struct s_color
-{
-	int					r;
-	int					g;
-	int					b;
-}						t_color;
+typedef struct s_color {
+    int r;
+    int g;
+    int b;
+} t_color;
 
-typedef struct s_coordinates
-{
-	double				x;
-	double				y;
-	double				z;
+typedef struct s_coordinates {
+    double x;
+    double y;
+    double z;
 
-}						t_coordinates;
+} t_coordinates;
 
-typedef struct s_hitpoint
-{
-	t_coordinates	coord;
-	t_color			color;
-	double			bubv[2];
-}					t_hitpoint;
+typedef struct s_hitpoint {
+    t_coordinates coord;
+    t_color color;
+    double bubv[2];
+} t_hitpoint;
 
-typedef struct s_ray
-{
-	t_coordinates		direction;
-	t_coordinates		origin;
-}						t_ray;
+typedef struct s_ray {
+    t_coordinates direction;
+    t_coordinates origin;
+} t_ray;
 
-typedef struct s_camera
-{
-	t_coordinates		coord;
-	t_coordinates		dir;
-	t_coordinates		dir_right;
-	t_coordinates		dir_up;
-	double				fov;
-	t_ray				ray;
-}						t_camera;
+typedef struct s_camera {
+    t_coordinates coord;
+    t_coordinates dir;
+    t_coordinates dir_right;
+    t_coordinates dir_up;
+    double fov;
+    t_ray ray;
+} t_camera;
 
-typedef struct s_light
-{
-	t_coordinates		coord;
-	double				bright;
-	t_color				color;
-	struct s_light		*next;
-}						t_light;
+typedef struct s_light {
+    t_coordinates coord;
+    double bright;
+    t_color color;
+    struct s_light *next;
+} t_light;
 
-typedef struct s_amb
-{
-	double				bright;
-	t_color				color;
-}						t_amb;
+typedef struct s_amb {
+    double bright;
+    t_color color;
+} t_amb;
 
-typedef struct s_img
-{
-	void				*img;
-	char				*img_pixels;
-	int					bits_per_pixel;
-	int					endian;
-	int					line_len;
-	int					w;
-	int					h;
-}						t_img;
+typedef struct s_img {
+    void *img;
+    char *img_pixels;
+    int bits_per_pixel;
+    int endian;
+    int line_len;
+    int w;
+    int h;
+} t_img;
 
-typedef struct s_element
-{
-	int					id;
-	t_coordinates		coord;
-	t_coordinates		vector;
-	t_coordinates		vector_right;
-	t_coordinates		vector_up;
-	t_color				color;
-	t_color				colorbis;
-	int					color_cmpt;
-	t_img				texture;
-	int					texture_cmpt;
-	t_img				bump_map;
-	int					bump_map_cmpt;
-	double				diameter;
-	double				radius;
-	double				height;
-	t_coordinates		b_disk_c;
-	t_coordinates		t_disk_c;
-	double				c_inter[2];
-	int					intersec_type;
-	int					cam_intersec_type;
-	struct s_element	*next;
-}						t_element;
+typedef struct s_element {
+    int id;
+    t_coordinates coord;
+    t_coordinates vector;
+    t_coordinates vector_right;
+    t_coordinates vector_up;
+    t_color color;
+    t_color colorbis;
+    int color_cmpt;
+    t_img texture;
+    int texture_cmpt;
+    t_img bump_map;
+    int bump_map_cmpt;
+    double diameter;
+    double radius;
+    double height;
+    t_coordinates b_disk_c;
+    t_coordinates t_disk_c;
+    double c_inter[2];
+    int intersec_type;
+    int cam_intersec_type;
+    struct s_element *next;
+} t_element;
 
-typedef struct s_env
-{
-	t_element			*figure;
-	t_camera			camera;
-	int					cam_cmpt;
-	t_light				*light;
-	t_amb				amb;
-	int					amb_cmpt;
-	void				*mlx;
-	void				*win;
-	double				vp_w;
-	double				vp_h;
-	double				a_ratio;
-	t_img				img;
-	int					selected_light;
-	int					selected_object;
-	int					help;
-}						t_env;
+typedef struct s_env {
+    t_element *figure;
+    t_camera camera;
+    int cam_cmpt;
+    t_light *light;
+    t_amb amb;
+    int amb_cmpt;
+    void *mlx;
+    void *win;
+    double vp_w;
+    double vp_h;
+    double a_ratio;
+    t_img img;
+    int selected_light;
+    int selected_object;
+    int help;
+} t_env;
 
 #endif

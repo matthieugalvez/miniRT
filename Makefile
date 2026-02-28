@@ -79,7 +79,7 @@ g3: libft ${OBJS}
 	@ printf "${ERASE}${GREEN}$@ made\n${END}"
 
 libft:
-	@ make -C ${LIBFT_DIR}
+	@ ${MAKE} --no-print-directory -C ${LIBFT_DIR}
 
 ${OBJS_DIR}/%.o: ${SRCS_DIR}/%.c
 	@ mkdir -p ${OBJS_DIR}
@@ -95,18 +95,18 @@ ${OBJS_DIR}/%.o: ${SRCS_DIR}/%.c
 	@ printf "${ERASE}${BLUE} > compilation: ${END}$<"
 
 clean:
-	@ make clean -C ${LIBFT_DIR}
+	@ ${MAKE} --no-print-directory clean -C ${LIBFT_DIR}
 	@ rm -rf ${OBJS_DIR}
 	@ printf "${YELLOW}${OBJS_DIR} removed\n${END}"
 
 fclean:
-	@ make fclean -C ${LIBFT_DIR}
+	@ ${MAKE} --no-print-directory fclean -C ${LIBFT_DIR}
 	@ rm -rf ${OBJS_DIR}
 	@ printf "${YELLOW}${OBJS_DIR} removed\n${END}"
 	@ rm -f ${NAME} fsanitize g3
 	@ printf "${YELLOW}binary removed\n${END}"
 
 re: fclean
-	${MAKE} all
+	${MAKE} --no-print-directory all
 
 .PHONY: all fsanitize g3 libft clean fclean re

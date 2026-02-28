@@ -12,17 +12,15 @@
 
 #include "miniRT.h"
 
-t_element	*find_selected_object(t_env *env)
-{
-	t_element	*figure;
-	int			i;
+t_element *find_selected_object(t_env *env) {
+    t_element *figure;
+    int i;
 
-	figure = env->figure;
-	i = 1;
-	while (i < env->selected_object)
-	{
-		figure = figure->next;
-		i++;
-	}
-	return (figure);
+    figure = env->figure;
+    i = 1;
+    while (i < env->selected_object) {
+        figure = figure->next;
+        i++;
+    }
+    return (figure);
 }

@@ -12,108 +12,102 @@
 
 #include "miniRT.h"
 
-static void	get_specular(t_coordinates *reflexion_vec, t_ray *cam_ray,
-						t_light *light, t_color *color)
-{
-	double	cos_angle;
-	double	specular;
+static void get_specular(t_coordinates *reflexion_vec, t_ray *cam_ray,
+                         t_light *light, t_color *color) {
+    double cos_angle;
+    double specular;
 
-	cos_angle = scalar_prod_vec(reflexion_vec, &cam_ray->direction);
-	if (cos_angle < EPSILON)
-		return ;
-	specular = light->bright * 0.5 * pow(cos_angle, 80);
-	color->r += light->color.r * specular;
-	color->g += light->color.g * specular;
-	color->b += light->color.b * specular;
-	if (color->r > 255)
-		color->r = 255;
-	if (color->g > 255)
-		color->g = 255;
-	if (color->b > 255)
-		color->b = 255;
+    cos_angle = scalar_prod_vec(reflexion_vec, &cam_ray->direction);
+    if (cos_angle < EPSILON)
+        return;
+    specular = light->bright * 0.5 * pow(cos_angle, 80);
+    color->r += light->color.r * specular;
+    color->g += light->color.g * specular;
+    color->b += light->color.b * specular;
+    if (color->r > 255)
+        color->r = 255;
+    if (color->g > 255)
+        color->g = 255;
+    if (color->b > 255)
+        color->b = 255;
 }
 
-static t_coordinates	get_reflexion_vec(t_coordinates *light_ray,
-							t_coordinates *normal_at_hp)
-{
-	t_coordinates	factor;
-	double			cos_angle;
+static t_coordinates get_reflexion_vec(t_coordinates *light_ray,
+                                       t_coordinates *normal_at_hp) {
+    t_coordinates factor;
+    double cos_angle;
 
-	cos_angle = 2 * scalar_prod_vec(normal_at_hp, light_ray);
-	factor = mult_vec(normal_at_hp, cos_angle);
-	return (sub_vec(&factor, light_ray));
+    cos_angle = 2 * scalar_prod_vec(normal_at_hp, light_ray);
+    factor = mult_vec(normal_at_hp, cos_angle);
+    return (sub_vec(&factor, light_ray));
 }
 
-static t_color	get_diffuse(t_light *light, t_color *hitpoint_color,
-			double cos_angle)
-{
-	t_color	applied_diffuse;
+static t_color get_diffuse(t_light *light, t_color *hitpoint_color,
+                           double cos_angle) {
+    t_color applied_diffuse;
 
-	applied_diffuse.r = light->color.r * light->bright * 0.9;
-	applied_diffuse.g = light->color.g * light->bright * 0.9;
-	applied_diffuse.b = light->color.b * light->bright * 0.9;
-	applied_diffuse.r *= hitpoint_color->r;
-	applied_diffuse.g *= hitpoint_color->g;
-	applied_diffuse.b *= hitpoint_color->b;
-	applied_diffuse.r /= 255;
-	applied_diffuse.g /= 255;
-	applied_diffuse.b /= 255;
-	applied_diffuse.r *= cos_angle;
-	applied_diffuse.g *= cos_angle;
-	applied_diffuse.b *= cos_angle;
-	if (applied_diffuse.r > 255)
-		applied_diffuse.r = 255;
-	if (applied_diffuse.g > 255)
-		applied_diffuse.g = 255;
-	if (applied_diffuse.b > 255)
-		applied_diffuse.b = 255;
-	return (applied_diffuse);
+    applied_diffuse.r = light->color.r * light->bright * 0.9;
+    applied_diffuse.g = light->color.g * light->bright * 0.9;
+    applied_diffuse.b = light->color.b * light->bright * 0.9;
+    applied_diffuse.r *= hitpoint_color->r;
+    applied_diffuse.g *= hitpoint_color->g;
+    applied_diffuse.b *= hitpoint_color->b;
+    applied_diffuse.r /= 255;
+    applied_diffuse.g /= 255;
+    applied_diffuse.b /= 255;
+    applied_diffuse.r *= cos_angle;
+    applied_diffuse.g *= cos_angle;
+    applied_diffuse.b *= cos_angle;
+    if (applied_diffuse.r > 255)
+        applied_diffuse.r = 255;
+    if (applied_diffuse.g > 255)
+        applied_diffuse.g = 255;
+    if (applied_diffuse.b > 255)
+        applied_diffuse.b = 255;
+    return (applied_diffuse);
 }
 
-static int	find_shadow(t_env *env, t_element *current_figure, t_ray *light_ray)
-{
-	t_element	*figure;
-	double		distance;
-	double		new_distance;
+static int find_shadow(t_env *env, t_element *current_figure,
+                       t_ray *light_ray) {
+    t_element *figure;
+    double distance;
+    double new_distance;
 
-	figure = env->figure;
-	distance = find_intsec(light_ray, current_figure);
-	while (figure)
-	{
-		new_distance = find_intsec(light_ray, figure);
-		if (new_distance < distance)
-			return (1);
-		figure = figure->next;
-	}
-	return (0);
+    figure = env->figure;
+    distance = find_intsec(light_ray, current_figure);
+    while (figure) {
+        new_distance = find_intsec(light_ray, figure);
+        if (new_distance < distance)
+            return (1);
+        figure = figure->next;
+    }
+    return (0);
 }
 
-t_color	compute_light_source(t_env *env, t_hitpoint *hitpoint,
-				t_element *figure, t_light *light)
-{
-	t_coordinates	normal_at_hp;
-	t_ray			light_ray;
-	double			cos_angle;
-	t_coordinates	reflexion_vec;
-	t_color			color;
+t_color compute_light_source(t_env *env, t_hitpoint *hitpoint,
+                             t_element *figure, t_light *light) {
+    t_coordinates normal_at_hp;
+    t_ray light_ray;
+    double cos_angle;
+    t_coordinates reflexion_vec;
+    t_color color;
 
-	ft_bzero(&color, sizeof(t_color));
-	light_ray.origin = light->coord;
-	light_ray.direction = sub_vec(&hitpoint->coord, &light->coord);
-	normalize_vec(&light_ray.direction);
-	normal_at_hp = get_normal_at(figure, &hitpoint->coord,
-			&light_ray, &env->camera.ray);
-	if (figure->bump_map_cmpt)
-		make_bump_map_normal(figure, &normal_at_hp, hitpoint->bubv);
-	light_ray.direction = mult_vec(&light_ray.direction, -1);
-	cos_angle = scalar_prod_vec(&normal_at_hp, &light_ray.direction);
-	light_ray.direction = mult_vec(&light_ray.direction, -1);
-	if (!find_shadow(env, figure, &light_ray) && cos_angle >= 0)
-	{
-		color = get_diffuse(light, &hitpoint->color, cos_angle);
-		reflexion_vec = get_reflexion_vec(&light_ray.direction, &normal_at_hp);
-		normalize_vec(&reflexion_vec);
-		get_specular(&reflexion_vec, &env->camera.ray, light, &color);
-	}
-	return (color);
+    ft_bzero(&color, sizeof(t_color));
+    light_ray.origin = light->coord;
+    light_ray.direction = sub_vec(&hitpoint->coord, &light->coord);
+    normalize_vec(&light_ray.direction);
+    normal_at_hp =
+        get_normal_at(figure, &hitpoint->coord, &light_ray, &env->camera.ray);
+    if (figure->bump_map_cmpt)
+        make_bump_map_normal(figure, &normal_at_hp, hitpoint->bubv);
+    light_ray.direction = mult_vec(&light_ray.direction, -1);
+    cos_angle = scalar_prod_vec(&normal_at_hp, &light_ray.direction);
+    light_ray.direction = mult_vec(&light_ray.direction, -1);
+    if (!find_shadow(env, figure, &light_ray) && cos_angle >= 0) {
+        color = get_diffuse(light, &hitpoint->color, cos_angle);
+        reflexion_vec = get_reflexion_vec(&light_ray.direction, &normal_at_hp);
+        normalize_vec(&reflexion_vec);
+        get_specular(&reflexion_vec, &env->camera.ray, light, &color);
+    }
+    return (color);
 }

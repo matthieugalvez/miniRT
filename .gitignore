@@ -5,6 +5,9 @@
 *.o
 .objs/
 
+# Archive
+*.a
+
 # Executables
 miniRT
 fsanitize
