@@ -12,15 +12,13 @@
 
 #include "libft.h"
 
-void	ft_print_str_tab(char **tab, int fd)
-{
-	int	i;
+void ft_print_str_tab(char **tab, int fd) {
+    int i;
 
-	i = 0;
-	while (tab[i])
-	{
-		ft_printf_fd(fd, "%d : %s\n", i, tab[i]);
-		i ++;
-	}
-	ft_printf_fd(fd, "\n");
+    i = 0;
+    while (tab[i]) {
+        ft_printf_fd(fd, "%d : %s\n", i, tab[i]);
+        i++;
+    }
+    ft_printf_fd(fd, "\n");
 }

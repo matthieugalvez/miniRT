@@ -10,22 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_getmult(int nb)
-{
-	long	nbr;
-	int		radix;
+int ft_getmult(int nb) {
+    long nbr;
+    int radix;
 
-	if (nb == 0)
-		return (0);
-	nbr = nb;
-	if (nbr < 0)
-		nbr *= -1;
-	radix = 10;
-	nbr /= 10;
-	while (nbr)
-	{
-		nbr /= 10;
-		radix *= 10;
-	}
-	return (radix);
+    if (nb == 0)
+        return (0);
+    nbr = nb;
+    if (nbr < 0)
+        nbr *= -1;
+    radix = 10;
+    nbr /= 10;
+    while (nbr) {
+        nbr /= 10;
+        radix *= 10;
+    }
+    return (radix);
 }

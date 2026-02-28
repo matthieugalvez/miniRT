@@ -10,22 +10,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_checksortednmbrs(int *tab, int depht)
-{
-	int	i;
-	int	j;
+int ft_checksortednmbrs(int *tab, int depht) {
+    int i;
+    int j;
 
-	i = 0;
-	while (i < depht)
-	{
-		j = i + 1;
-		while (j < depht)
-		{
-			if (tab[i] > tab[j])
-				return (1);
-			j++;
-		}
-		i++;
-	}
-	return (0);
+    i = 0;
+    while (i < depht) {
+        j = i + 1;
+        while (j < depht) {
+            if (tab[i] > tab[j])
+                return (1);
+            j++;
+        }
+        i++;
+    }
+    return (0);
 }

@@ -44,7 +44,8 @@ YELLOW		= \033[33m
 GREEN		= \033[32m
 END			= \033[0m
 
-all: ${NAME}
+all: 
+	@ ${MAKE} --no-print-directory ${NAME}
 
 ${NAME}: ${OBJS}
 	@ ar -rsc $@ $^
@@ -64,6 +65,6 @@ fclean: clean
 	@ printf "${YELLOW}${NAME} removed\n${END}"
 
 re: fclean
-	${MAKE} all
+	@ ${MAKE} --no-print-directory all
 
 .PHONY: all clean fclean re

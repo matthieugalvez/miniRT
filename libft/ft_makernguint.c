@@ -10,18 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
 #include <fcntl.h>
+#include <unistd.h>
 
-int	ft_makernguint(int mod)
-{
-	int				fd;
-	unsigned int	num;
+int ft_makernguint(int mod) {
+    int fd;
+    unsigned int num;
 
-	fd = open("/dev/urandom", O_RDONLY);
-	if (fd < 0)
-		return (0);
-	read(fd, &num, sizeof(unsigned int));
-	close(fd);
-	return (num % mod);
+    fd = open("/dev/urandom", O_RDONLY);
+    if (fd < 0)
+        return (0);
+    read(fd, &num, sizeof(unsigned int));
+    close(fd);
+    return (num % mod);
 }

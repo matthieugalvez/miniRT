@@ -10,23 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_getbiggest(int *tab, int len)
-{
-	int	i;
-	int	biggest;
-	int	biggest_index;
+int ft_getbiggest(int *tab, int len) {
+    int i;
+    int biggest;
+    int biggest_index;
 
-	biggest = tab[0];
-	biggest_index = 0;
-	i = 1;
-	while (i < len)
-	{
-		if (tab[i] > biggest)
-		{
-			biggest = tab[i];
-			biggest_index = i;
-		}
-		i++;
-	}
-	return (biggest_index);
+    biggest = tab[0];
+    biggest_index = 0;
+    i = 1;
+    while (i < len) {
+        if (tab[i] > biggest) {
+            biggest = tab[i];
+            biggest_index = i;
+        }
+        i++;
+    }
+    return (biggest_index);
 }

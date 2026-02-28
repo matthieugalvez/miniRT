@@ -10,19 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
 #include "libft.h"
+#include <unistd.h>
 
-int	ft_putendl(char *s, int fd)
-{
-	int	i;
+int ft_putendl(char *s, int fd) {
+    int i;
 
-	if (!s)
-		return (-1);
-	i = ft_putstr(s, fd);
-	if (i < 0)
-		return (i);
-	if (write(fd, "\n", 1) == 1)
-		return (i + 1);
-	return (-1);
+    if (!s)
+        return (-1);
+    i = ft_putstr(s, fd);
+    if (i < 0)
+        return (i);
+    if (write(fd, "\n", 1) == 1)
+        return (i + 1);
+    return (-1);
 }

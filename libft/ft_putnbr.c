@@ -10,24 +10,22 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
 #include "libft.h"
+#include <unistd.h>
 
-int	ft_putnbr(int n, char *base, int fd)
-{
-	long	nb;
-	int		siz;
+int ft_putnbr(int n, char *base, int fd) {
+    long nb;
+    int siz;
 
-	nb = (long)n;
-	siz = 0;
-	if (nb < 0)
-	{
-		nb *= -1;
-		ft_putchar('-', fd);
-		siz++;
-	}
-	if (nb / ft_strlen(base))
-		siz += ft_putnbr(nb / ft_strlen(base), base, fd);
-	ft_putchar((base[nb % ft_strlen(base)]), fd);
-	return (siz + 1);
+    nb = (long)n;
+    siz = 0;
+    if (nb < 0) {
+        nb *= -1;
+        ft_putchar('-', fd);
+        siz++;
+    }
+    if (nb / ft_strlen(base))
+        siz += ft_putnbr(nb / ft_strlen(base), base, fd);
+    ft_putchar((base[nb % ft_strlen(base)]), fd);
+    return (siz + 1);
 }

@@ -10,29 +10,27 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include "libft.h"
+#include <stdlib.h>
 
-char	*ft_strjoin_free(char *s1, char *s2, int to_free)
-{
-	char	*dst;
-	size_t	i;
+char *ft_strjoin_free(char *s1, char *s2, int to_free) {
+    char *dst;
+    size_t i;
 
-	i = ft_strlen(s1) + ft_strlen(s2);
-	dst = ft_calloc(sizeof(char), i + 1);
-	if (!dst)
-	{
-		if (to_free == 1 || to_free == 3)
-			free(s1);
-		if (to_free == 2 || to_free == 3)
-			free(s2);
-		return (NULL);
-	}
-	ft_strlcpy(dst, s1, i + 1);
-	ft_strlcat(dst, s2, i + 1);
-	if (to_free == 1 || to_free == 3)
-		free(s1);
-	if (to_free == 2 || to_free == 3)
-		free(s2);
-	return (dst);
+    i = ft_strlen(s1) + ft_strlen(s2);
+    dst = ft_calloc(sizeof(char), i + 1);
+    if (!dst) {
+        if (to_free == 1 || to_free == 3)
+            free(s1);
+        if (to_free == 2 || to_free == 3)
+            free(s2);
+        return (NULL);
+    }
+    ft_strlcpy(dst, s1, i + 1);
+    ft_strlcat(dst, s2, i + 1);
+    if (to_free == 1 || to_free == 3)
+        free(s1);
+    if (to_free == 2 || to_free == 3)
+        free(s2);
+    return (dst);
 }

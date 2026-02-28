@@ -12,15 +12,13 @@
 
 #include <stdlib.h>
 
-void	ft_freentab(char **tab, size_t size)
-{
-	size_t	i;
+void ft_freentab(char **tab, size_t size) {
+    size_t i;
 
-	i = 0;
-	while (i < size)
-	{
-		free(tab[i]);
-		i++;
-	}
-	free(tab);
+    i = 0;
+    while (i < size) {
+        free(tab[i]);
+        i++;
+    }
+    free(tab);
 }

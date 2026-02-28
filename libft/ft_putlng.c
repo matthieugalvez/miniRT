@@ -10,18 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
 #include "libft.h"
+#include <unistd.h>
 
-int	ft_putlng(unsigned long nbr, char *base, int fd)
-{
-	unsigned long	base_len;
-	int				siz;
+int ft_putlng(unsigned long nbr, char *base, int fd) {
+    unsigned long base_len;
+    int siz;
 
-	base_len = ft_strlen(base);
-	siz = 0;
-	if (nbr / base_len)
-		siz += ft_putlng(nbr / base_len, base, fd);
-	ft_putchar(base[nbr % base_len], fd);
-	return (siz + 1);
+    base_len = ft_strlen(base);
+    siz = 0;
+    if (nbr / base_len)
+        siz += ft_putlng(nbr / base_len, base, fd);
+    ft_putchar(base[nbr % base_len], fd);
+    return (siz + 1);
 }

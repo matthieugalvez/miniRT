@@ -13,14 +13,12 @@
 #include "libft.h"
 #include <stdlib.h>
 
-void	ft_cut_tabline(char **tab, int i)
-{
-	free(tab[i]);
-	tab[i] = tab[i + 1];
-	i++;
-	while (tab[i])
-	{
-		tab[i] = tab[i + 1];
-		i++;
-	}
+void ft_cut_tabline(char **tab, int i) {
+    free(tab[i]);
+    tab[i] = tab[i + 1];
+    i++;
+    while (tab[i]) {
+        tab[i] = tab[i + 1];
+        i++;
+    }
 }

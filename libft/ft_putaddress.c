@@ -10,19 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
 #include "libft.h"
+#include <unistd.h>
 
-int	ft_putaddress(void *address)
-{
-	int	siz;
+int ft_putaddress(void *address) {
+    int siz;
 
-	if (!address)
-	{
-		ft_putstr("(nil)", 1);
-		return (5);
-	}
-	siz = ft_putstr("0x", 1);
-	siz += ft_putlng((unsigned long)address, "0123456789abcdef", 1);
-	return (siz);
+    if (!address) {
+        ft_putstr("(nil)", 1);
+        return (5);
+    }
+    siz = ft_putstr("0x", 1);
+    siz += ft_putlng((unsigned long)address, "0123456789abcdef", 1);
+    return (siz);
 }

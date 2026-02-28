@@ -10,17 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-void	ft_push(int *tab, int len)
-{
-	int	buf;
-	int	i;
+void ft_push(int *tab, int len) {
+    int buf;
+    int i;
 
-	i = len - 1;
-	buf = tab[i];
-	while (i > 0)
-	{
-		tab[i] = tab[i - 1];
-		i--;
-	}
-	tab[i] = buf;
+    i = len - 1;
+    buf = tab[i];
+    while (i > 0) {
+        tab[i] = tab[i - 1];
+        i--;
+    }
+    tab[i] = buf;
 }

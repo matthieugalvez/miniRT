@@ -12,29 +12,26 @@
 
 #include <string.h>
 
-void	*ft_memset(void *s, int c, size_t n)
-{
-	size_t	*sts;
-	size_t	i;
-	size_t	j;
-	size_t	loop_n;
-	size_t	char_loop_n;
+void *ft_memset(void *s, int c, size_t n) {
+    size_t *sts;
+    size_t i;
+    size_t j;
+    size_t loop_n;
+    size_t char_loop_n;
 
-	sts = (size_t *)s;
-	i = 0;
-	j = 0;
-	loop_n = n / 8;
-	char_loop_n = n % 8;
-	while (i < loop_n)
-	{
-		sts[i] = c;
-		i++;
-	}
-	i *= 8;
-	while (j < char_loop_n)
-	{
-		((char *)s)[i + j] = c;
-		j++;
-	}
-	return (s);
+    sts = (size_t *)s;
+    i = 0;
+    j = 0;
+    loop_n = n / 8;
+    char_loop_n = n % 8;
+    while (i < loop_n) {
+        sts[i] = c;
+        i++;
+    }
+    i *= 8;
+    while (j < char_loop_n) {
+        ((char *)s)[i + j] = c;
+        j++;
+    }
+    return (s);
 }

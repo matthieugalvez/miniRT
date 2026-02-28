@@ -10,18 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include "libft.h"
+#include <stdlib.h>
 
-void	*ft_calloc(size_t nmemb, size_t size)
-{
-	void	*buffer;
+void *ft_calloc(size_t nmemb, size_t size) {
+    void *buffer;
 
-	if (nmemb * size > 2147483647)
-		return (NULL);
-	buffer = malloc(nmemb * size);
-	if (!buffer)
-		return (NULL);
-	ft_bzero(buffer, nmemb * size);
-	return (buffer);
+    if (nmemb * size > 2147483647)
+        return (NULL);
+    buffer = malloc(nmemb * size);
+    if (!buffer)
+        return (NULL);
+    ft_bzero(buffer, nmemb * size);
+    return (buffer);
 }

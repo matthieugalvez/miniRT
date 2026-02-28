@@ -10,16 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
 #include "libft.h"
+#include <unistd.h>
 
-int	ft_putunsint(unsigned int nbr, char *base)
-{
-	int	siz;
+int ft_putunsint(unsigned int nbr, char *base) {
+    int siz;
 
-	siz = 0;
-	if (nbr / ft_strlen(base))
-		siz += ft_putunsint(nbr / ft_strlen(base), base);
-	ft_putchar(base[nbr % ft_strlen(base)], 1);
-	return (siz + 1);
+    siz = 0;
+    if (nbr / ft_strlen(base))
+        siz += ft_putunsint(nbr / ft_strlen(base), base);
+    ft_putchar(base[nbr % ft_strlen(base)], 1);
+    return (siz + 1);
 }

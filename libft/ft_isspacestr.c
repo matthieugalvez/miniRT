@@ -12,13 +12,11 @@
 
 #include "libft.h"
 
-int	ft_isspacestr(char *str)
-{
-	while (*str)
-	{
-		if (ft_isspace(*str))
-			return (1);
-		str ++;
-	}
-	return (0);
+int ft_isspacestr(char *str) {
+    while (*str) {
+        if (ft_isspace(*str))
+            return (1);
+        str++;
+    }
+    return (0);
 }

@@ -12,21 +12,18 @@
 
 #include "libft.h"
 
-int	ft_tabcpy(char **dest, char **src)
-{
-	int	i;
+int ft_tabcpy(char **dest, char **src) {
+    int i;
 
-	i = 0;
-	while (src[i])
-	{
-		dest[i] = ft_strdup(src[i]);
-		if (!dest[i])
-		{
-			ft_freetab(dest);
-			return (1);
-		}
-		i++;
-	}
-	dest[i] = NULL;
-	return (0);
+    i = 0;
+    while (src[i]) {
+        dest[i] = ft_strdup(src[i]);
+        if (!dest[i]) {
+            ft_freetab(dest);
+            return (1);
+        }
+        i++;
+    }
+    dest[i] = NULL;
+    return (0);
 }

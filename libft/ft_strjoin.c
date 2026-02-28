@@ -10,30 +10,28 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include "libft.h"
+#include <stdlib.h>
 
-char	*ft_strjoin(char const *s1, char const *s2)
-{
-	char	*dst;
-	size_t	i;
+char *ft_strjoin(char const *s1, char const *s2) {
+    char *dst;
+    size_t i;
 
-	i = ft_strlen(s1) + ft_strlen(s2);
-	if (i == 0)
-		i++;
-	dst = ft_calloc(sizeof(char), i + 1);
-	if (!dst)
-		return (NULL);
-	if (!s1 && !s2)
-		dst = " ";
-	else if (!s1)
-		ft_strlcpy(dst, s2, i + 1);
-	else if (!s2)
-		ft_strlcpy(dst, s1, i + 1);
-	else
-	{
-		ft_strlcpy(dst, s1, i + 1);
-		ft_strlcat(dst, s2, i + 1);
-	}
-	return (dst);
+    i = ft_strlen(s1) + ft_strlen(s2);
+    if (i == 0)
+        i++;
+    dst = ft_calloc(sizeof(char), i + 1);
+    if (!dst)
+        return (NULL);
+    if (!s1 && !s2)
+        dst = " ";
+    else if (!s1)
+        ft_strlcpy(dst, s2, i + 1);
+    else if (!s2)
+        ft_strlcpy(dst, s1, i + 1);
+    else {
+        ft_strlcpy(dst, s1, i + 1);
+        ft_strlcat(dst, s2, i + 1);
+    }
+    return (dst);
 }
