@@ -44,7 +44,7 @@ YELLOW		= \033[33m
 GREEN		= \033[32m
 END			= \033[0m
 
-all: 
+all:
 	@ ${MAKE} --no-print-directory ${NAME}
 
 ${NAME}: ${OBJS}

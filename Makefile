@@ -64,7 +64,7 @@ GREEN		= \033[32m
 END			= \033[0m
 
 all:
-	${MAKE} ${NAME}
+	@ ${MAKE} --no-print-directory ${NAME}
 
 ${NAME}: libft ${OBJS}
 	@ ${CC} ${CFLAGS} ${LIBS} ${INCS_PARAM} ${OBJS} ${LIBFT} ${MLX} -o $@
@@ -107,6 +107,6 @@ fclean:
 	@ printf "${YELLOW}binary removed\n${END}"
 
 re: fclean
-	${MAKE} --no-print-directory all
+	@ ${MAKE} --no-print-directory all
 
 .PHONY: all fsanitize g3 libft clean fclean re
